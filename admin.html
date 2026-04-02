@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Admin - Absensi PKL IT KAI SLO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional styles for admin panel */
+        .status-aktif {
+            color: #28a745;
+            font-weight: 500;
+        }
+        .status-nonaktif {
+            color: #dc3545;
+            font-weight: 500;
+        }
+        .foto-thumb {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .foto-thumb:hover {
+            transform: scale(2);
+            border-radius: 8px;
+        }
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+            margin: 0 2px;
+        }
+        .filter-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .filter-bar .form-group {
+            flex: 1;
+            min-width: 150px;
+            margin-bottom: 0;
+        }
+        .filter-bar label {
+            font-size: 12px;
+            margin-bottom: 5px;
+            display: block;
+            color: #666;
+        }
+        .filter-bar input, .filter-bar select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .modal-large {
+            max-width: 700px;
+        }
+        .photo-preview {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg/1280px-Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg.png" alt="Logo KAI" class="logo-small">
+                <div>
+                    <h3>Admin Panel</h3>
+                    <span>PKL IT KAI SLO</span>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn active" data-tab="dashboard">Dashboard</button>
+                <button class="nav-btn" data-tab="siswa">Data Siswa</button>
+                <button class="nav-btn" data-tab="sekolah">Data Sekolah</button>
+                <button class="nav-btn" data-tab="laporan">Laporan Absensi</button>
+                <button class="nav-btn" data-tab="laporan-siswa">Laporan per Siswa</button>
+                <button class="nav-btn logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div id="dashboardTab" class="tab-content active">
+                <h2>Dashboard Absensi</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Siswa</h3>
+                        <p id="totalSiswa">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Hadir Hari Ini</h3>
+                        <p id="hadirHariIni">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Terlambat Hari Ini</h3>
+                        <p id="terlambatHariIni">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Sekolah</h3>
+                        <p id="totalSekolah">0</p>
+                    </div>
+                </div>
+                <div class="recent-absensi">
+                    <h3>Absensi Terbaru Hari Ini</h3>
+                    <div class="table-responsive">
+                        <table id="recentTable">
+                            <thead>
+                                <tr>
+                                    <th>Foto</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Sekolah</th>
+                                    <th>Shift</th>
+                                    <th>Jam Absen</th>
+                                    <th>Status</th>
+                                    <th>Lokasi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Siswa Tab -->
+            <div id="siswaTab" class="tab-content">
+                <h2>Manajemen Data Siswa</h2>
+                <button class="btn-primary" onclick="showTambahSiswaModal()">+ Tambah Siswa</button>
+                <div class="table-responsive">
+                    <table id="siswaTable">
+                        <thead>
+                            <tr>
+                                <th>NIS</th>
+                                <th>Nama</th>
+                                <th>Sekolah</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Data Sekolah Tab -->
+            <div id="sekolahTab" class="tab-content">
+                <h2>Manajemen Data Sekolah</h2>
+                <button class="btn-primary" onclick="showTambahSekolahModal()">+ Tambah Sekolah</button>
+                <div class="table-responsive">
+                    <table id="sekolahTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama Sekolah</th>
+                                <th>Alamat</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Laporan Absensi Tab -->
+            <div id="laporanTab" class="tab-content">
+                <h2>Laporan Absensi</h2>
+                <div class="filter-bar">
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="date" id="filterTanggal">
+                    </div>
+                    <div class="form-group">
+                        <label>Shift</label>
+                        <select id="filterShift">
+                            <option value="">Semua Shift</option>
+                            <option value="pagi">Pagi (08:00-14:00)</option>
+                            <option value="siang">Siang (12:00-18:00)</option>
+                            <option value="piket">Piket (08:00-16:00)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="filterStatus">
+                            <option value="">Semua Status</option>
+                            <option value="hadir">Hadir</option>
+                            <option value="terlambat">Terlambat</option>
+                        </select>
+                    </div>
+                    <button class="btn-secondary" onclick="loadLaporan()">Filter</button>
+                    <button class="btn-primary" onclick="downloadLaporan()">Download Excel</button>
+                </div>
+                <div class="table-responsive">
+                    <table id="laporanTable">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Tanggal</th>
+                                <th>NIS</th>
+                                <th>Nama</th>
+                                <th>Sekolah</th>
+                                <th>Shift</th>
+                                <th>Jam Absen</th>
+                                <th>Status</th>
+                                <th>Keterlambatan</th>
+                                <th>Lokasi</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Laporan per Siswa Tab -->
+            <div id="laporanSiswaTab" class="tab-content">
+                <h2>Laporan per Siswa</h2>
+                <div class="filter-bar">
+                    <div class="form-group">
+                        <label>Pilih Siswa</label>
+                        <select id="filterSiswaId">
+                            <option value="">-- Pilih Siswa --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Dari Tanggal</label>
+                        <input type="date" id="filterDariTanggal">
+                    </div>
+                    <div class="form-group">
+                        <label>Sampai Tanggal</label>
+                        <input type="date" id="filterSampaiTanggal">
+                    </div>
+                    <button class="btn-secondary" onclick="loadLaporanPerSiswa()">Filter</button>
+                    <button class="btn-primary" onclick="downloadLaporanPerSiswa()">Download Excel</button>
+                </div>
+                <div id="infoSiswa" style="margin-bottom: 15px;"></div>
+                <div class="table-responsive">
+                    <table id="laporanSiswaTable">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Tanggal</th>
+                                <th>Shift</th>
+                                <th>Jam Absen</th>
+                                <th>Status</th>
+                                <th>Keterlambatan</th>
+                                <th>Lokasi</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Tambah Siswa -->
+    <div id="siswaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Tambah/Edit Siswa</h3>
+            <form id="siswaForm">
+                <input type="hidden" id="siswaId">
+                <div class="form-group">
+                    <label>NIS</label>
+                    <input type="text" id="nis" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="nama" required>
+                </div>
+                <div class="form-group">
+                    <label>Sekolah</label>
+                    <select id="sekolahId" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="status">
+                        <option value="aktif">Aktif</option>
+                        <option value="nonaktif">Nonaktif</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Simpan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Sekolah -->
+    <div id="sekolahModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Tambah/Edit Sekolah</h3>
+            <form id="sekolahForm">
+                <input type="hidden" id="sekolahIdEdit">
+                <div class="form-group">
+                    <label>Nama Sekolah</label>
+                    <input type="text" id="namaSekolah" required>
+                </div>
+                <div class="form-group">
+                    <label>Alamat</label>
+                    <textarea id="alamat" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Simpan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Detail Foto -->
+    <div id="fotoModal" class="modal">
+        <div class="modal-content" style="max-width: 500px; text-align: center;">
+            <span class="close">&times;</span>
+            <h3>Detail Foto Absensi</h3>
+            <img id="detailFoto" src="" alt="Foto Absensi" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
+            <p id="detailInfo" style="margin-top: 15px; color: #666;"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

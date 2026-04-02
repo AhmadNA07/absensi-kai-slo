@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Login - Absensi PKL IT KAI SLO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional inline style untuk memastikan background */
+        .login-container {
+            background: linear-gradient(135deg, #0a2e1a 0%, #1a472a 100%);
+        }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Login Container dengan Background Gambar */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    background-image: url('apluod/bac.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 0;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(0px);
+    max-width: 420px;
+    width: 100%;
+    padding: 40px 35px;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.4);
+}
+
+.login-card .logo {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo-kai {
+    width: 85px;
+    height: auto;
+    margin-bottom: 15px;
+    display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.login-card .logo h2 {
+    color: #1a472a;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.login-card .logo p {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #1a472a;
+    box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #bbb;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #1a472a;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn-primary:hover {
+    background: #0f3320;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 71, 42, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.info-text {
+    margin-top: 25px;
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+}
+
+/* ============================================
+   NAVBAR STYLES
+   ============================================ */
+.navbar {
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-brand img {
+    height: 40px;
+    width: auto;
+}
+
+.nav-brand h2 {
+    color: #1a472a;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+.btn-primary, .btn-success, .btn-danger, .btn-secondary, .btn-logout, .btn-nav {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn-success {
+    background: #2c6e2f;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #1e5521;
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background: #c0392b;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #a93226;
+}
+
+.btn-secondary {
+    background: #7f8c8d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #6c7a7a;
+}
+
+.btn-logout {
+    background: #c0392b;
+    color: white;
+}
+
+.btn-logout:hover {
+    background: #a93226;
+}
+
+.btn-nav {
+    background: #ecf0f1;
+    color: #2c3e50;
+}
+
+.btn-nav:hover {
+    background: #1a472a;
+    color: white;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+
+/* ============================================
+   CONTAINER & CARDS
+   ============================================ */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e8e8;
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    color: #1a472a;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e8f5e9;
+    font-weight: 600;
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #1a472a;
+    box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.flex-1 {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* ============================================
+   FILTER GROUP
+   ============================================ */
+.filter-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    align-items: end;
+}
+
+/* ============================================
+   DATA TABLE
+   ============================================ */
+.data-table {
+    overflow-x: auto;
+}
+
+.data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.data-table th {
+    background: #f8f9fa;
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #1a472a;
+    border-bottom: 2px solid #e8f5e9;
+}
+
+.data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.data-table tr:hover {
+    background: #fafafa;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-pagi {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-siang {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.badge-piket {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-hadir {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-terlambat {
+    background: #ffebee;
+    color: #c62828;
+}
+
+/* ============================================
+   STUDENT GRID
+   ============================================ */
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.student-card {
+    background: white;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.student-card:hover {
+    background: #f8f9fa;
+    border-color: #1a472a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.student-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.student-card p {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+/* ============================================
+   SHIFT INFO CARDS
+   ============================================ */
+.shift-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.shift-card {
+    background: #f8f9fa;
+    border: 1px solid #e8e8e8;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.shift-card:hover {
+    border-color: #1a472a;
+    background: #fafafa;
+    transform: translateY(-2px);
+}
+
+.shift-card h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #1a472a;
+    font-weight: 600;
+}
+
+.shift-card p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.shift-card small {
+    font-size: 11px;
+    color: #999;
+}
+
+/* ============================================
+   SUMMARY CARD
+   ============================================ */
+.summary-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e8e8e8;
+}
+
+.summary-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+    padding: 16px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e8e8e8;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a472a;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #888;
+    margin-top: 6px;
+}
+
+/* ============================================
+   SEARCH BOX
+   ============================================ */
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #1a472a;
+    box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 450px;
+    width: 90%;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    color: #1a472a;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-header .close {
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.modal-header .close:hover {
+    color: #c0392b;
+}
+
+.modal-body {
+    padding: 24px;
+    text-align: center;
+}
+
+.modal-body p {
+    margin-bottom: 12px;
+}
+
+.modal-footer {
+    padding: 20px 24px;
+    border-top: 1px solid #e8e8e8;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* ============================================
+   MESSAGES TOAST
+   ============================================ */
+.message-toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    z-index: 9999;
+    animation: slideIn 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.message-toast.success {
+    background: #2c6e2f;
+    color: white;
+}
+
+.message-toast.error {
+    background: #c0392b;
+    color: white;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   RESPONSIVE STYLES (HP)
+   ============================================ */
+@media (max-width: 768px) {
+    .login-container {
+        background-attachment: scroll;
+        padding: 16px;
+    }
+    
+    .login-card {
+        padding: 30px 25px;
+        max-width: 380px;
+    }
+    
+    .logo-kai {
+        width: 70px;
+    }
+    
+    .login-card .logo h2 {
+        font-size: 22px;
+    }
+    
+    .nav-container {
+        padding: 12px 16px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .nav-brand {
+        justify-content: center;
+    }
+    
+    .container {
+        padding: 16px;
+    }
+    
+    .card {
+        padding: 18px;
+        border-radius: 16px;
+    }
+    
+    .card h2 {
+        font-size: 18px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .filter-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .student-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+    }
+    
+    .student-card {
+        padding: 14px;
+    }
+    
+    .student-card h3 {
+        font-size: 14px;
+    }
+    
+    .shift-info {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .shift-card {
+        padding: 12px;
+    }
+    
+    .shift-card p {
+        font-size: 16px;
+    }
+    
+    .data-table {
+        font-size: 12px;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 10px 8px;
+    }
+    
+    .summary-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 12px;
+    }
+    
+    .stat-value {
+        font-size: 24px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 16px;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 16px;
+    }
+    
+    .btn-nav, .btn-logout {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+    
+    .message-toast {
+        top: 70px;
+        right: 16px;
+        left: 16px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 25px 20px;
+    }
+    
+    .logo-kai {
+        width: 60px;
+    }
+    
+    .login-card .logo h2 {
+        font-size: 20px;
+    }
+    
+    .nav-menu {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .student-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-nav, .btn-logout, .btn-primary, .btn-success {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 10px 12px;
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg/1280px-Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg.png" alt="Logo KAI" class="logo-kai">
+                <h2>Absensi PKL</h2>
+                <p>IT KAI SLO</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="password">Password Akses</label>
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <p class="info-text">Gunakan password yang sama untuk semua akses</p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
