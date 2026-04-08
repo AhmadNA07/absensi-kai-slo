@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Login Face - Absensi PKL IT KAI SLO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 25px;
+        }
+
+        .logo-kai {
+            width: 70px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .logo h2 {
+            color: #1e3c72;
+            font-size: 24px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Camera */
+        .camera-wrapper {
+            position: relative;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        #faceVideo {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 20px;
+            background: #1a1a2e;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        /* Border hijau/merah */
+        .camera-wrapper.face-detected #faceVideo {
+            border: 4px solid #2E7D32;
+            box-shadow: 0 0 0 2px rgba(46,125,50,0.3);
+        }
+
+        .camera-wrapper.face-not-detected #faceVideo {
+            border: 4px solid #C62828;
+            box-shadow: 0 0 0 2px rgba(198,40,40,0.3);
+        }
+
+        /* Status indicator */
+        .face-status {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .face-status.success {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .face-status.error {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
+        .face-status.info {
+            background: #D1ECF1;
+            color: #0C5460;
+        }
+
+        .face-status.warning {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        /* Attempt counter */
+        .attempt-counter {
+            margin: 15px 0;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .attempt-counter span {
+            font-weight: bold;
+            color: #C62828;
+        }
+
+        /* Password section (hidden initially) */
+        .password-section {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .password-section input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #2a5298;
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-link {
+            background: none;
+            border: none;
+            color: #1e3c72;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 20px;
+            }
+            #faceVideo {
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg/1280px-Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg.png" alt="Logo KAI" class="logo-kai">
+                <h2>Face Login</h2>
+                <p>PKL IT KAI SLO</p>
+            </div>
+
+            <div class="camera-wrapper" id="cameraWrapper">
+                <video id="faceVideo" autoplay playsinline muted></video>
+            </div>
+
+            <div id="faceStatus" class="face-status info">🔄 Memuat kamera...</div>
+            <div id="attemptCounter" class="attempt-counter">Percobaan ke-<span id="attemptCount">1</span> dari 3</div>
+
+            <!-- Password section (muncul setelah 3x gagal) -->
+            <div id="passwordSection" class="password-section">
+                <input type="password" id="passwordInput" placeholder="Masukkan password admin">
+                <button id="passwordLoginBtn" class="btn-primary">Login dengan Password</button>
+                <button id="retryFaceBtn" class="btn-link">↻ Coba Face Recognition Lagi</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/dist/face-api.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        // ==================== KONFIGURASI ====================
+        const SUPABASE_URL = 'https://oufcvucxxnfgimryjpbs.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZmN2dWN4eG5mZ2ltcnlqcGJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMTg1NDMsImV4cCI6MjA5MDU5NDU0M30.Gmp3NiQlXTiTzdZFh9XGjjNh39i7TGNozQfSYu9nE38';
+        const ADMIN_PASSWORD = 'admin2026';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Face recognition variables
+        let faceModelsLoaded = false;
+        let videoStream = null;
+        let faceDetectionInterval = null;
+        let attemptCount = 0;
+        let isVerifying = false;
+        let currentFaceDescriptor = null;
+
+        const FACE_MATCH_THRESHOLD = 0.4; // Threshold ketat
+
+        // DOM elements
+        const video = document.getElementById('faceVideo');
+        const cameraWrapper = document.getElementById('cameraWrapper');
+        const faceStatusDiv = document.getElementById('faceStatus');
+        const attemptCountSpan = document.getElementById('attemptCount');
+        const passwordSection = document.getElementById('passwordSection');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordLoginBtn = document.getElementById('passwordLoginBtn');
+        const retryFaceBtn = document.getElementById('retryFaceBtn');
+
+        // ==================== LOAD FACE MODELS ====================
+        async function loadFaceModels() {
+            if (faceModelsLoaded) return true;
+            const MODEL_URL = 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights';
+            try {
+                faceStatusDiv.innerHTML = '🔍 Memuat model face recognition...';
+                await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+                faceModelsLoaded = true;
+                console.log('✅ Face models loaded');
+                return true;
+            } catch (error) {
+                console.error('❌ Error loading face models:', error);
+                faceStatusDiv.innerHTML = '❌ Gagal load model face recognition';
+                return false;
+            }
+        }
+
+        // ==================== START CAMERA ====================
+        async function startCamera() {
+            try {
+                if (videoStream) {
+                    videoStream.getTracks().forEach(track => track.stop());
+                }
+                videoStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: "user" } 
+                });
+                video.srcObject = videoStream;
+                faceStatusDiv.innerHTML = '😀 Hadapkan wajah ke kamera';
+                return true;
+            } catch (error) {
+                console.error('Camera error:', error);
+                faceStatusDiv.innerHTML = '❌ Tidak dapat mengakses kamera';
+                return false;
+            }
+        }
+
+        // ==================== STOP CAMERA ====================
+        function stopCamera() {
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+            }
+            if (faceDetectionInterval) {
+                clearInterval(faceDetectionInterval);
+                faceDetectionInterval = null;
+            }
+        }
+
+        // ==================== GET FACE DESCRIPTOR ====================
+        async function getFaceDescriptor() {
+            const detection = await faceapi
+                .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+                .withFaceLandmarks()
+                .withFaceDescriptor();
+            return detection ? detection.descriptor : null;
+        }
+
+        // ==================== MATCH FACE WITH DATABASE ====================
+        async function matchFace(descriptor) {
+            const { data: siswa, error } = await supabaseClient
+                .from('siswa')
+                .select('id, nama, face_descriptor')
+                .eq('has_face', true)
+                .eq('status', 'aktif');
+            
+            if (error || !siswa || siswa.length === 0) return null;
+            
+            let bestMatch = null;
+            let minDistance = FACE_MATCH_THRESHOLD;
+            
+            for (const s of siswa) {
+                if (!s.face_descriptor) continue;
+                const dbDescriptor = new Float32Array(Object.values(s.face_descriptor));
+                const distance = faceapi.euclideanDistance(descriptor, dbDescriptor);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    bestMatch = s;
+                }
+            }
+            return bestMatch;
+        }
+
+        // ==================== FACE DETECTION & VERIFICATION ====================
+        async function startFaceDetection() {
+            if (isVerifying) return;
+            
+            faceDetectionInterval = setInterval(async () => {
+                if (!video.videoWidth || !video.videoHeight) return;
+                
+                // Deteksi wajah untuk border
+                const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());
+                
+                if (detection) {
+                    // Wajah terdeteksi - border hijau
+                    cameraWrapper.classList.remove('face-not-detected');
+                    cameraWrapper.classList.add('face-detected');
+                    faceStatusDiv.innerHTML = '✅ Wajah terdeteksi! Memverifikasi...';
+                    
+                    // Jika belum dalam proses verifikasi, lakukan verifikasi
+                    if (!isVerifying) {
+                        isVerifying = true;
+                        await verifyFace();
+                    }
+                } else {
+                    // Wajah tidak terdeteksi - border merah
+                    cameraWrapper.classList.remove('face-detected');
+                    cameraWrapper.classList.add('face-not-detected');
+                    faceStatusDiv.innerHTML = '❌ Wajah tidak terdeteksi';
+                    isVerifying = false;
+                }
+            }, 500);
+        }
+
+        // ==================== VERIFY FACE ====================
+        async function verifyFace() {
+            // Ambil 3 sampel untuk akurasi lebih baik
+            let descriptors = [];
+            for (let i = 0; i < 3; i++) {
+                await new Promise(r => setTimeout(r, 200));
+                const desc = await getFaceDescriptor();
+                if (desc) descriptors.push(desc);
+            }
+            
+            if (descriptors.length === 0) {
+                faceStatusDiv.innerHTML = '❌ Wajah tidak terdeteksi, coba lagi';
+                isVerifying = false;
+                return;
+            }
+            
+            // Rata-rata descriptor
+            const avgDescriptor = new Float32Array(descriptors[0].length);
+            for (const desc of descriptors) {
+                for (let i = 0; i < desc.length; i++) {
+                    avgDescriptor[i] += desc[i];
+                }
+            }
+            for (let i = 0; i < avgDescriptor.length; i++) {
+                avgDescriptor[i] /= descriptors.length;
+            }
+            
+            faceStatusDiv.innerHTML = '🔍 Mencocokkan wajah dengan database...';
+            
+            const matchedUser = await matchFace(avgDescriptor);
+            
+            if (matchedUser) {
+                // Login berhasil
+                faceStatusDiv.className = 'face-status success';
+                faceStatusDiv.innerHTML = `✅ Halo ${matchedUser.nama}! Login berhasil.`;
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userRole', 'siswa');
+                sessionStorage.setItem('userId', matchedUser.id);
+                sessionStorage.setItem('userName', matchedUser.nama);
+                stopCamera();
+                setTimeout(() => {
+                    window.location.href = 'siswa.html';
+                }, 1500);
+                return;
+            }
+            
+            // Gagal verifikasi
+            attemptCount++;
+            attemptCountSpan.textContent = attemptCount;
+            
+            if (attemptCount >= 3) {
+                // 3 kali gagal, tampilkan form password
+                faceStatusDiv.className = 'face-status warning';
+                faceStatusDiv.innerHTML = '⚠️ 3 kali percobaan gagal. Silakan login dengan password.';
+                stopFaceDetection();
+                passwordSection.style.display = 'block';
+                cameraWrapper.classList.remove('face-detected', 'face-not-detected');
+            } else {
+                faceStatusDiv.className = 'face-status error';
+                faceStatusDiv.innerHTML = `❌ Wajah tidak dikenali. Percobaan ${attemptCount}/3. Coba lagi.`;
+                isVerifying = false;
+            }
+        }
+
+        // ==================== STOP FACE DETECTION ====================
+        function stopFaceDetection() {
+            if (faceDetectionInterval) {
+                clearInterval(faceDetectionInterval);
+                faceDetectionInterval = null;
+            }
+            isVerifying = false;
+        }
+
+        // ==================== PASSWORD LOGIN ====================
+        async function passwordLogin() {
+            const password = passwordInput.value;
+            
+            if (password !== ADMIN_PASSWORD) {
+                alert('Password salah!');
+                return;
+            }
+            
+            // Password benar, login sebagai admin
+            faceStatusDiv.className = 'face-status success';
+            faceStatusDiv.innerHTML = '✅ Password benar! Login sebagai admin.';
+            sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('userRole', 'admin');
+            stopCamera();
+            setTimeout(() => {
+                window.location.href = 'admin.html';
+            }, 1000);
+        }
+
+        // ==================== RETRY FACE ====================
+        function retryFace() {
+            attemptCount = 0;
+            attemptCountSpan.textContent = attemptCount;
+            passwordSection.style.display = 'none';
+            passwordInput.value = '';
+            faceStatusDiv.className = 'face-status info';
+            faceStatusDiv.innerHTML = '😀 Hadapkan wajah ke kamera';
+            isVerifying = false;
+            startFaceDetection();
+        }
+
+        // ==================== INITIALIZE ====================
+        async function init() {
+            const modelsLoaded = await loadFaceModels();
+            if (!modelsLoaded) {
+                faceStatusDiv.innerHTML = '❌ Gagal load model, silakan refresh halaman';
+                return;
+            }
+            
+            const cameraStarted = await startCamera();
+            if (!cameraStarted) {
+                faceStatusDiv.innerHTML = '❌ Gagal akses kamera, silakan izinkan kamera';
+                return;
+            }
+            
+            startFaceDetection();
+        }
+
+        // Event listeners
+        passwordLoginBtn.addEventListener('click', passwordLogin);
+        retryFaceBtn.addEventListener('click', retryFace);
+        
+        // Enter key on password input
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') passwordLogin();
+        });
+
+        // Start
+        init();
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            stopCamera();
+        });
+    </script>
+</body>
+</html>

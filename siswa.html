@@ -80,116 +80,218 @@
             margin: 0 auto;
         }
 
-        .main-content h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1E3A5F;
-            margin-bottom: 16px;
-        }
-
-        /* Search Box */
-        .search-box {
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 16px;
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #3B82F6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-        }
-
-        /* Siswa Grid */
-        .siswa-grid {
+        /* Menu Cards */
+        .menu-cards {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 16px;
+            margin-bottom: 32px;
         }
 
-        .siswa-card {
+        .menu-card {
+            flex: 1;
             background: white;
-            border-radius: 16px;
-            padding: 16px;
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             border: 1px solid #E9EDF2;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
 
-        .siswa-card:active {
-            transform: scale(0.98);
-            background: #FAFCFE;
+        .menu-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
-        /* Style untuk siswa yang sudah absen */
-        .siswa-card.absen-done {
-            background: #E2E8F0;
-            opacity: 0.7;
-            cursor: not-allowed;
-            border-color: #CBD5E1;
+        .menu-card:active {
+            transform: translateY(0);
         }
 
-        .siswa-card.absen-done:active {
-            transform: none;
-            background: #E2E8F0;
+        .menu-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
         }
 
-        .siswa-card h3 {
-            font-size: 1rem;
+        .menu-card h3 {
+            font-size: 1.1rem;
             font-weight: 600;
             color: #1E3A5F;
             margin-bottom: 4px;
         }
 
-        .siswa-card.absen-done h3 {
-            color: #64748B;
-        }
-
-        .siswa-card p {
-            font-size: 0.75rem;
+        .menu-card p {
+            font-size: 0.7rem;
             color: #6B7A8F;
-            margin: 2px 0;
         }
 
-        .siswa-card.absen-done p {
-            color: #94A3B8;
-        }
-
-        .status-badge {
+        /* Camera Wrapper */
+        .camera-wrapper {
+            position: relative;
             display: inline-block;
-            padding: 2px 8px;
             border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 500;
-            background: #E6F7EC;
-            color: #2E7D32;
-            margin-top: 6px;
+            overflow: hidden;
         }
 
-        .status-badge.sudah-absen {
+        .camera-wrapper.face-detected #faceVideo {
+            border: 4px solid #2E7D32;
+            box-shadow: 0 0 0 2px rgba(46,125,50,0.3);
+        }
+
+        .camera-wrapper.face-not-detected #faceVideo {
+            border: 4px solid #C62828;
+            box-shadow: 0 0 0 2px rgba(198,40,40,0.3);
+        }
+
+        #faceVideo, #photoVideo {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 20px;
+            background: #1a1a2e;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            transition: all 0.2s ease;
+        }
+
+        .face-status {
+            text-align: center;
+            margin-top: 12px;
+            padding: 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .face-status.success {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .face-status.error {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
+        .face-status.info {
+            background: #D1ECF1;
+            color: #0C5460;
+        }
+
+        .face-status.warning {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .student-info {
+            background: #EBF4FF;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .student-info h4 {
+            color: #1E3A5F;
+            margin-bottom: 8px;
+        }
+
+        .student-info p {
+            margin: 4px 0;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary {
+            background: #2E7D32;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1B5E20;
+        }
+
+        .btn-primary:disabled {
             background: #CBD5E1;
-            color: #475569;
+            cursor: not-allowed;
         }
 
-        .card-arrow {
-            color: #94A3B8;
-            font-size: 1.2rem;
+        .btn-secondary {
+            background: #1E3A5F;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s;
+            cursor: pointer;
+            margin-top: 8px;
         }
 
-        .siswa-card.absen-done .card-arrow {
-            color: #CBD5E1;
+        .btn-secondary:hover {
+            background: #2C5282;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin: 20px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #E2E8F0;
+        }
+
+        /* Absen List */
+        .absen-list {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #E9EDF2;
+            overflow: hidden;
+        }
+
+        .absen-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid #E9EDF2;
+        }
+
+        .absen-item:last-child {
+            border-bottom: none;
+        }
+
+        .absen-item-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1E3A5F;
+        }
+
+        .absen-item-info p {
+            font-size: 0.7rem;
+            color: #6B7A8F;
+        }
+
+        .absen-item-time {
+            font-size: 0.7rem;
+            color: #2E7D32;
+            font-weight: 500;
+        }
+
+        .empty-list {
+            padding: 24px;
+            text-align: center;
+            color: #6B7A8F;
+            font-size: 0.8rem;
         }
 
         /* Modal */
@@ -216,55 +318,41 @@
             position: relative;
             animation: modalFadeIn 0.25s ease;
             box-shadow: 0 20px 35px -12px rgba(0,0,0,0.25);
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .modal-large {
-            max-width: 500px;
-        }
-
-        .modal-content::-webkit-scrollbar {
-            width: 4px;
-        }
-        .modal-content::-webkit-scrollbar-track {
-            background: #E2E8F0;
-            border-radius: 10px;
-        }
-        .modal-content::-webkit-scrollbar-thumb {
-            background: #94A3B8;
-            border-radius: 10px;
         }
 
         .close {
-            position: sticky;
-            top: 0;
-            float: right;
-            font-size: 24px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
             cursor: pointer;
             color: #94A3B8;
             transition: color 0.2s;
-            margin-bottom: 8px;
-            z-index: 10;
-            background: white;
-            padding: 0 0 0 12px;
         }
 
         .close:hover {
             color: #1E293B;
         }
 
-        .modal-content h3:first-of-type {
-            clear: both;
-            margin-top: 0;
+        /* Admin Login Modal */
+        .admin-login-section {
+            text-align: center;
         }
 
-        /* Shift Options */
+        .admin-login-section input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
         .shift-options {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 24px;
+            margin-top: 20px;
         }
 
         .shift-option {
@@ -274,150 +362,30 @@
             padding: 16px;
             cursor: pointer;
             transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            width: 100%;
             text-align: left;
         }
 
-        .shift-option:active {
-            transform: scale(0.98);
-        }
-
-        .shift-icon {
-            font-size: 1.8rem;
-        }
-
-        .shift-text h4 {
-            font-size: 1rem;
-            font-weight: 600;
+        .shift-option h4 {
             color: #1E3A5F;
+            margin-bottom: 4px;
         }
 
-        .shift-text p {
+        .shift-option p {
             font-size: 0.7rem;
             color: #6B7A8F;
-            margin-top: 2px;
         }
 
-        .shift-text small {
-            font-size: 0.65rem;
-            color: #3B82F6;
-        }
-
-        /* Camera */
-        .camera-container {
-            margin: 16px 0;
+        /* Photo Preview */
+        .photo-preview {
             text-align: center;
+            margin: 16px 0;
         }
 
-        #video {
-            width: 100%;
-            max-width: 340px;
-            border-radius: 20px;
-            border: 1px solid #E2E8F0;
-            background: #1a1a2e;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-        }
-
-        #captureBtn {
-            background: #1E3A5F;
-            color: white;
-            border: none;
-            padding: 10px 22px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 14px;
-            transition: background 0.2s;
-        }
-
-        #captureBtn:hover {
-            background: #2C5282;
-        }
-
-        #previewPhoto {
-            margin: 14px 0;
-            background: #F8FAFE;
-            border-radius: 16px;
-            padding: 10px;
-        }
-
-        #photoPreview {
+        .photo-preview img {
             max-width: 100%;
-            border-radius: 14px;
-            max-height: 150px;
-        }
-
-        .info-box {
-            background: #EBF4FF;
+            max-height: 200px;
             border-radius: 16px;
-            padding: 12px 16px;
-            margin: 16px 0;
-            border-left: 4px solid #3B82F6;
-        }
-
-        .info-box p {
-            font-size: 0.8rem;
-            color: #1E3A5F;
-            margin: 3px 0;
-        }
-
-        .info-box .location-info {
-            font-size: 0.7rem;
-            color: #6B7A8F;
-            margin-top: 6px;
-            padding-top: 4px;
-            border-top: 1px solid #D1E3FF;
-        }
-
-        .btn-primary {
-            background: #2E7D32;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            width: 100%;
-            transition: background 0.2s;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        .btn-primary:hover {
-            background: #1B5E20;
-        }
-
-        .btn-primary:disabled {
-            background: #CBD5E1;
-            cursor: not-allowed;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px 20px;
-            color: #6B7A8F;
-            font-size: 0.85rem;
-        }
-
-        /* Loading spinner untuk lokasi */
-        .location-loading {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
             border: 2px solid #E2E8F0;
-            border-top-color: #3B82F6;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-left: 8px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         @keyframes modalFadeIn {
@@ -432,19 +400,15 @@
         }
 
         @media (max-width: 480px) {
-            .navbar {
-                padding: 10px 16px;
+            .menu-cards {
+                flex-direction: column;
+                gap: 12px;
             }
-            .main-content {
-                padding: 16px 14px 28px;
+            .menu-card {
+                padding: 16px;
             }
-            .modal-content {
-                margin: 8% auto;
-                padding: 20px 16px 24px;
-                max-height: 88vh;
-            }
-            .shift-option {
-                padding: 12px 14px;
+            .menu-icon {
+                font-size: 2rem;
             }
         }
     </style>
@@ -463,73 +427,99 @@
         </nav>
 
         <main class="main-content">
-            <h2>Daftar Peserta</h2>
-            <div class="search-box">
-                <input type="text" id="searchSiswa" placeholder="Cari nama atau NIS" class="search-input">
+            <!-- Menu Cards -->
+            <div class="menu-cards">
+                <div class="menu-card" id="absenCard">
+                    <div class="menu-icon">📸</div>
+                    <h3>Mulai Absen</h3>
+                    <p>Face Recognition</p>
+                </div>
+                <div class="menu-card" id="adminCard">
+                    <div class="menu-icon">A</div>
+                    <h3>Admin Panel</h3>
+                    <p>Login sebagai admin</p>
+                </div>
             </div>
-            <div id="siswaList" class="siswa-grid">
-                <div class="loading">Memuat data siswa...</div>
+
+            <!-- Daftar Siswa Sudah Absen Hari Ini -->
+            <div class="section-title">📋 Yang Sudah Absen Hari Ini</div>
+            <div id="absenList" class="absen-list">
+                <div class="empty-list">Memuat data...</div>
             </div>
         </main>
     </div>
 
-    <!-- Modal Pilih Shift -->
-    <div id="shiftModal" class="modal">
+    <!-- Modal Absen (Face Recognition) -->
+    <div id="absenModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3 id="shiftModalNama" style="color:#1E3A5F; font-weight:600;">Pilih Shift</h3>
-            <div class="shift-options">
-                <button class="shift-option" data-shift="pagi">
-                    <div class="shift-text">
-                        <h4>Shift Pagi</h4>
-                        <p>08:00 - 14:00</p>
-                        <small>Batas absen 08:15</small>
-                    </div>
-                </button>
-                <button class="shift-option" data-shift="siang">
-                    <div class="shift-text">
-                        <h4>Shift Siang</h4>
-                        <p>12:00 - 18:00</p>
-                        <small>Batas absen 12:15</small>
-                    </div>
-                </button>
-                <button class="shift-option" data-shift="piket">
-                    <div class="shift-text">
-                        <h4>Piket</h4>
-                        <p>08:00 - 16:00</p>
-                        <small>Batas absen 08:15</small>
-                    </div>
-                </button>
+            <h3 style="color:#1E3A5F; text-align:center;" id="modalTitle">📸 Face Recognition</h3>
+            
+            <!-- Step 1: Deteksi Wajah -->
+            <div id="stepDetection">
+                <div class="camera-wrapper" id="faceCameraWrapper">
+                    <video id="faceVideo" autoplay playsinline muted></video>
+                </div>
+                <div id="faceStatus" class="face-status info">🔄 Memuat kamera...</div>
             </div>
+
+            <!-- Step 2: Ambil Foto Selfie -->
+            <div id="stepPhoto" style="display:none;">
+                <div class="camera-wrapper">
+                    <video id="photoVideo" autoplay playsinline muted></video>
+                </div>
+                <button id="takePhotoBtn" class="btn-primary" style="margin-top:16px;">📸 Ambil Foto Selfie</button>
+                <div id="photoPreview" class="photo-preview" style="display:none;">
+                    <h4>Preview Foto:</h4>
+                    <img id="previewImg" alt="Preview Foto">
+                    <button id="retakePhotoBtn" class="btn-secondary" style="margin-top:8px;">🔄 Ambil Ulang</button>
+                </div>
+            </div>
+            
+            <div id="matchedStudentInfo" class="student-info" style="display:none;"></div>
+            
+            <div id="shiftSection" style="display:none;">
+                <h4 style="margin-bottom: 12px;">Pilih Shift:</h4>
+                <div class="shift-options">
+                    <button class="shift-option" data-shift="pagi">
+                        <h4>Shift Pagi</h4>
+                        <p>08:00 - 14:00 (Batas absen 08:15)</p>
+                    </button>
+                    <button class="shift-option" data-shift="siang">
+                        <h4>Shift Siang</h4>
+                        <p>12:00 - 18:00 (Batas absen 12:15)</p>
+                    </button>
+                    <button class="shift-option" data-shift="piket">
+                        <h4>Shift Piket</h4>
+                        <p>08:00 - 16:00 (Batas absen 08:15)</p>
+                    </button>
+                </div>
+            </div>
+            
+            <button id="confirmAbsenBtn" class="btn-primary" style="display:none;">✅ Konfirmasi Absen</button>
         </div>
     </div>
 
-    <!-- Modal Absensi dengan Kamera -->
-    <div id="absenModal" class="modal">
-        <div class="modal-content modal-large">
+    <!-- Modal Login Admin -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
             <span class="close">&times;</span>
-            <h3 id="modalNamaSiswa" style="color:#1E3A5F; font-weight:600;"></h3>
-            <div id="infoShift" class="info-box"></div>
-            <div class="camera-container">
-                <video id="video" autoplay playsinline></video>
-                <canvas id="canvas" style="display:none;"></canvas>
-                <button id="captureBtn">📸 Ambil Foto Selfie</button>
+            <h3 style="color:#1E3A5F; text-align:center;">🔐 Login Admin</h3>
+            <div class="admin-login-section">
+                <input type="password" id="adminPasswordInput" placeholder="Masukkan password admin">
+                <button id="adminPasswordLoginBtn" class="btn-primary">Login</button>
+                <p style="font-size:0.7rem; color:#666; margin-top:12px;">Gunakan password: admin2026</p>
             </div>
-            <div id="previewPhoto" style="display:none;">
-                <h4 style="font-size:0.8rem; margin-bottom:6px;">Preview Foto</h4>
-                <img id="photoPreview" alt="Preview">
-            </div>
-            <div id="statusAbsen" style="margin: 8px 0;"></div>
-            <button id="btnAbsen" class="btn-primary" disabled>Konfirmasi Absen</button>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/dist/face-api.js"></script>
     <script>
         // ==================== KONFIGURASI ====================
         const SUPABASE_URL = 'https://oufcvucxxnfgimryjpbs.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZmN2dWN4eG5mZ2ltcnlqcGJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMTg1NDMsImV4cCI6MjA5MDU5NDU0M30.Gmp3NiQlXTiTzdZFh9XGjjNh39i7TGNozQfSYu9nE38';
-        const APP_PASSWORD = 'kai2024';
+        const ADMIN_PASSWORD = 'admin2026';
         
         const SHIFT_CONFIG = {
             pagi: { start: '08:00', end: '14:00', nama: 'Pagi (08:00-14:00)', jamMulai: 8*60 },
@@ -537,35 +527,147 @@
             piket: { start: '08:00', end: '16:00', nama: 'Piket (08:00-16:00)', jamMulai: 8*60 }
         };
 
+        // Lokasi Solo Balapan
+        const SOLO_BALAPAN = {
+            lat: -7.5592,
+            lng: 110.8220,
+            radius: 500
+        };
+
+        function haversineDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371000;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        let siswaData = [];
-        let currentSiswa = null;
-        let currentShift = null;
-        let capturedPhoto = null;
+        let faceModelsLoaded = false;
         let videoStream = null;
-        let currentLocation = null;
-        let currentIP = null;
+        let photoStream = null;
+        let faceDetectionInterval = null;
+        let isVerifying = false;
+        let currentMatchedStudent = null;
+        let currentSelectedShift = null;
+        let capturedPhoto = null;
+        
+        const FACE_MATCH_THRESHOLD = 0.4;
 
-        // ==================== FUNGSI GET LOKASI & IP ====================
-        async function getCurrentLocation() {
+        // ==================== WIB TIME (MANUAL OFFSET +7) ====================
+        // Mendapatkan waktu WIB sekarang (UTC + 7 jam)
+        function getWIBTime() {
+            const now = new Date();
+            // Tambah 7 jam (UTC ke WIB)
+            now.setHours(now.getHours() + 7);
+            return now;
+        }
+
+        // Mendapatkan tanggal WIB (YYYY-MM-DD)
+        function getTodayWIB() {
+            const now = new Date();
+            now.setHours(now.getHours() + 7);
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Format jam WIB dari string tanggal database (database UTC)
+        function formatWIBTime(dateStr) {
+            if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            // Tambah 7 jam karena database UTC
+            date.setHours(date.getHours() + 7);
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        // ==================== FACE RECOGNITION CORE ====================
+        async function loadFaceModels() {
+            if (faceModelsLoaded) return true;
+            const MODEL_URL = 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights';
+            try {
+                await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+                faceModelsLoaded = true;
+                return true;
+            } catch (error) {
+                console.error(error);
+                return false;
+            }
+        }
+
+        async function startCamera(videoElement) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                videoElement.srcObject = stream;
+                return stream;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function stopCamera(stream, videoElement) {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            if (videoElement) videoElement.srcObject = null;
+        }
+
+        async function getFaceDescriptor(videoElement) {
+            const detection = await faceapi
+                .detectSingleFace(videoElement, new faceapi.TinyFaceDetectorOptions())
+                .withFaceLandmarks()
+                .withFaceDescriptor();
+            return detection ? detection.descriptor : null;
+        }
+
+        async function matchFace(descriptor) {
+            const { data: siswa, error } = await supabaseClient
+                .from('siswa')
+                .select('id, nis, nama, face_descriptor, sekolah:sekolah_id(nama)')
+                .eq('has_face', true)
+                .eq('status', 'aktif');
+            
+            if (error || !siswa || siswa.length === 0) return null;
+            
+            let bestMatch = null;
+            let minDistance = FACE_MATCH_THRESHOLD;
+            
+            for (const s of siswa) {
+                if (!s.face_descriptor) continue;
+                const dbDescriptor = new Float32Array(Object.values(s.face_descriptor));
+                const distance = faceapi.euclideanDistance(descriptor, dbDescriptor);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    bestMatch = s;
+                }
+            }
+            return bestMatch;
+        }
+
+        // ==================== CEK LOKASI ====================
+        async function checkLocation() {
             return new Promise((resolve, reject) => {
                 if (!navigator.geolocation) {
-                    reject('Geolocation tidak didukung browser ini');
+                    reject('Geolocation tidak didukung');
                     return;
                 }
                 navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const { latitude, longitude } = position.coords;
-                        // Reverse geocoding untuk mendapatkan nama lokasi
-                        try {
-                            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`);
-                            const data = await response.json();
-                            const lokasi = data.display_name || `${latitude}, ${longitude}`;
-                            resolve(lokasi.substring(0, 200)); // batasi panjang
-                        } catch (err) {
-                            resolve(`${latitude}, ${longitude}`);
-                        }
+                    (position) => {
+                        const distance = haversineDistance(
+                            position.coords.latitude, position.coords.longitude,
+                            SOLO_BALAPAN.lat, SOLO_BALAPAN.lng
+                        );
+                        resolve({ allowed: distance <= SOLO_BALAPAN.radius, distance: distance });
                     },
                     (error) => {
                         let message = 'Gagal dapat lokasi';
@@ -574,327 +676,363 @@
                         else if (error.code === 3) message = 'Timeout mendapatkan lokasi';
                         reject(message);
                     },
-                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                    { enableHighAccuracy: true, timeout: 10000 }
                 );
             });
         }
 
-        async function getCurrentIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch (err) {
-                console.error('Gagal dapat IP:', err);
-                return 'Tidak terdeteksi';
-            }
-        }
-
-        // ==================== FUNGSI UTAMA ====================
-        function cekKeterlambatan(shift, jamAbsen) {
-            const jamMulai = SHIFT_CONFIG[shift].jamMulai;
-            const jamAbsenDate = new Date(jamAbsen);
-            const jamAbsenValue = jamAbsenDate.getHours() * 60 + jamAbsenDate.getMinutes();
-            if (jamAbsenValue > jamMulai + 15) {
-                const menitTerlambat = jamAbsenValue - jamMulai;
-                return `Terlambat ${menitTerlambat} menit`;
-            }
-            return 'Tepat waktu';
-        }
-
-        window.logout = function() {
-            sessionStorage.removeItem('isLoggedIn');
-            window.location.href = 'index.html';
-        };
-
-        function checkAuth() {
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-            if (!isLoggedIn) {
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Cek siswa mana saja yang sudah absen hari ini
-        async function getSudahAbsenIds() {
-            const today = new Date().toISOString().split('T')[0];
-            const { data, error } = await supabaseClient
-                .from('absensi')
-                .select('siswa_id')
-                .gte('tanggal', today)
-                .lte('tanggal', today + ' 23:59:59');
-            if (error || !data) return [];
-            return data.map(a => a.siswa_id);
-        }
-
-        async function loadSiswaList() {
-            const container = document.getElementById('siswaList');
-            container.innerHTML = '<div class="loading">Memuat data siswa...</div>';
-            try {
-                const [siswaResult, sudahAbsenIds] = await Promise.all([
-                    supabaseClient
-                        .from('siswa')
-                        .select('*, sekolah:sekolah_id(*)')
-                        .eq('status', 'aktif')
-                        .order('nama'),
-                    getSudahAbsenIds()
-                ]);
+        // ==================== STEP 1: DETEKSI WAJAH ====================
+        async function startFaceDetection(video, cameraWrapper, faceStatus) {
+            if (faceDetectionInterval) clearInterval(faceDetectionInterval);
+            
+            faceDetectionInterval = setInterval(async () => {
+                if (!video.videoWidth || !video.videoHeight) return;
                 
-                if (siswaResult.error) throw siswaResult.error;
-                if (!siswaResult.data || siswaResult.data.length === 0) {
-                    container.innerHTML = '<div class="loading">Belum ada data siswa. Hubungi admin.</div>';
+                const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());
+                
+                if (detection) {
+                    cameraWrapper.classList.remove('face-not-detected');
+                    cameraWrapper.classList.add('face-detected');
+                    faceStatus.innerHTML = '✅ Wajah terdeteksi! Memverifikasi...';
+                    
+                    if (!isVerifying) {
+                        isVerifying = true;
+                        await verifyFace(video, faceStatus);
+                    }
+                } else {
+                    cameraWrapper.classList.remove('face-detected');
+                    cameraWrapper.classList.add('face-not-detected');
+                    faceStatus.innerHTML = '❌ Wajah tidak terdeteksi';
+                    isVerifying = false;
+                }
+            }, 500);
+        }
+
+        async function verifyFace(video, faceStatus) {
+            let descriptors = [];
+            for (let i = 0; i < 3; i++) {
+                await new Promise(r => setTimeout(r, 200));
+                const desc = await getFaceDescriptor(video);
+                if (desc) descriptors.push(desc);
+            }
+            
+            if (descriptors.length === 0) {
+                faceStatus.innerHTML = '❌ Wajah tidak terdeteksi, coba lagi';
+                isVerifying = false;
+                return;
+            }
+            
+            const avgDescriptor = new Float32Array(descriptors[0].length);
+            for (const desc of descriptors) {
+                for (let i = 0; i < desc.length; i++) {
+                    avgDescriptor[i] += desc[i];
+                }
+            }
+            for (let i = 0; i < avgDescriptor.length; i++) {
+                avgDescriptor[i] /= descriptors.length;
+            }
+            
+            faceStatus.innerHTML = '🔍 Mencocokkan wajah dengan database...';
+            
+            const matchedUser = await matchFace(avgDescriptor);
+            
+            if (matchedUser) {
+                const today = getTodayWIB();
+                const { data: existingAbsen } = await supabaseClient
+                    .from('absensi')
+                    .select('id')
+                    .eq('siswa_id', matchedUser.id)
+                    .gte('tanggal', today)
+                    .lte('tanggal', today + ' 23:59:59');
+                
+                if (existingAbsen && existingAbsen.length > 0) {
+                    faceStatus.className = 'face-status warning';
+                    faceStatus.innerHTML = `⚠️ ${matchedUser.nama} sudah melakukan absen hari ini!`;
+                    isVerifying = false;
+                    setTimeout(() => {
+                        document.getElementById('absenModal').style.display = 'none';
+                        stopFaceDetection();
+                        stopCamera(videoStream, video);
+                    }, 2000);
                     return;
                 }
                 
-                siswaData = siswaResult.data.map(s => ({
-                    ...s,
-                    sudahAbsenHariIni: sudahAbsenIds.includes(s.id)
-                }));
-                displaySiswaList(siswaData);
-            } catch (error) {
-                container.innerHTML = '<div class="loading">Gagal memuat data: ' + error.message + '</div>';
-            }
-        }
-
-        function displaySiswaList(siswa) {
-            const container = document.getElementById('siswaList');
-            if (siswa.length === 0) {
-                container.innerHTML = '<div class="loading">Tidak ada siswa yang cocok</div>';
-                return;
-            }
-            
-            container.innerHTML = siswa.map(s => {
-                const sudahAbsen = s.sudahAbsenHariIni;
-                const cardClass = sudahAbsen ? 'siswa-card absen-done' : 'siswa-card';
-                const badgeClass = sudahAbsen ? 'status-badge sudah-absen' : 'status-badge';
-                const badgeText = sudahAbsen ? '✓ Sudah Absen' : 'Aktif';
-                const onclickAttr = sudahAbsen ? '' : `onclick="showShiftModal(${s.id})"`;
+                currentMatchedStudent = matchedUser;
                 
-                return `
-                    <div class="${cardClass}" ${onclickAttr}>
-                        <div>
-                            <h3>${escapeHtml(s.nama)}</h3>
-                            <p>NIS: ${escapeHtml(s.nis)}</p>
-                            <p>${escapeHtml(s.sekolah?.nama || '-')}</p>
-                            <span class="${badgeClass}">${badgeText}</span>
-                        </div>
-                        <div class="card-arrow">${sudahAbsen ? '✓' : '→'}</div>
-                    </div>
-                `;
-            }).join('');
+                // Pindah ke STEP 2: Ambil Foto
+                stopFaceDetection();
+                stopCamera(videoStream, video);
+                showPhotoStep();
+                
+                isVerifying = false;
+            } else {
+                faceStatus.className = 'face-status error';
+                faceStatus.innerHTML = '❌ Wajah tidak dikenali. Silakan coba lagi.';
+                isVerifying = false;
+            }
         }
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            return String(text).replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
+        function stopFaceDetection() {
+            if (faceDetectionInterval) {
+                clearInterval(faceDetectionInterval);
+                faceDetectionInterval = null;
+            }
+            isVerifying = false;
         }
 
-        window.showShiftModal = function(siswaId) {
-            currentSiswa = siswaData.find(s => s.id === siswaId);
-            if (!currentSiswa) {
-                alert('Siswa tidak ditemukan!');
-                return;
-            }
-            // Cek ulang apakah sudah absen (prevent if somehow clicked)
-            if (currentSiswa.sudahAbsenHariIni) {
-                alert('Anda sudah melakukan absen hari ini!');
-                return;
-            }
-            document.getElementById('shiftModalNama').innerHTML = `Pilih shift untuk <strong>${currentSiswa.nama}</strong>`;
-            document.getElementById('shiftModal').style.display = 'block';
-        };
-
-        async function showCameraModal() {
-            document.getElementById('shiftModal').style.display = 'none';
-            const modal = document.getElementById('absenModal');
-            document.getElementById('modalNamaSiswa').innerHTML = `Halo, ${currentSiswa.nama}`;
+        // ==================== STEP 2: AMBIL FOTO ====================
+        async function showPhotoStep() {
+            document.getElementById('stepDetection').style.display = 'none';
+            document.getElementById('stepPhoto').style.display = 'block';
+            document.getElementById('modalTitle').innerHTML = '📸 Ambil Foto Selfie';
             
-            // Tampilkan loading lokasi
-            document.getElementById('infoShift').innerHTML = `
-                <p><strong>Shift ${SHIFT_CONFIG[currentShift].nama}</strong></p>
-                <p>Jam kerja: ${SHIFT_CONFIG[currentShift].start} - ${SHIFT_CONFIG[currentShift].end}</p>
-                <p>Toleransi keterlambatan: 15 menit</p>
-                <div class="location-info">
-                    <span>📍 Mendapatkan lokasi... <span class="location-loading"></span></span>
-                </div>
+            const video = document.getElementById('photoVideo');
+            photoStream = await startCamera(video);
+            
+            document.getElementById('matchedStudentInfo').innerHTML = `
+                <h4>👤 ${currentMatchedStudent.nama}</h4>
+                <p>NIS: ${currentMatchedStudent.nis}</p>
+                <p>Sekolah: ${currentMatchedStudent.sekolah?.nama || '-'}</p>
             `;
-            
-            // Ambil lokasi dan IP secara paralel
-            const [lokasi, ip] = await Promise.all([
-                getCurrentLocation().catch(err => `Error: ${err}`),
-                getCurrentIP()
-            ]);
-            currentLocation = lokasi;
-            currentIP = ip;
-            
-            // Update info dengan lokasi
-            document.getElementById('infoShift').innerHTML = `
-                <p><strong>Shift ${SHIFT_CONFIG[currentShift].nama}</strong></p>
-                <p>Jam kerja: ${SHIFT_CONFIG[currentShift].start} - ${SHIFT_CONFIG[currentShift].end}</p>
-                <p>Toleransi keterlambatan: 15 menit</p>
-                <div class="location-info">
-                    <span>📍 Lokasi: ${currentLocation.substring(0, 100)}</span><br>
-                    <span>🌐 IP: ${currentIP}</span>
-                </div>
-            `;
-            
-            capturedPhoto = null;
-            document.getElementById('previewPhoto').style.display = 'none';
-            document.getElementById('btnAbsen').disabled = true;
-            document.getElementById('btnAbsen').innerHTML = 'Ambil Foto Dulu';
-            document.getElementById('captureBtn').disabled = false;
-            document.getElementById('captureBtn').innerHTML = '📸 Ambil Foto Selfie';
-            document.getElementById('captureBtn').style.opacity = '1';
-            
-            if (videoStream) {
-                videoStream.getTracks().forEach(track => track.stop());
-            }
-            try {
-                videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-                const video = document.getElementById('video');
-                video.srcObject = videoStream;
-            } catch (err) {
-                alert('Tidak dapat mengakses kamera. Pastikan izin diberikan dan menggunakan HTTPS.');
-            }
-            modal.style.display = 'block';
+            document.getElementById('matchedStudentInfo').style.display = 'block';
         }
 
-        function capturePhoto() {
-            const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
-            if (!video.videoWidth || !video.videoHeight) {
-                alert('Kamera belum siap, tunggu sebentar...');
-                return;
-            }
-            const context = canvas.getContext('2d');
+        function takePhoto() {
+            const video = document.getElementById('photoVideo');
+            const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             capturedPhoto = canvas.toDataURL('image/jpeg', 0.8);
-            document.getElementById('photoPreview').src = capturedPhoto;
-            document.getElementById('previewPhoto').style.display = 'block';
-            document.getElementById('btnAbsen').disabled = false;
-            document.getElementById('btnAbsen').innerHTML = '✅ Konfirmasi Absen';
-            document.getElementById('captureBtn').disabled = true;
-            document.getElementById('captureBtn').innerHTML = '✅ Foto Tersimpan';
-            document.getElementById('captureBtn').style.opacity = '0.6';
-            if (videoStream) {
-                videoStream.getTracks().forEach(track => track.stop());
-                videoStream = null;
-                const videoEl = document.getElementById('video');
-                if (videoEl) videoEl.srcObject = null;
-            }
+            
+            document.getElementById('previewImg').src = capturedPhoto;
+            document.getElementById('photoPreview').style.display = 'block';
+            document.getElementById('takePhotoBtn').style.display = 'none';
+            
+            // Tampilkan shift section
+            document.getElementById('shiftSection').style.display = 'block';
         }
 
-        async function doAbsen() {
-            if (!capturedPhoto) {
-                alert('Silakan ambil foto terlebih dahulu!');
-                return;
-            }
+        function retakePhoto() {
+            capturedPhoto = null;
+            document.getElementById('photoPreview').style.display = 'none';
+            document.getElementById('takePhotoBtn').style.display = 'block';
+            document.getElementById('shiftSection').style.display = 'none';
+        }
+
+        // ==================== LOAD ABSEN LIST ====================
+        async function loadAbsenList() {
+            const container = document.getElementById('absenList');
+            const today = getTodayWIB();
             
-            const btnAbsen = document.getElementById('btnAbsen');
-            btnAbsen.disabled = true;
-            btnAbsen.innerHTML = 'Memproses...';
-            
-            const now = new Date();
-            const keterlambatan = cekKeterlambatan(currentShift, now);
-            const status = keterlambatan === 'Tepat waktu' ? 'hadir' : 'terlambat';
-            const today = now.toISOString().split('T')[0];
-            
-            // Cek ulang apakah sudah absen hari ini
-            const { data: existingAbsensi } = await supabaseClient
+            const { data: absensi, error } = await supabaseClient
                 .from('absensi')
-                .select('*')
-                .eq('siswa_id', currentSiswa.id)
+                .select('*, siswa:siswa_id(nama, nis)')
                 .gte('tanggal', today)
-                .lte('tanggal', today + ' 23:59:59');
-                
-            if (existingAbsensi && existingAbsensi.length > 0) {
-                alert('Anda sudah melakukan absen hari ini!');
-                closeAllModals();
-                loadSiswaList(); // refresh untuk update status abu-abu
+                .lte('tanggal', today + ' 23:59:59')
+                .order('tanggal', { ascending: false });
+            
+            if (error || !absensi || absensi.length === 0) {
+                container.innerHTML = '<div class="empty-list">✨ Belum ada yang absen hari ini</div>';
                 return;
             }
+            
+            container.innerHTML = absensi.map(a => `
+                <div class="absen-item">
+                    <div class="absen-item-info">
+                        <h4>${a.siswa?.nama || 'Unknown'}</h4>
+                        <p>NIS: ${a.siswa?.nis || '-'}</p>
+                    </div>
+                    <div class="absen-item-time">
+                        ${formatWIBTime(a.tanggal)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== DO ABSEN ====================
+        async function doAbsen() {
+            if (!currentMatchedStudent || !currentSelectedShift) {
+                alert('Pilih shift terlebih dahulu!');
+                return;
+            }
+            
+            if (!capturedPhoto) {
+                alert('Ambil foto selfie terlebih dahulu!');
+                return;
+            }
+            
+            const confirmBtn = document.getElementById('confirmAbsenBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = 'Memproses...';
+            
+            // CEK LOKASI
+            try {
+                const locationCheck = await checkLocation();
+                if (!locationCheck.allowed) {
+                    alert(`❌ Absen gagal! Anda tidak berada di area Solo Balapan. Jarak Anda ${Math.round(locationCheck.distance)} meter.`);
+                    confirmBtn.disabled = false;
+                    confirmBtn.textContent = '✅ Konfirmasi Absen';
+                    return;
+                }
+            } catch (err) {
+                alert(`❌ Gagal cek lokasi: ${err}`);
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = '✅ Konfirmasi Absen';
+                return;
+            }
+            
+            // Gunakan WIB untuk waktu absen
+            const now = getWIBTime();
+            const jamMulai = SHIFT_CONFIG[currentSelectedShift].jamMulai;
+            const jamAbsenValue = now.getHours() * 60 + now.getMinutes();
+            const isTerlambat = jamAbsenValue > jamMulai + 15;
+            const keterlambatan = isTerlambat ? `Terlambat ${jamAbsenValue - jamMulai} menit` : 'Tepat waktu';
+            const status = isTerlambat ? 'terlambat' : 'hadir';
+            
+            // Format ISO untuk database (simpan sebagai UTC, tapi kita kurangi 7 jam)
+            const utcTime = new Date(now);
+            utcTime.setHours(utcTime.getHours() - 7);
+            const isoString = utcTime.toISOString();
+            
+            let ip = 'Tidak terdeteksi';
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                ip = ipData.ip;
+            } catch (err) {}
             
             const absenData = {
-                siswa_id: currentSiswa.id,
-                shift: currentShift,
-                tanggal: now.toISOString(),
+                siswa_id: currentMatchedStudent.id,
+                shift: currentSelectedShift,
+                tanggal: isoString,
                 status: status,
                 keterlambatan: keterlambatan,
                 foto: capturedPhoto,
-                lokasi: currentLocation || 'Tidak terdeteksi',
-                ip_address: currentIP || 'Tidak terdeteksi'
+                lokasi: `Solo Balapan (${SOLO_BALAPAN.lat}, ${SOLO_BALAPAN.lng})`,
+                ip_address: ip
             };
             
             const { error } = await supabaseClient.from('absensi').insert([absenData]);
-            if (!error) {
-                const message = status === 'hadir' 
-                    ? '✅ Absen berhasil! Selamat menjalankan PKL.' 
-                    : `⚠️ Absen tercatat! ${keterlambatan}. Harap lebih disiplin.`;
-                alert(message);
-                closeAllModals();
-                loadSiswaList(); // Refresh list untuk update status abu-abu
-            } else {
+            
+            if (error) {
                 alert('Error: ' + error.message);
-                btnAbsen.disabled = false;
-                btnAbsen.innerHTML = 'Konfirmasi Absen';
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = '✅ Konfirmasi Absen';
+            } else {
+                alert(`✅ Absen berhasil! ${status === 'hadir' ? 'Selamat datang!' : keterlambatan}`);
+                document.getElementById('absenModal').style.display = 'none';
+                stopCamera(photoStream, document.getElementById('photoVideo'));
+                resetModal();
+                loadAbsenList();
             }
         }
 
-        function closeAllModals() {
-            const shiftModal = document.getElementById('shiftModal');
-            const absenModal = document.getElementById('absenModal');
-            if (shiftModal) shiftModal.style.display = 'none';
-            if (absenModal) absenModal.style.display = 'none';
-            if (videoStream) {
-                videoStream.getTracks().forEach(track => track.stop());
-                videoStream = null;
-                const videoEl = document.getElementById('video');
-                if (videoEl) videoEl.srcObject = null;
-            }
+        function resetModal() {
+            currentMatchedStudent = null;
+            currentSelectedShift = null;
+            capturedPhoto = null;
+            document.getElementById('stepDetection').style.display = 'block';
+            document.getElementById('stepPhoto').style.display = 'none';
+            document.getElementById('matchedStudentInfo').style.display = 'none';
+            document.getElementById('shiftSection').style.display = 'none';
+            document.getElementById('confirmAbsenBtn').style.display = 'none';
+            document.getElementById('photoPreview').style.display = 'none';
+            document.getElementById('takePhotoBtn').style.display = 'block';
+            document.getElementById('modalTitle').innerHTML = '📸 Face Recognition';
+            document.getElementById('faceStatus').className = 'face-status info';
+            document.getElementById('faceStatus').innerHTML = '🔄 Memuat kamera...';
+            document.getElementById('faceCameraWrapper').classList.remove('face-detected', 'face-not-detected');
         }
 
         // ==================== EVENT LISTENERS ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAuth();
-            loadSiswaList();
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadAbsenList();
             
-            // Search functionality
-            document.getElementById('searchSiswa').addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filtered = siswaData.filter(s => 
-                    s.nama.toLowerCase().includes(searchTerm) || 
-                    s.nis.includes(searchTerm)
-                );
-                displaySiswaList(filtered);
-            });
+            // Absen Card
+            document.getElementById('absenCard').onclick = async () => {
+                const modal = document.getElementById('absenModal');
+                const video = document.getElementById('faceVideo');
+                const cameraWrapper = document.getElementById('faceCameraWrapper');
+                const faceStatus = document.getElementById('faceStatus');
+                
+                modal.style.display = 'block';
+                resetModal();
+                
+                faceStatus.innerHTML = '🔄 Memuat model...';
+                const modelsLoaded = await loadFaceModels();
+                if (!modelsLoaded) {
+                    faceStatus.innerHTML = '❌ Gagal load model';
+                    return;
+                }
+                
+                faceStatus.innerHTML = '📷 Mengaktifkan kamera...';
+                videoStream = await startCamera(video);
+                if (!videoStream) {
+                    faceStatus.innerHTML = '❌ Gagal akses kamera';
+                    return;
+                }
+                
+                faceStatus.innerHTML = '😀 Hadapkan wajah ke kamera';
+                startFaceDetection(video, cameraWrapper, faceStatus);
+            };
+            
+            // Admin Card
+            document.getElementById('adminCard').onclick = () => {
+                document.getElementById('adminModal').style.display = 'block';
+                document.getElementById('adminPasswordInput').value = '';
+            };
+            
+            document.getElementById('adminPasswordLoginBtn').onclick = () => {
+                const password = document.getElementById('adminPasswordInput').value;
+                if (password !== ADMIN_PASSWORD) {
+                    alert('Password admin salah!');
+                    return;
+                }
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userRole', 'admin');
+                document.getElementById('adminModal').style.display = 'none';
+                window.location.href = 'admin.html';
+            };
+            
+            // Photo buttons
+            document.getElementById('takePhotoBtn').onclick = takePhoto;
+            document.getElementById('retakePhotoBtn').onclick = retakePhoto;
             
             // Shift options
             document.querySelectorAll('.shift-option').forEach(btn => {
                 btn.onclick = () => {
-                    currentShift = btn.getAttribute('data-shift');
-                    showCameraModal();
+                    currentSelectedShift = btn.getAttribute('data-shift');
+                    document.getElementById('confirmAbsenBtn').style.display = 'block';
+                    document.querySelectorAll('.shift-option').forEach(b => {
+                        b.style.border = '1px solid #E2E8F0';
+                    });
+                    btn.style.border = '2px solid #2E7D32';
                 };
             });
             
-            document.getElementById('captureBtn').onclick = capturePhoto;
-            document.getElementById('btnAbsen').onclick = doAbsen;
+            document.getElementById('confirmAbsenBtn').onclick = doAbsen;
             
+            // Close modals
             document.querySelectorAll('.close').forEach(closeBtn => {
-                closeBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    closeAllModals();
+                closeBtn.onclick = () => {
+                    const modal = closeBtn.closest('.modal');
+                    if (modal) modal.style.display = 'none';
+                    stopFaceDetection();
+                    stopCamera(videoStream, document.getElementById('faceVideo'));
+                    stopCamera(photoStream, document.getElementById('photoVideo'));
+                    resetModal();
                 };
             });
             
             window.onclick = (event) => {
                 if (event.target.classList.contains('modal')) {
-                    closeAllModals();
+                    event.target.style.display = 'none';
+                    stopFaceDetection();
+                    stopCamera(videoStream, document.getElementById('faceVideo'));
+                    stopCamera(photoStream, document.getElementById('photoVideo'));
+                    resetModal();
                 }
             };
         });

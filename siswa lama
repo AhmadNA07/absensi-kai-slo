@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Absensi PKL · IT KAI SLO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #F5F7FB;
+            color: #1A2C3E;
+            line-height: 1.5;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #FFFFFF;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-kai {
+            height: 38px;
+            width: auto;
+        }
+
+        .nav-brand div h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 2px;
+        }
+
+        .nav-brand div span {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #6B7A8F;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #E2E8F0;
+            color: #E53E3E;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #FFF5F5;
+            border-color: #FEB2B2;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px 16px 32px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 16px;
+        }
+
+        /* Search Box */
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+
+        /* Siswa Grid */
+        .siswa-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .siswa-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            border: 1px solid #E9EDF2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .siswa-card:active {
+            transform: scale(0.98);
+            background: #FAFCFE;
+        }
+
+        /* Style untuk siswa yang sudah absen */
+        .siswa-card.absen-done {
+            background: #E2E8F0;
+            opacity: 0.7;
+            cursor: not-allowed;
+            border-color: #CBD5E1;
+        }
+
+        .siswa-card.absen-done:active {
+            transform: none;
+            background: #E2E8F0;
+        }
+
+        .siswa-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-bottom: 4px;
+        }
+
+        .siswa-card.absen-done h3 {
+            color: #64748B;
+        }
+
+        .siswa-card p {
+            font-size: 0.75rem;
+            color: #6B7A8F;
+            margin: 2px 0;
+        }
+
+        .siswa-card.absen-done p {
+            color: #94A3B8;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            background: #E6F7EC;
+            color: #2E7D32;
+            margin-top: 6px;
+        }
+
+        .status-badge.sudah-absen {
+            background: #CBD5E1;
+            color: #475569;
+        }
+
+        .card-arrow {
+            color: #94A3B8;
+            font-size: 1.2rem;
+        }
+
+        .siswa-card.absen-done .card-arrow {
+            color: #CBD5E1;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 460px;
+            border-radius: 24px;
+            padding: 24px 20px 28px;
+            position: relative;
+            animation: modalFadeIn 0.25s ease;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.25);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-large {
+            max-width: 500px;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #94A3B8;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: sticky;
+            top: 0;
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            color: #94A3B8;
+            transition: color 0.2s;
+            margin-bottom: 8px;
+            z-index: 10;
+            background: white;
+            padding: 0 0 0 12px;
+        }
+
+        .close:hover {
+            color: #1E293B;
+        }
+
+        .modal-content h3:first-of-type {
+            clear: both;
+            margin-top: 0;
+        }
+
+        /* Shift Options */
+        .shift-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .shift-option {
+            background: #F8FAFE;
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .shift-option:active {
+            transform: scale(0.98);
+        }
+
+        .shift-icon {
+            font-size: 1.8rem;
+        }
+
+        .shift-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1E3A5F;
+        }
+
+        .shift-text p {
+            font-size: 0.7rem;
+            color: #6B7A8F;
+            margin-top: 2px;
+        }
+
+        .shift-text small {
+            font-size: 0.65rem;
+            color: #3B82F6;
+        }
+
+        /* Camera */
+        .camera-container {
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        #video {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 20px;
+            border: 1px solid #E2E8F0;
+            background: #1a1a2e;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+
+        #captureBtn {
+            background: #1E3A5F;
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 14px;
+            transition: background 0.2s;
+        }
+
+        #captureBtn:hover {
+            background: #2C5282;
+        }
+
+        #previewPhoto {
+            margin: 14px 0;
+            background: #F8FAFE;
+            border-radius: 16px;
+            padding: 10px;
+        }
+
+        #photoPreview {
+            max-width: 100%;
+            border-radius: 14px;
+            max-height: 150px;
+        }
+
+        .info-box {
+            background: #EBF4FF;
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-left: 4px solid #3B82F6;
+        }
+
+        .info-box p {
+            font-size: 0.8rem;
+            color: #1E3A5F;
+            margin: 3px 0;
+        }
+
+        .info-box .location-info {
+            font-size: 0.7rem;
+            color: #6B7A8F;
+            margin-top: 6px;
+            padding-top: 4px;
+            border-top: 1px solid #D1E3FF;
+        }
+
+        .btn-primary {
+            background: #2E7D32;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1B5E20;
+        }
+
+        .btn-primary:disabled {
+            background: #CBD5E1;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7A8F;
+            font-size: 0.85rem;
+        }
+
+        /* Loading spinner untuk lokasi */
+        .location-loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #E2E8F0;
+            border-top-color: #3B82F6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 16px;
+            }
+            .main-content {
+                padding: 16px 14px 28px;
+            }
+            .modal-content {
+                margin: 8% auto;
+                padding: 20px 16px 24px;
+                max-height: 88vh;
+            }
+            .shift-option {
+                padding: 12px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg/1280px-Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg.png" alt="Logo KAI" class="logo-kai">
+                <div>
+                    <h3>Absensi PKL</h3>
+                    <span>IT KAI SLO</span>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </nav>
+
+        <main class="main-content">
+            <h2>Daftar Peserta</h2>
+            <div class="search-box">
+                <input type="text" id="searchSiswa" placeholder="Cari nama atau NIS" class="search-input">
+            </div>
+            <div id="siswaList" class="siswa-grid">
+                <div class="loading">Memuat data siswa...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Pilih Shift -->
+    <div id="shiftModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="shiftModalNama" style="color:#1E3A5F; font-weight:600;">Pilih Shift</h3>
+            <div class="shift-options">
+                <button class="shift-option" data-shift="pagi">
+                    <div class="shift-text">
+                        <h4>Shift Pagi</h4>
+                        <p>08:00 - 14:00</p>
+                        <small>Batas absen 08:15</small>
+                    </div>
+                </button>
+                <button class="shift-option" data-shift="siang">
+                    <div class="shift-text">
+                        <h4>Shift Siang</h4>
+                        <p>12:00 - 18:00</p>
+                        <small>Batas absen 12:15</small>
+                    </div>
+                </button>
+                <button class="shift-option" data-shift="piket">
+                    <div class="shift-text">
+                        <h4>Piket</h4>
+                        <p>08:00 - 16:00</p>
+                        <small>Batas absen 08:15</small>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Absensi dengan Kamera -->
+    <div id="absenModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close">&times;</span>
+            <h3 id="modalNamaSiswa" style="color:#1E3A5F; font-weight:600;"></h3>
+            <div id="infoShift" class="info-box"></div>
+            <div class="camera-container">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas" style="display:none;"></canvas>
+                <button id="captureBtn">📸 Ambil Foto Selfie</button>
+            </div>
+            <div id="previewPhoto" style="display:none;">
+                <h4 style="font-size:0.8rem; margin-bottom:6px;">Preview Foto</h4>
+                <img id="photoPreview" alt="Preview">
+            </div>
+            <div id="statusAbsen" style="margin: 8px 0;"></div>
+            <button id="btnAbsen" class="btn-primary" disabled>Konfirmasi Absen</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ==================== KONFIGURASI ====================
+        const SUPABASE_URL = 'https://oufcvucxxnfgimryjpbs.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZmN2dWN4eG5mZ2ltcnlqcGJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMTg1NDMsImV4cCI6MjA5MDU5NDU0M30.Gmp3NiQlXTiTzdZFh9XGjjNh39i7TGNozQfSYu9nE38';
+        const APP_PASSWORD = 'kai2024';
+        
+        const SHIFT_CONFIG = {
+            pagi: { start: '08:00', end: '14:00', nama: 'Pagi (08:00-14:00)', jamMulai: 8*60 },
+            siang: { start: '12:00', end: '18:00', nama: 'Siang (12:00-18:00)', jamMulai: 12*60 },
+            piket: { start: '08:00', end: '16:00', nama: 'Piket (08:00-16:00)', jamMulai: 8*60 }
+        };
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        let siswaData = [];
+        let currentSiswa = null;
+        let currentShift = null;
+        let capturedPhoto = null;
+        let videoStream = null;
+        let currentLocation = null;
+        let currentIP = null;
+
+        // ==================== FUNGSI WAKTU WIB (ASIA/JAKARTA) ====================
+        function getWIBTime() {
+            // Membuat waktu dengan timezone Asia/Jakarta (WIB = UTC+7)
+            const now = new Date();
+            const wibTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+            return wibTime;
+        }
+
+        function getTodayWIB() {
+            const wib = getWIBTime();
+            return wib.toISOString().split('T')[0];
+        }
+
+        // ==================== FUNGSI GET LOKASI & IP ====================
+        async function getCurrentLocation() {
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject('Geolocation tidak didukung browser ini');
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        try {
+                            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`);
+                            const data = await response.json();
+                            const lokasi = data.display_name || `${latitude}, ${longitude}`;
+                            resolve(lokasi.substring(0, 200));
+                        } catch (err) {
+                            resolve(`${latitude}, ${longitude}`);
+                        }
+                    },
+                    (error) => {
+                        let message = 'Gagal dapat lokasi';
+                        if (error.code === 1) message = 'Izin lokasi ditolak';
+                        else if (error.code === 2) message = 'Lokasi tidak tersedia';
+                        else if (error.code === 3) message = 'Timeout mendapatkan lokasi';
+                        reject(message);
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            });
+        }
+
+        async function getCurrentIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (err) {
+                console.error('Gagal dapat IP:', err);
+                return 'Tidak terdeteksi';
+            }
+        }
+
+        // ==================== FUNGSI UTAMA ====================
+        function cekKeterlambatan(shift, jamAbsen) {
+            const jamMulai = SHIFT_CONFIG[shift].jamMulai;
+            const jamAbsenValue = jamAbsen.getHours() * 60 + jamAbsen.getMinutes();
+            if (jamAbsenValue > jamMulai + 15) {
+                const menitTerlambat = jamAbsenValue - jamMulai;
+                return `Terlambat ${menitTerlambat} menit`;
+            }
+            return 'Tepat waktu';
+        }
+
+        window.logout = function() {
+            sessionStorage.removeItem('isLoggedIn');
+            window.location.href = 'index.html';
+        };
+
+        function checkAuth() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Cek siswa mana saja yang sudah absen hari ini (pakai WIB)
+        async function getSudahAbsenIds() {
+            const today = getTodayWIB();
+            const { data, error } = await supabaseClient
+                .from('absensi')
+                .select('siswa_id')
+                .gte('tanggal', today)
+                .lte('tanggal', today + ' 23:59:59');
+            if (error || !data) return [];
+            return data.map(a => a.siswa_id);
+        }
+
+        async function loadSiswaList() {
+            const container = document.getElementById('siswaList');
+            container.innerHTML = '<div class="loading">Memuat data siswa...</div>';
+            try {
+                const [siswaResult, sudahAbsenIds] = await Promise.all([
+                    supabaseClient
+                        .from('siswa')
+                        .select('*, sekolah:sekolah_id(*)')
+                        .eq('status', 'aktif')
+                        .order('nama'),
+                    getSudahAbsenIds()
+                ]);
+                
+                if (siswaResult.error) throw siswaResult.error;
+                if (!siswaResult.data || siswaResult.data.length === 0) {
+                    container.innerHTML = '<div class="loading">Belum ada data siswa. Hubungi admin.</div>';
+                    return;
+                }
+                
+                siswaData = siswaResult.data.map(s => ({
+                    ...s,
+                    sudahAbsenHariIni: sudahAbsenIds.includes(s.id)
+                }));
+                displaySiswaList(siswaData);
+            } catch (error) {
+                console.error('Error loading siswa:', error);
+                container.innerHTML = '<div class="loading">Gagal memuat data: ' + error.message + '</div>';
+            }
+        }
+
+        function displaySiswaList(siswa) {
+            const container = document.getElementById('siswaList');
+            if (siswa.length === 0) {
+                container.innerHTML = '<div class="loading">Tidak ada siswa yang cocok</div>';
+                return;
+            }
+            
+            container.innerHTML = siswa.map(s => {
+                const sudahAbsen = s.sudahAbsenHariIni;
+                const cardClass = sudahAbsen ? 'siswa-card absen-done' : 'siswa-card';
+                const badgeClass = sudahAbsen ? 'status-badge sudah-absen' : 'status-badge';
+                const badgeText = sudahAbsen ? '✓ Sudah Absen' : 'Aktif';
+                const onclickAttr = sudahAbsen ? '' : `onclick="showShiftModal(${s.id})"`;
+                
+                return `
+                    <div class="${cardClass}" ${onclickAttr}>
+                        <div>
+                            <h3>${escapeHtml(s.nama)}</h3>
+                            <p>NIS: ${escapeHtml(s.nis)}</p>
+                            <p>${escapeHtml(s.sekolah?.nama || '-')}</p>
+                            <span class="${badgeClass}">${badgeText}</span>
+                        </div>
+                        <div class="card-arrow">${sudahAbsen ? '✓' : '→'}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        window.showShiftModal = function(siswaId) {
+            currentSiswa = siswaData.find(s => s.id === siswaId);
+            if (!currentSiswa) {
+                alert('Siswa tidak ditemukan!');
+                return;
+            }
+            if (currentSiswa.sudahAbsenHariIni) {
+                alert('Anda sudah melakukan absen hari ini!');
+                return;
+            }
+            document.getElementById('shiftModalNama').innerHTML = `Pilih shift untuk <strong>${currentSiswa.nama}</strong>`;
+            document.getElementById('shiftModal').style.display = 'block';
+        };
+
+        async function showCameraModal() {
+            document.getElementById('shiftModal').style.display = 'none';
+            const modal = document.getElementById('absenModal');
+            document.getElementById('modalNamaSiswa').innerHTML = `Halo, ${currentSiswa.nama}`;
+            
+            document.getElementById('infoShift').innerHTML = `
+                <p><strong>Shift ${SHIFT_CONFIG[currentShift].nama}</strong></p>
+                <p>Jam kerja: ${SHIFT_CONFIG[currentShift].start} - ${SHIFT_CONFIG[currentShift].end}</p>
+                <p>Toleransi keterlambatan: 15 menit</p>
+                <div class="location-info">
+                    <span>📍 Mendapatkan lokasi... <span class="location-loading"></span></span>
+                </div>
+            `;
+            
+            const [lokasi, ip] = await Promise.all([
+                getCurrentLocation().catch(err => `Error: ${err}`),
+                getCurrentIP()
+            ]);
+            currentLocation = lokasi;
+            currentIP = ip;
+            
+            document.getElementById('infoShift').innerHTML = `
+                <p><strong>Shift ${SHIFT_CONFIG[currentShift].nama}</strong></p>
+                <p>Jam kerja: ${SHIFT_CONFIG[currentShift].start} - ${SHIFT_CONFIG[currentShift].end}</p>
+                <p>Toleransi keterlambatan: 15 menit</p>
+                <div class="location-info">
+                    <span>📍 Lokasi: ${currentLocation.substring(0, 100)}</span><br>
+                    <span>🌐 IP: ${currentIP}</span>
+                </div>
+            `;
+            
+            capturedPhoto = null;
+            document.getElementById('previewPhoto').style.display = 'none';
+            document.getElementById('btnAbsen').disabled = true;
+            document.getElementById('btnAbsen').innerHTML = 'Ambil Foto Dulu';
+            document.getElementById('captureBtn').disabled = false;
+            document.getElementById('captureBtn').innerHTML = '📸 Ambil Foto Selfie';
+            document.getElementById('captureBtn').style.opacity = '1';
+            
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+            }
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                const video = document.getElementById('video');
+                video.srcObject = videoStream;
+            } catch (err) {
+                alert('Tidak dapat mengakses kamera. Pastikan izin diberikan dan menggunakan HTTPS.');
+            }
+            modal.style.display = 'block';
+        }
+
+        function capturePhoto() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            if (!video.videoWidth || !video.videoHeight) {
+                alert('Kamera belum siap, tunggu sebentar...');
+                return;
+            }
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            capturedPhoto = canvas.toDataURL('image/jpeg', 0.8);
+            document.getElementById('photoPreview').src = capturedPhoto;
+            document.getElementById('previewPhoto').style.display = 'block';
+            document.getElementById('btnAbsen').disabled = false;
+            document.getElementById('btnAbsen').innerHTML = '✅ Konfirmasi Absen';
+            document.getElementById('captureBtn').disabled = true;
+            document.getElementById('captureBtn').innerHTML = '✅ Foto Tersimpan';
+            document.getElementById('captureBtn').style.opacity = '0.6';
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+                const videoEl = document.getElementById('video');
+                if (videoEl) videoEl.srcObject = null;
+            }
+        }
+
+        async function doAbsen() {
+            if (!capturedPhoto) {
+                alert('Silakan ambil foto terlebih dahulu!');
+                return;
+            }
+            
+            const btnAbsen = document.getElementById('btnAbsen');
+            btnAbsen.disabled = true;
+            btnAbsen.innerHTML = 'Memproses...';
+            
+            // PAKAI WIB BUKAN UTC!
+            const now = getWIBTime();
+            const keterlambatan = cekKeterlambatan(currentShift, now);
+            const status = keterlambatan === 'Tepat waktu' ? 'hadir' : 'terlambat';
+            const today = getTodayWIB();
+            
+            // Cek ulang apakah sudah absen hari ini
+            const { data: existingAbsensi } = await supabaseClient
+                .from('absensi')
+                .select('*')
+                .eq('siswa_id', currentSiswa.id)
+                .gte('tanggal', today)
+                .lte('tanggal', today + ' 23:59:59');
+                
+            if (existingAbsensi && existingAbsensi.length > 0) {
+                alert('Anda sudah melakukan absen hari ini!');
+                closeAllModals();
+                loadSiswaList();
+                return;
+            }
+            
+            const absenData = {
+                siswa_id: currentSiswa.id,
+                shift: currentShift,
+                tanggal: now.toISOString(),
+                status: status,
+                keterlambatan: keterlambatan,
+                foto: capturedPhoto,
+                lokasi: currentLocation || 'Tidak terdeteksi',
+                ip_address: currentIP || 'Tidak terdeteksi'
+            };
+            
+            const { error } = await supabaseClient.from('absensi').insert([absenData]);
+            if (!error) {
+                const message = status === 'hadir' 
+                    ? '✅ Absen berhasil! Selamat menjalankan PKL.' 
+                    : `⚠️ Absen tercatat! ${keterlambatan}. Harap lebih disiplin.`;
+                alert(message);
+                closeAllModals();
+                loadSiswaList();
+            } else {
+                console.error('Error insert absen:', error);
+                alert('Error: ' + error.message);
+                btnAbsen.disabled = false;
+                btnAbsen.innerHTML = 'Konfirmasi Absen';
+            }
+        }
+
+        function closeAllModals() {
+            const shiftModal = document.getElementById('shiftModal');
+            const absenModal = document.getElementById('absenModal');
+            if (shiftModal) shiftModal.style.display = 'none';
+            if (absenModal) absenModal.style.display = 'none';
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+                const videoEl = document.getElementById('video');
+                if (videoEl) videoEl.srcObject = null;
+            }
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadSiswaList();
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchSiswa');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const filtered = siswaData.filter(s => 
+                        s.nama.toLowerCase().includes(searchTerm) || 
+                        s.nis.includes(searchTerm)
+                    );
+                    displaySiswaList(filtered);
+                });
+            }
+            
+            // Shift options
+            document.querySelectorAll('.shift-option').forEach(btn => {
+                btn.onclick = () => {
+                    currentShift = btn.getAttribute('data-shift');
+                    showCameraModal();
+                };
+            });
+            
+            const captureBtn = document.getElementById('captureBtn');
+            if (captureBtn) captureBtn.onclick = capturePhoto;
+            
+            const btnAbsen = document.getElementById('btnAbsen');
+            if (btnAbsen) btnAbsen.onclick = doAbsen;
+            
+            document.querySelectorAll('.close').forEach(closeBtn => {
+                closeBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    closeAllModals();
+                };
+            });
+            
+            window.onclick = (event) => {
+                if (event.target.classList.contains('modal')) {
+                    closeAllModals();
+                }
+            };
+            
+            // Tampilkan waktu WIB di console untuk debugging
+            console.log('Waktu WIB sekarang:', getWIBTime().toLocaleString());
+            console.log('Tanggal WIB hari ini:', getTodayWIB());
+        });
+    </script>
+</body>
+</html>

@@ -11,7 +11,7 @@ if (typeof supabase !== 'undefined') {
 }
 
 // Password untuk login (sama untuk semua role)
-const APP_PASSWORD = 'kai2024';
+const APP_PASSWORD = 'KaiSlo2026**';
 
 // Konfigurasi shift
 const SHIFT_CONFIG = {

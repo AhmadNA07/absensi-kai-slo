@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Registrasi Wajah - Admin PKL IT KAI SLO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fb;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar h2 {
+            color: #1e3c72;
+            font-size: 20px;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 12px;
+            background: #f0f2f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .role-btn.active {
+            background: #1e3c72;
+            border-color: #1e3c72;
+            color: white;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .info {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .video-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            border: 2px solid #ddd;
+            background: #1a1a2e;
+        }
+
+        .btn-success {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-success:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-danger {
+            background: #c62828;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        /* Face quality indicator */
+        .quality-indicator {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .quality-good {
+            color: #2e7d32;
+        }
+
+        .quality-poor {
+            color: #c62828;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .card { padding: 15px; }
+            .navbar { flex-direction: column; text-align: center; }
+            .role-selector { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>📸 Registrasi Wajah</h2>
+        <button class="back-btn" onclick="window.location.href='admin.html'">← Kembali ke Admin</button>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3>1. Pilih Role</h3>
+            <div class="role-selector">
+                <div class="role-btn active" data-role="siswa">👨‍🎓 Siswa</div>
+                <div class="role-btn" data-role="pembimbing">👨‍🏫 Pembimbing</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>2. Pilih Data</h3>
+            <select id="personSelect">
+                <option value="">-- Pilih --</option>
+            </select>
+            <div id="personInfo" class="info"></div>
+        </div>
+
+        <div class="card">
+            <h3>3. Registrasi Wajah</h3>
+            <div class="info">
+                <strong>⚠️ Petunjuk:</strong><br>
+                • Pastikan pencahayaan cukup<br>
+                • Wajah menghadap lurus ke kamera<br>
+                • Jangan pakai kacamata/aksesoris yang menutupi wajah<br>
+                • Sistem akan mengambil 2 sampel wajah untuk akurasi lebih baik
+            </div>
+            <div class="video-container">
+                <video id="video" autoplay playsinline muted></video>
+            </div>
+            <div id="qualityIndicator" class="quality-indicator"></div>
+            <button id="captureBtn" class="btn-success" disabled>📸 Ambil Foto & Simpan</button>
+            <button id="deleteBtn" class="btn-danger" style="display:none;">🗑️ Hapus Data Wajah</button>
+            <div id="status" class="status info" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.15/dist/face-api.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        let currentStream = null;
+        let currentPersonId = null;
+        let currentPersonName = null;
+        let currentRole = 'siswa';
+        let modelsLoaded = false;
+        let hasFace = false;
+
+        // FACE MATCH THRESHOLD - LEBIH KETAT (0.4)
+        const FACE_MATCH_THRESHOLD = 0.4;
+
+        const MODEL_URL = 'https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights';
+
+        // Load face models
+        async function loadFaceModels() {
+            if (modelsLoaded) return true;
+            try {
+                await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+                modelsLoaded = true;
+                console.log('✅ Face models loaded');
+                return true;
+            } catch (error) {
+                console.error('❌ Error loading face models:', error);
+                return false;
+            }
+        }
+
+        // Start camera
+        async function startCamera() {
+            try {
+                if (currentStream) {
+                    currentStream.getTracks().forEach(track => track.stop());
+                }
+                currentStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: "user" } 
+                });
+                const video = document.getElementById('video');
+                video.srcObject = currentStream;
+                
+                // Start face quality detection
+                startQualityDetection();
+                return true;
+            } catch (err) {
+                console.error(err);
+                return false;
+            }
+        }
+
+        // Face quality detection
+        let qualityInterval = null;
+        function startQualityDetection() {
+            if (qualityInterval) clearInterval(qualityInterval);
+            qualityInterval = setInterval(async () => {
+                const video = document.getElementById('video');
+                if (!video || !video.videoWidth) return;
+                
+                const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());
+                const indicator = document.getElementById('qualityIndicator');
+                
+                if (detection) {
+                    indicator.innerHTML = '✅ Wajah terdeteksi - Siap direkam';
+                    indicator.className = 'quality-indicator quality-good';
+                } else {
+                    indicator.innerHTML = '❌ Wajah tidak terdeteksi - Hadapkan wajah ke kamera';
+                    indicator.className = 'quality-indicator quality-poor';
+                }
+            }, 500);
+        }
+
+        function stopQualityDetection() {
+            if (qualityInterval) {
+                clearInterval(qualityInterval);
+                qualityInterval = null;
+            }
+        }
+
+        // Stop camera
+        function stopCamera() {
+            stopQualityDetection();
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+        }
+
+        // Load data berdasarkan role (siswa atau pembimbing)
+        async function loadData() {
+            const select = document.getElementById('personSelect');
+            select.innerHTML = '<option value="">-- Pilih --</option>';
+            
+            if (currentRole === 'siswa') {
+                const { data, error } = await supabaseClient
+                    .from('siswa')
+                    .select('id, nis, nama, status, has_face')
+                    .eq('status', 'aktif')
+                    .order('nama');
+                
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+                
+                data.forEach(s => {
+                    const hasFaceText = s.has_face ? '✅ (Sudah)' : '❌ (Belum)';
+                    select.innerHTML += `<option value="${s.id}" data-has-face="${s.has_face}" data-nama="${s.nama}" data-nis="${s.nis}">${s.nis} - ${s.nama} ${hasFaceText}</option>`;
+                });
+            } else {
+                const { data, error } = await supabaseClient
+                    .from('pembimbing')
+                    .select('id, nip, nama, has_face')
+                    .order('nama');
+                
+                if (error) {
+                    console.error('Error loading pembimbing:', error);
+                    select.innerHTML = '<option value="">-- Tidak ada data pembimbing --</option>';
+                    return;
+                }
+                
+                if (data && data.length > 0) {
+                    data.forEach(p => {
+                        const hasFaceText = p.has_face ? '✅ (Sudah)' : '❌ (Belum)';
+                        select.innerHTML += `<option value="${p.id}" data-has-face="${p.has_face}" data-nama="${p.nama}" data-nip="${p.nip}">${p.nip} - ${p.nama} ${hasFaceText}</option>`;
+                    });
+                } else {
+                    select.innerHTML = '<option value="">-- Tidak ada data pembimbing --</option>';
+                }
+            }
+        }
+
+        // Update info berdasarkan pilihan
+        async function updateInfo() {
+            const select = document.getElementById('personSelect');
+            const selectedOption = select.options[select.selectedIndex];
+            const personId = select.value;
+            
+            if (!personId) return;
+            
+            currentPersonId = personId;
+            hasFace = selectedOption.getAttribute('data-has-face') === 'true';
+            currentPersonName = selectedOption.getAttribute('data-nama') || '';
+            
+            if (currentRole === 'siswa') {
+                const nis = selectedOption.getAttribute('data-nis') || '';
+                const infoDiv = document.getElementById('personInfo');
+                infoDiv.innerHTML = `
+                    <strong>Nama:</strong> ${currentPersonName}<br>
+                    <strong>NIS:</strong> ${nis}<br>
+                    <strong>Role:</strong> Siswa PKL<br>
+                    <strong>Status Wajah:</strong> ${hasFace ? '✅ Sudah terdaftar' : '❌ Belum terdaftar'}
+                `;
+            } else {
+                const nip = selectedOption.getAttribute('data-nip') || '';
+                const infoDiv = document.getElementById('personInfo');
+                infoDiv.innerHTML = `
+                    <strong>Nama:</strong> ${currentPersonName}<br>
+                    <strong>NIP:</strong> ${nip}<br>
+                    <strong>Role:</strong> Pembimbing<br>
+                    <strong>Status Wajah:</strong> ${hasFace ? '✅ Sudah terdaftar' : '❌ Belum terdaftar'}
+                `;
+            }
+            
+            const captureBtn = document.getElementById('captureBtn');
+            captureBtn.disabled = false;
+            captureBtn.textContent = hasFace ? '🔄 Ambil Ulang & Simpan' : '📸 Ambil Foto & Simpan';
+            
+            const deleteBtn = document.getElementById('deleteBtn');
+            if (hasFace) {
+                deleteBtn.style.display = 'block';
+            } else {
+                deleteBtn.style.display = 'none';
+            }
+        }
+
+        // Get face descriptor dengan multiple samples untuk akurasi lebih baik
+        async function getFaceDescriptor(videoElement, samples = 3) {
+            let descriptors = [];
+            
+            for (let i = 0; i < samples; i++) {
+                await new Promise(r => setTimeout(r, 200));
+                const detection = await faceapi
+                    .detectSingleFace(videoElement, new faceapi.TinyFaceDetectorOptions())
+                    .withFaceLandmarks()
+                    .withFaceDescriptor();
+                
+                if (detection) {
+                    descriptors.push(detection.descriptor);
+                }
+            }
+            
+            if (descriptors.length === 0) return null;
+            
+            // Average multiple descriptors untuk akurasi lebih baik
+            const avgDescriptor = new Float32Array(descriptors[0].length);
+            for (const desc of descriptors) {
+                for (let i = 0; i < desc.length; i++) {
+                    avgDescriptor[i] += desc[i];
+                }
+            }
+            for (let i = 0; i < avgDescriptor.length; i++) {
+                avgDescriptor[i] /= descriptors.length;
+            }
+            
+            return avgDescriptor;
+        }
+
+        // Save face descriptor (untuk siswa atau pembimbing)
+        async function saveFaceDescriptor(personId, descriptor) {
+            let tableName = currentRole === 'siswa' ? 'siswa' : 'pembimbing';
+            const { error } = await supabaseClient
+                .from(tableName)
+                .update({ 
+                    face_descriptor: Array.from(descriptor),
+                    has_face: true
+                })
+                .eq('id', personId);
+            
+            if (error) throw error;
+            return true;
+        }
+
+        // Delete face descriptor
+        async function deleteFaceDescriptor(personId) {
+            let tableName = currentRole === 'siswa' ? 'siswa' : 'pembimbing';
+            const { error } = await supabaseClient
+                .from(tableName)
+                .update({ 
+                    face_descriptor: null,
+                    has_face: false
+                })
+                .eq('id', personId);
+            
+            if (error) throw error;
+            return true;
+        }
+
+        // Role selector
+        document.querySelectorAll('.role-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentRole = btn.getAttribute('data-role');
+                loadData();
+                
+                // Reset form
+                const captureBtn = document.getElementById('captureBtn');
+                captureBtn.disabled = true;
+                document.getElementById('deleteBtn').style.display = 'none';
+                document.getElementById('personInfo').innerHTML = '';
+                document.getElementById('status').style.display = 'none';
+            });
+        });
+
+        // Person select change
+        document.getElementById('personSelect').addEventListener('change', async (e) => {
+            if (!e.target.value) return;
+            await updateInfo();
+            await loadFaceModels();
+            startCamera();
+        });
+
+        // Capture and save
+        document.getElementById('captureBtn').addEventListener('click', async () => {
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'status info';
+            statusDiv.innerHTML = '🔍 Memproses wajah (mengambil 3 sampel)...';
+            
+            await loadFaceModels();
+            
+            const video = document.getElementById('video');
+            const descriptor = await getFaceDescriptor(video, 3);
+            
+            if (!descriptor) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '❌ Wajah tidak terdeteksi! Pastikan wajah terlihat jelas dan pencahayaan cukup.';
+                return;
+            }
+            
+            statusDiv.innerHTML = '💾 Menyimpan data wajah...';
+            
+            try {
+                await saveFaceDescriptor(currentPersonId, descriptor);
+                statusDiv.className = 'status success';
+                const roleText = currentRole === 'siswa' ? 'siswa' : 'pembimbing';
+                statusDiv.innerHTML = `✅ Wajah untuk ${currentPersonName} (${roleText}) berhasil diregistrasi dengan threshold ${FACE_MATCH_THRESHOLD}!`;
+                
+                // Refresh data
+                loadData();
+                
+                // Update hasFace status
+                hasFace = true;
+                document.getElementById('deleteBtn').style.display = 'block';
+                document.getElementById('captureBtn').textContent = '🔄 Ambil Ulang & Simpan';
+                
+                // Update info
+                const infoDiv = document.getElementById('personInfo');
+                infoDiv.innerHTML = infoDiv.innerHTML.replace('❌ Belum terdaftar', '✅ Sudah terdaftar');
+                
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ Gagal menyimpan: ${error.message}`;
+            }
+        });
+
+        // Delete face data
+        document.getElementById('deleteBtn').addEventListener('click', async () => {
+            if (!confirm(`Yakin ingin menghapus data wajah ${currentPersonName}?`)) return;
+            
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'status info';
+            statusDiv.innerHTML = '🗑️ Menghapus data wajah...';
+            
+            try {
+                await deleteFaceDescriptor(currentPersonId);
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = `✅ Data wajah ${currentPersonName} berhasil dihapus!`;
+                
+                loadData();
+                hasFace = false;
+                document.getElementById('deleteBtn').style.display = 'none';
+                document.getElementById('captureBtn').textContent = '📸 Ambil Foto & Simpan';
+                
+                const infoDiv = document.getElementById('personInfo');
+                infoDiv.innerHTML = infoDiv.innerHTML.replace('✅ Sudah terdaftar', '❌ Belum terdaftar');
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ Gagal menghapus: ${error.message}`;
+            }
+        });
+
+        // Load data awal
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            loadFaceModels();
+            startCamera();
+        });
+        
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            stopCamera();
+        });
+    </script>
+</body>
+</html>

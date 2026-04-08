@@ -2,6 +2,42 @@
 let currentData = {};
 let allSiswa = [];
 
+// ==================== FUNGSI WAKTU WIB (MANUAL OFFSET +7 JAM) ====================
+function getWIBDate(date = null) {
+    const d = date ? new Date(date) : new Date();
+    d.setHours(d.getHours() + 7);
+    return d;
+}
+
+function getTodayWIB() {
+    const now = new Date();
+    now.setHours(now.getHours() + 7);
+    return now.toISOString().split('T')[0];
+}
+
+function formatDateWIB(dateStr) {
+    if (!dateStr) return '-';
+    const date = new Date(dateStr);
+    date.setHours(date.getHours() + 7);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${day}/${month}/${year}`;
+}
+
+function formatTimeWIB(dateStr) {
+    if (!dateStr) return '-';
+    const date = new Date(dateStr);
+    date.setHours(date.getHours() + 7);
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${hours}:${minutes}:${seconds} WIB`;
+}
+
+// ==================== FACE RECOGNITION THRESHOLD ====================
+const FACE_MATCH_THRESHOLD = 0.35; // LEBIH KETAT (default 0.6 terlalu longgar)
+
 // ==================== CHECK SUPABASE ====================
 function checkSupabase() {
     if (typeof supabaseClient === 'undefined' || !supabaseClient) {
@@ -29,8 +65,8 @@ async function loadDashboard() {
             .select('*', { count: 'exact', head: true });
         document.getElementById('totalSekolah').textContent = sekolahCount || 0;
         
-        // Absensi hari ini
-        const today = new Date().toISOString().split('T')[0];
+        // Absensi hari ini (pakai WIB)
+        const today = getTodayWIB();
         const { data: absensi, error } = await supabaseClient
             .from('absensi')
             .select(`*, siswa:siswa_id(*, sekolah:sekolah_id(*))`)
@@ -48,11 +84,15 @@ async function loadDashboard() {
                 tbody.innerHTML = '';
                 absensi.slice(0, 10).forEach(absen => {
                     const row = tbody.insertRow();
-                    row.insertCell(0).innerHTML = absen.foto ? `<img src="${absen.foto}" class="foto-thumb" onclick="showFoto('${absen.foto}', '${absen.siswa?.nama} - ${new Date(absen.tanggal).toLocaleString()}')">` : '-';
-                    row.insertCell(1).textContent = absen.siswa?.nama || '-';
+                    const siswaNama = absen.siswa?.nama || '-';
+                    const tglWIB = formatDateWIB(absen.tanggal);
+                    const jamWIB = formatTimeWIB(absen.tanggal);
+                    
+                    row.insertCell(0).innerHTML = absen.foto ? `<img src="${absen.foto}" class="foto-thumb" onclick="showFoto('${absen.foto}', '${siswaNama} - ${tglWIB} ${jamWIB}')">` : '-';
+                    row.insertCell(1).textContent = siswaNama;
                     row.insertCell(2).textContent = absen.siswa?.sekolah?.nama || '-';
                     row.insertCell(3).textContent = SHIFT_CONFIG[absen.shift]?.nama || absen.shift;
-                    row.insertCell(4).textContent = new Date(absen.tanggal).toLocaleTimeString('id-ID');
+                    row.insertCell(4).textContent = jamWIB;
                     row.insertCell(5).innerHTML = `<span class="status-${absen.status}">${absen.status === 'hadir' ? 'Hadir' : 'Terlambat'}</span>`;
                     row.insertCell(6).textContent = absen.lokasi || '-';
                 });
@@ -87,6 +127,7 @@ async function loadSiswa() {
                 aksi.innerHTML = `
                     <button class="btn-secondary btn-sm" onclick="editSiswa('${siswa.id}')">Edit</button>
                     <button class="btn-danger btn-sm" onclick="hapusSiswa('${siswa.id}')">Hapus</button>
+                    ${siswa.has_face ? `<button class="btn-danger btn-sm" onclick="hapusFaceSiswa('${siswa.id}')">Hapus Wajah</button>` : ''}
                 `;
             });
         }
@@ -98,6 +139,23 @@ async function loadSiswa() {
             data.forEach(siswa => {
                 filterSiswa.innerHTML += `<option value="${siswa.id}">${siswa.nama} (${siswa.nis})</option>`;
             });
+        }
+    }
+}
+
+// Hapus face data siswa
+async function hapusFaceSiswa(id) {
+    if (!checkSupabase()) return;
+    if (confirm('Yakin ingin menghapus data wajah siswa ini?')) {
+        const { error } = await supabaseClient
+            .from('siswa')
+            .update({ face_descriptor: null, has_face: false })
+            .eq('id', id);
+        if (!error) {
+            alert('Data wajah berhasil dihapus');
+            loadSiswa();
+        } else {
+            alert('Error: ' + error.message);
         }
     }
 }
@@ -253,9 +311,16 @@ async function hapusSekolah(id) {
 async function loadLaporan() {
     if (!checkSupabase()) return;
     
-    const tanggal = document.getElementById('filterTanggal')?.value || new Date().toISOString().split('T')[0];
+    const filterTanggal = document.getElementById('filterTanggal')?.value;
     const shift = document.getElementById('filterShift')?.value || '';
     const status = document.getElementById('filterStatus')?.value || '';
+    
+    let tanggal = filterTanggal;
+    if (!tanggal) {
+        tanggal = getTodayWIB();
+        const filterTanggalEl = document.getElementById('filterTanggal');
+        if (filterTanggalEl) filterTanggalEl.value = tanggal;
+    }
     
     let query = supabaseClient
         .from('absensi')
@@ -279,13 +344,17 @@ async function loadLaporan() {
     tbody.innerHTML = '';
     data.forEach(absen => {
         const row = tbody.insertRow();
-        row.insertCell(0).innerHTML = absen.foto ? `<img src="${absen.foto}" class="foto-thumb" onclick="showFoto('${absen.foto}', '${absen.siswa?.nama} - ${new Date(absen.tanggal).toLocaleString()}')">` : '-';
-        row.insertCell(1).textContent = new Date(absen.tanggal).toLocaleDateString('id-ID');
+        const siswaNama = absen.siswa?.nama || '-';
+        const tglWIB = formatDateWIB(absen.tanggal);
+        const jamWIB = formatTimeWIB(absen.tanggal);
+        
+        row.insertCell(0).innerHTML = absen.foto ? `<img src="${absen.foto}" class="foto-thumb" onclick="showFoto('${absen.foto}', '${siswaNama} - ${tglWIB} ${jamWIB}')">` : '-';
+        row.insertCell(1).textContent = tglWIB;
         row.insertCell(2).textContent = absen.siswa?.nis || '-';
-        row.insertCell(3).textContent = absen.siswa?.nama || '-';
+        row.insertCell(3).textContent = siswaNama;
         row.insertCell(4).textContent = absen.siswa?.sekolah?.nama || '-';
         row.insertCell(5).textContent = SHIFT_CONFIG[absen.shift]?.nama || absen.shift;
-        row.insertCell(6).textContent = new Date(absen.tanggal).toLocaleTimeString('id-ID');
+        row.insertCell(6).textContent = jamWIB;
         row.insertCell(7).innerHTML = `<span class="status-${absen.status}">${absen.status === 'hadir' ? 'Hadir' : 'Terlambat'}</span>`;
         row.insertCell(8).textContent = absen.keterlambatan || '-';
         row.insertCell(9).textContent = absen.lokasi || '-';
@@ -306,7 +375,8 @@ function downloadLaporan() {
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.table_to_sheet(cloneTable, { raw: true });
     XLSX.utils.book_append_sheet(wb, ws, 'Laporan Absensi');
-    XLSX.writeFile(wb, `laporan_absensi_${new Date().toISOString().split('T')[0]}.xlsx`);
+    const todayWIB = getTodayWIB();
+    XLSX.writeFile(wb, `laporan_absensi_${todayWIB}.xlsx`);
 }
 
 // ==================== LAPORAN PER SISWA ====================
@@ -319,8 +389,18 @@ async function loadLaporanPerSiswa() {
         return;
     }
     
-    const dariTanggal = document.getElementById('filterDariTanggal')?.value || new Date().toISOString().split('T')[0];
-    const sampaiTanggal = document.getElementById('filterSampaiTanggal')?.value || new Date().toISOString().split('T')[0];
+    let dariTanggal = document.getElementById('filterDariTanggal')?.value;
+    let sampaiTanggal = document.getElementById('filterSampaiTanggal')?.value;
+    
+    const todayWIB = getTodayWIB();
+    if (!dariTanggal) {
+        dariTanggal = todayWIB;
+        document.getElementById('filterDariTanggal').value = todayWIB;
+    }
+    if (!sampaiTanggal) {
+        sampaiTanggal = todayWIB;
+        document.getElementById('filterSampaiTanggal').value = todayWIB;
+    }
     
     // Get siswa info
     const { data: siswa } = await supabaseClient
@@ -334,7 +414,7 @@ async function loadLaporanPerSiswa() {
             <div class="stat-card" style="display: inline-block; margin-right: 10px;">
                 <strong>Nama:</strong> ${siswa.nama}<br>
                 <strong>NIS:</strong> ${siswa.nis}<br>
-                <strong>Sekolah:</strong> ${siswa.sekolah?.nama}
+                <strong>Sekolah:</strong> ${siswa.sekolah?.nama || '-'}
             </div>
         `;
     }
@@ -359,10 +439,13 @@ async function loadLaporanPerSiswa() {
     tbody.innerHTML = '';
     data.forEach(absen => {
         const row = tbody.insertRow();
-        row.insertCell(0).innerHTML = absen.foto ? `<img src="${absen.foto}" class="foto-thumb" onclick="showFoto('${absen.foto}', '${siswa?.nama} - ${new Date(absen.tanggal).toLocaleString()}')">` : '-';
-        row.insertCell(1).textContent = new Date(absen.tanggal).toLocaleDateString('id-ID');
+        const tglWIB = formatDateWIB(absen.tanggal);
+        const jamWIB = formatTimeWIB(absen.tanggal);
+        
+        row.insertCell(0).innerHTML = absen.foto ? `<img src="${absen.foto}" class="foto-thumb" onclick="showFoto('${absen.foto}', '${siswa?.nama} - ${tglWIB} ${jamWIB}')">` : '-';
+        row.insertCell(1).textContent = tglWIB;
         row.insertCell(2).textContent = SHIFT_CONFIG[absen.shift]?.nama || absen.shift;
-        row.insertCell(3).textContent = new Date(absen.tanggal).toLocaleTimeString('id-ID');
+        row.insertCell(3).textContent = jamWIB;
         row.insertCell(4).innerHTML = `<span class="status-${absen.status}">${absen.status === 'hadir' ? 'Hadir' : 'Terlambat'}</span>`;
         row.insertCell(5).textContent = absen.keterlambatan || '-';
         row.insertCell(6).textContent = absen.lokasi || '-';
@@ -380,11 +463,13 @@ function downloadLaporanPerSiswa() {
         img.parentNode.textContent = 'Ada Foto';
     });
     
-    const siswaNama = document.getElementById('filterSiswaId')?.options[document.getElementById('filterSiswaId').selectedIndex]?.text || 'siswa';
+    const siswaSelect = document.getElementById('filterSiswaId');
+    const siswaNama = siswaSelect?.options[siswaSelect.selectedIndex]?.text || 'siswa';
+    const todayWIB = getTodayWIB();
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.table_to_sheet(cloneTable, { raw: true });
     XLSX.utils.book_append_sheet(wb, ws, `Laporan_${siswaNama}`);
-    XLSX.writeFile(wb, `laporan_${siswaNama}_${new Date().toISOString().split('T')[0]}.xlsx`);
+    XLSX.writeFile(wb, `laporan_${siswaNama}_${todayWIB}.xlsx`);
 }
 
 // ==================== UI FUNCTIONS ====================
@@ -393,19 +478,23 @@ function showFoto(fotoUrl, info) {
     const img = document.getElementById('detailFoto');
     const infoP = document.getElementById('detailInfo');
     
-    img.src = fotoUrl;
-    infoP.textContent = info;
-    modal.style.display = 'block';
+    if (modal && img && infoP) {
+        img.src = fotoUrl;
+        infoP.textContent = info;
+        modal.style.display = 'block';
+    }
 }
 
 function showTambahSiswaModal() {
-    document.getElementById('siswaForm').reset();
+    const form = document.getElementById('siswaForm');
+    if (form) form.reset();
     document.getElementById('siswaId').value = '';
     document.getElementById('siswaModal').style.display = 'block';
 }
 
 function showTambahSekolahModal() {
-    document.getElementById('sekolahForm').reset();
+    const form = document.getElementById('sekolahForm');
+    if (form) form.reset();
     document.getElementById('sekolahIdEdit').value = '';
     document.getElementById('sekolahModal').style.display = 'block';
 }
@@ -439,6 +528,10 @@ function initTabs() {
             else if (tabId === 'siswa') loadSiswa();
             else if (tabId === 'sekolah') loadSekolah();
             else if (tabId === 'laporan') loadLaporan();
+            else if (tabId === 'laporan-siswa') {
+                loadSiswa();
+                loadLaporanPerSiswa();
+            }
         });
     });
 }
@@ -450,16 +543,16 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSiswa();
     loadSekolah();
     
-    // Set default dates
-    const today = new Date().toISOString().split('T')[0];
+    // Set default dates with WIB
+    const todayWIB = getTodayWIB();
     const filterTanggal = document.getElementById('filterTanggal');
-    if (filterTanggal) filterTanggal.value = today;
+    if (filterTanggal) filterTanggal.value = todayWIB;
     
     const filterDariTanggal = document.getElementById('filterDariTanggal');
-    if (filterDariTanggal) filterDariTanggal.value = today;
+    if (filterDariTanggal) filterDariTanggal.value = todayWIB;
     
     const filterSampaiTanggal = document.getElementById('filterSampaiTanggal');
-    if (filterSampaiTanggal) filterSampaiTanggal.value = today;
+    if (filterSampaiTanggal) filterSampaiTanggal.value = todayWIB;
     
     // Modal close buttons
     document.querySelectorAll('.close').forEach(closeBtn => {
@@ -486,4 +579,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const filterStatus = document.getElementById('filterStatus');
     if (filterStatus) filterStatus.addEventListener('change', loadLaporan);
+    
+    const filterSiswaId = document.getElementById('filterSiswaId');
+    if (filterSiswaId) filterSiswaId.addEventListener('change', loadLaporanPerSiswa);
+    
+    const filterDariTanggalInput = document.getElementById('filterDariTanggal');
+    if (filterDariTanggalInput) filterDariTanggalInput.addEventListener('change', loadLaporanPerSiswa);
+    
+    const filterSampaiTanggalInput = document.getElementById('filterSampaiTanggal');
+    if (filterSampaiTanggalInput) filterSampaiTanggalInput.addEventListener('change', loadLaporanPerSiswa);
+    
+    console.log('Admin panel loaded - WIB Time:', formatTimeWIB(new Date().toISOString()));
 });
