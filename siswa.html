@@ -583,7 +583,6 @@
             };
         }
 
-        // Deteksi tab tertutup / halaman dimuat dari cache
         window.addEventListener('pageshow', function(event) {
             if (event.persisted) {
                 checkAuth();
@@ -764,6 +763,7 @@
             const matchedUser = await matchFace(avgDescriptor);
             
             if (matchedUser) {
+                // Cek sudah absen hari ini
                 const today = getTodayWIB();
                 const { data: existingAbsen } = await supabaseClient
                     .from('absensi')
@@ -850,29 +850,55 @@
             const container = document.getElementById('absenList');
             const today = getTodayWIB();
             
-            const { data: absensi, error } = await supabaseClient
-                .from('absensi')
-                .select('*, siswa:siswa_id(nama, nis)')
-                .gte('tanggal', today)
-                .lte('tanggal', today + ' 23:59:59')
-                .order('tanggal', { ascending: false });
+            console.log('Loading absen list for date:', today);
             
-            if (error || !absensi || absensi.length === 0) {
-                container.innerHTML = '<div class="empty-list">✨ Belum ada yang absen hari ini</div>';
-                return;
+            try {
+                const { data: absensi, error } = await supabaseClient
+                    .from('absensi')
+                    .select(`
+                        *,
+                        siswa:siswa_id (
+                            nama,
+                            nis
+                        )
+                    `)
+                    .gte('tanggal', `${today} 00:00:00`)
+                    .lte('tanggal', `${today} 23:59:59`)
+                    .order('tanggal', { ascending: false });
+                
+                console.log('Absensi data:', absensi);
+                console.log('Error:', error);
+                
+                if (error) {
+                    console.error('Error loading absensi:', error);
+                    container.innerHTML = '<div class="empty-list">❌ Gagal memuat data</div>';
+                    return;
+                }
+                
+                if (!absensi || absensi.length === 0) {
+                    container.innerHTML = '<div class="empty-list">✨ Belum ada yang absen hari ini</div>';
+                    return;
+                }
+                
+                container.innerHTML = absensi.map(a => {
+                    const siswaNama = a.siswa?.nama || 'Unknown';
+                    const siswaNis = a.siswa?.nis || '-';
+                    const waktu = formatWIBTime(a.tanggal);
+                    return `
+                        <div class="absen-item">
+                            <div class="absen-item-info">
+                                <h4>${siswaNama}</h4>
+                                <p>NIS: ${siswaNis}</p>
+                            </div>
+                            <div class="absen-item-time">${waktu}</div>
+                        </div>
+                    `;
+                }).join('');
+                
+            } catch (err) {
+                console.error('Error in loadAbsenList:', err);
+                container.innerHTML = '<div class="empty-list">❌ Error memuat data</div>';
             }
-            
-            container.innerHTML = absensi.map(a => `
-                <div class="absen-item">
-                    <div class="absen-item-info">
-                        <h4>${a.siswa?.nama || 'Unknown'}</h4>
-                        <p>NIS: ${a.siswa?.nis || '-'}</p>
-                    </div>
-                    <div class="absen-item-time">
-                        ${formatWIBTime(a.tanggal)}
-                    </div>
-                </div>
-            `).join('');
         }
 
         // ==================== DO ABSEN ====================
@@ -913,6 +939,23 @@
             const keterlambatan = isTerlambat ? `Terlambat ${jamAbsenValue - jamMulai} menit` : 'Tepat waktu';
             const status = isTerlambat ? 'terlambat' : 'hadir';
             
+            // Cek sekali lagi apakah sudah absen hari ini
+            const today = getTodayWIB();
+            const { data: existingAbsen } = await supabaseClient
+                .from('absensi')
+                .select('id')
+                .eq('siswa_id', currentMatchedStudent.id)
+                .gte('tanggal', `${today} 00:00:00`)
+                .lte('tanggal', `${today} 23:59:59`);
+            
+            if (existingAbsen && existingAbsen.length > 0) {
+                alert('Anda sudah melakukan absen hari ini!');
+                document.getElementById('absenModal').style.display = 'none';
+                stopCamera(photoStream, document.getElementById('photoVideo'));
+                resetModal();
+                return;
+            }
+            
             const utcTime = new Date(now);
             utcTime.setHours(utcTime.getHours() - 7);
             const isoString = utcTime.toISOString();
@@ -946,7 +989,7 @@
                 document.getElementById('absenModal').style.display = 'none';
                 stopCamera(photoStream, document.getElementById('photoVideo'));
                 resetModal();
-                loadAbsenList();
+                await loadAbsenList(); // Refresh list
             }
         }
 
