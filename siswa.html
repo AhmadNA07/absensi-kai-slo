@@ -423,7 +423,7 @@
                     <span>IT KAI SLO</span>
                 </div>
             </div>
-            <button class="logout-btn" id="logoutBtn">Logout</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </nav>
 
         <main class="main-content">
@@ -527,6 +527,26 @@
             piket: { start: '08:00', end: '16:00', nama: 'Piket (08:00-16:00)', jamMulai: 8*60 }
         };
 
+        // ==================== FUNGSI LOGOUT ====================
+        function logout() {
+            console.log('Logout function called');
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        }
+
+        // ==================== FUNGSI CEK AUTENTIKASI ====================
+        function checkAuth() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+
+        // ==================== FUNGSI LOGOUT ====================
+        window.logout = logout;
+
         // Lokasi Solo Balapan
         const SOLO_BALAPAN = {
             lat: -7.5592,
@@ -558,50 +578,17 @@
         
         const FACE_MATCH_THRESHOLD = 0.4;
 
-        // ==================== FUNGSI LOGOUT & AUTH ====================
-        function logout() {
-            sessionStorage.clear();
-            window.location.replace('index.html');
-        }
-
-        function checkAuth() {
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-            if (!isLoggedIn) {
-                window.location.replace('index.html');
-                return false;
-            }
-            return true;
-        }
-
-        function preventBackNavigation() {
-            history.pushState(null, null, location.href);
-            window.onpopstate = function() {
-                history.go(1);
-                if (!sessionStorage.getItem('isLoggedIn')) {
-                    window.location.replace('index.html');
-                }
-            };
-        }
-
-        window.addEventListener('pageshow', function(event) {
-            if (event.persisted) {
-                checkAuth();
-            }
-        });
-
-        // ==================== WIB TIME (MANUAL OFFSET +7) ====================
+        // ==================== WIB TIME (FIX) ====================
         function getWIBTime() {
-            const now = new Date();
-            now.setHours(now.getHours() + 7);
-            return now;
+            const wibString = new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
+            return new Date(wibString);
         }
 
         function getTodayWIB() {
-            const now = new Date();
-            now.setHours(now.getHours() + 7);
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
+            const wib = getWIBTime();
+            const year = wib.getFullYear();
+            const month = String(wib.getMonth() + 1).padStart(2, '0');
+            const day = String(wib.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
 
@@ -763,7 +750,6 @@
             const matchedUser = await matchFace(avgDescriptor);
             
             if (matchedUser) {
-                // Cek sudah absen hari ini
                 const today = getTodayWIB();
                 const { data: existingAbsen } = await supabaseClient
                     .from('absensi')
@@ -850,55 +836,29 @@
             const container = document.getElementById('absenList');
             const today = getTodayWIB();
             
-            console.log('Loading absen list for date:', today);
+            const { data: absensi, error } = await supabaseClient
+                .from('absensi')
+                .select('*, siswa:siswa_id(nama, nis)')
+                .gte('tanggal', today)
+                .lte('tanggal', today + ' 23:59:59')
+                .order('tanggal', { ascending: false });
             
-            try {
-                const { data: absensi, error } = await supabaseClient
-                    .from('absensi')
-                    .select(`
-                        *,
-                        siswa:siswa_id (
-                            nama,
-                            nis
-                        )
-                    `)
-                    .gte('tanggal', `${today} 00:00:00`)
-                    .lte('tanggal', `${today} 23:59:59`)
-                    .order('tanggal', { ascending: false });
-                
-                console.log('Absensi data:', absensi);
-                console.log('Error:', error);
-                
-                if (error) {
-                    console.error('Error loading absensi:', error);
-                    container.innerHTML = '<div class="empty-list">❌ Gagal memuat data</div>';
-                    return;
-                }
-                
-                if (!absensi || absensi.length === 0) {
-                    container.innerHTML = '<div class="empty-list">✨ Belum ada yang absen hari ini</div>';
-                    return;
-                }
-                
-                container.innerHTML = absensi.map(a => {
-                    const siswaNama = a.siswa?.nama || 'Unknown';
-                    const siswaNis = a.siswa?.nis || '-';
-                    const waktu = formatWIBTime(a.tanggal);
-                    return `
-                        <div class="absen-item">
-                            <div class="absen-item-info">
-                                <h4>${siswaNama}</h4>
-                                <p>NIS: ${siswaNis}</p>
-                            </div>
-                            <div class="absen-item-time">${waktu}</div>
-                        </div>
-                    `;
-                }).join('');
-                
-            } catch (err) {
-                console.error('Error in loadAbsenList:', err);
-                container.innerHTML = '<div class="empty-list">❌ Error memuat data</div>';
+            if (error || !absensi || absensi.length === 0) {
+                container.innerHTML = '<div class="empty-list">✨ Belum ada yang absen hari ini</div>';
+                return;
             }
+            
+            container.innerHTML = absensi.map(a => `
+                <div class="absen-item">
+                    <div class="absen-item-info">
+                        <h4>${a.siswa?.nama || 'Unknown'}</h4>
+                        <p>NIS: ${a.siswa?.nis || '-'}</p>
+                    </div>
+                    <div class="absen-item-time">
+                        ${formatWIBTime(a.tanggal)}
+                    </div>
+                </div>
+            `).join('');
         }
 
         // ==================== DO ABSEN ====================
@@ -939,26 +899,13 @@
             const keterlambatan = isTerlambat ? `Terlambat ${jamAbsenValue - jamMulai} menit` : 'Tepat waktu';
             const status = isTerlambat ? 'terlambat' : 'hadir';
             
-            // Cek sekali lagi apakah sudah absen hari ini
-            const today = getTodayWIB();
-            const { data: existingAbsen } = await supabaseClient
-                .from('absensi')
-                .select('id')
-                .eq('siswa_id', currentMatchedStudent.id)
-                .gte('tanggal', `${today} 00:00:00`)
-                .lte('tanggal', `${today} 23:59:59`);
-            
-            if (existingAbsen && existingAbsen.length > 0) {
-                alert('Anda sudah melakukan absen hari ini!');
-                document.getElementById('absenModal').style.display = 'none';
-                stopCamera(photoStream, document.getElementById('photoVideo'));
-                resetModal();
-                return;
-            }
-            
-            const utcTime = new Date(now);
-            utcTime.setHours(utcTime.getHours() - 7);
-            const isoString = utcTime.toISOString();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const wibISOString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}+07:00`;
             
             let ip = 'Tidak terdeteksi';
             try {
@@ -970,7 +917,7 @@
             const absenData = {
                 siswa_id: currentMatchedStudent.id,
                 shift: currentSelectedShift,
-                tanggal: isoString,
+                tanggal: wibISOString,
                 status: status,
                 keterlambatan: keterlambatan,
                 foto: capturedPhoto,
@@ -989,7 +936,7 @@
                 document.getElementById('absenModal').style.display = 'none';
                 stopCamera(photoStream, document.getElementById('photoVideo'));
                 resetModal();
-                await loadAbsenList(); // Refresh list
+                loadAbsenList();
             }
         }
 
@@ -1012,19 +959,12 @@
 
         // ==================== EVENT LISTENERS ====================
         document.addEventListener('DOMContentLoaded', async () => {
-            // Cek autentikasi
+            console.log('Page loaded, checking auth...');
+            
+            // CEK AUTENTIKASI - jika belum login, redirect ke index.html
             if (!checkAuth()) return;
             
-            // Cegah back navigation
-            preventBackNavigation();
-            
             await loadAbsenList();
-            
-            // Logout button
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) {
-                logoutBtn.onclick = logout;
-            }
             
             // Absen Card
             document.getElementById('absenCard').onclick = async () => {
