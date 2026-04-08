@@ -100,7 +100,7 @@ async function matchFace(descriptor) {
     
     if (error || !siswa || siswa.length === 0) return null;
     
-    let bestMatch = null;
+      let bestMatch = null;
     let minDistance = FACE_MATCH_THRESHOLD;
     
     for (const s of siswa) {
