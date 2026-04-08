@@ -133,6 +133,7 @@
             background: #FAFCFE;
         }
 
+        /* Style untuk siswa yang sudah absen */
         .siswa-card.absen-done {
             background: #E2E8F0;
             opacity: 0.7;
@@ -458,7 +459,7 @@
                     <span>IT KAI SLO</span>
                 </div>
             </div>
-            <button class="logout-btn" id="logoutBtn">Logout</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </nav>
 
         <main class="main-content">
@@ -546,46 +547,9 @@
         let currentLocation = null;
         let currentIP = null;
 
-        // ==================== FUNGSI LOGOUT & AUTH ====================
-        function logout() {
-            sessionStorage.clear();
-            // Gunakan replace agar tidak bisa back ke halaman sebelumnya
-            window.location.replace('index.html');
-        }
-
-        function checkAuth() {
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-            if (!isLoggedIn) {
-                window.location.replace('index.html');
-                return false;
-            }
-            return true;
-        }
-
-        // Cegah navigasi back setelah logout (pushState)
-        function preventBackNavigation() {
-            history.pushState(null, null, location.href);
-            window.onpopstate = function() {
-                history.go(1);
-                // Cek auth lagi saat back
-                if (!sessionStorage.getItem('isLoggedIn')) {
-                    window.location.replace('index.html');
-                }
-            };
-        }
-
-        // Deteksi tab tertutup - tidak bisa dideteksi secara langsung, 
-        // tapi sessionStorage akan hilang saat browser ditutup
-        // Kita cek saat halaman dimuat ulang (pageshow)
-        window.addEventListener('pageshow', function(event) {
-            // Jika halaman dimuat dari cache (back/forward)
-            if (event.persisted) {
-                checkAuth();
-            }
-        });
-
         // ==================== FUNGSI WAKTU WIB (ASIA/JAKARTA) ====================
         function getWIBTime() {
+            // Membuat waktu dengan timezone Asia/Jakarta (WIB = UTC+7)
             const now = new Date();
             const wibTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
             return wibTime;
@@ -647,6 +611,18 @@
                 return `Terlambat ${menitTerlambat} menit`;
             }
             return 'Tepat waktu';
+        }
+
+        window.logout = function() {
+            sessionStorage.removeItem('isLoggedIn');
+            window.location.href = 'index.html';
+        };
+
+        function checkAuth() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                window.location.href = 'index.html';
+            }
         }
 
         // Cek siswa mana saja yang sudah absen hari ini (pakai WIB)
@@ -730,7 +706,6 @@
         }
 
         window.showShiftModal = function(siswaId) {
-            if (!checkAuth()) return;
             currentSiswa = siswaData.find(s => s.id === siswaId);
             if (!currentSiswa) {
                 alert('Siswa tidak ditemukan!');
@@ -833,11 +808,13 @@
             btnAbsen.disabled = true;
             btnAbsen.innerHTML = 'Memproses...';
             
+            // PAKAI WIB BUKAN UTC!
             const now = getWIBTime();
             const keterlambatan = cekKeterlambatan(currentShift, now);
             const status = keterlambatan === 'Tepat waktu' ? 'hadir' : 'terlambat';
             const today = getTodayWIB();
             
+            // Cek ulang apakah sudah absen hari ini
             const { data: existingAbsensi } = await supabaseClient
                 .from('absensi')
                 .select('*')
@@ -894,19 +871,8 @@
 
         // ==================== EVENT LISTENERS ====================
         document.addEventListener('DOMContentLoaded', () => {
-            // Cek autentikasi
-            if (!checkAuth()) return;
-            
-            // Cegah back navigation
-            preventBackNavigation();
-            
+            checkAuth();
             loadSiswaList();
-            
-            // Logout button
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) {
-                logoutBtn.onclick = logout;
-            }
             
             // Search functionality
             const searchInput = document.getElementById('searchSiswa');
@@ -948,6 +914,7 @@
                 }
             };
             
+            // Tampilkan waktu WIB di console untuk debugging
             console.log('Waktu WIB sekarang:', getWIBTime().toLocaleString());
             console.log('Tanggal WIB hari ini:', getTodayWIB());
         });
