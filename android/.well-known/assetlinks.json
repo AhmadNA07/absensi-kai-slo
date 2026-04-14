@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.ahmadna.absensipkl",
+    "sha256_cert_fingerprints": [
+      "AF:52:B3:1D:08:DD:E9:C2:CC:D8:B4:63:59:C2:CD:F4:29:55:2D:EF:FD:26:D7:79:0B:76:84:58:D4:89:DF:4B"
+    ]
+  }
+}]
