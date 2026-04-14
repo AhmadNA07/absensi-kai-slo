@@ -2,7 +2,7 @@
   "short_name": "Absensi PKL",
   "name": "Absensi PKL IT KAI SLO",
   "description": "Aplikasi absensi untuk siswa PKL di IT KAI SLO",
-  "start_url": "/siswa.html",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "theme_color": "#1E3A5F",
