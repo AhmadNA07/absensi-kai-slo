@@ -3,8 +3,8 @@
 # min_api: 21
 # common_typos_disable
 # {"id":"com.android.tools.r8.mapping","version":"2.2"}
-# pg_map_id: c2f6636
-# pg_map_hash: SHA-256 c2f66367c70c0d7e1c2d5e6652ee1634586a58acc71272a8b751d4a5d56afc38
+# pg_map_id: ed8b6af
+# pg_map_hash: SHA-256 ed8b6af8b43d6a2efd61e41d2c760b1b9d1f0a23cd0545dfa38145912c548c58
 android.support.customtabs.ICustomTabsCallback -> a.a:
 # {"id":"sourceFile","fileName":"ICustomTabsCallback.java"}
     java.lang.String DESCRIPTOR -> a
@@ -86,6 +86,8 @@ android.support.customtabs.ICustomTabsService -> a.b:
       # {"id":"com.android.tools.r8.residualsignature","signature":"(La/a;)Z"}
     boolean newSessionWithExtras(android.support.customtabs.ICustomTabsCallback,android.os.Bundle) -> M
       # {"id":"com.android.tools.r8.residualsignature","signature":"(La/a;Landroid/os/Bundle;)Z"}
+    boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle) -> R
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(La/a;ILandroid/net/Uri;Landroid/os/Bundle;)Z"}
     boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle) -> g
       # {"id":"com.android.tools.r8.residualsignature","signature":"(La/a;Landroid/net/Uri;ILandroid/os/Bundle;)Z"}
     boolean mayLaunchUrl(android.support.customtabs.ICustomTabsCallback,android.net.Uri,android.os.Bundle,java.util.List) -> n
@@ -130,6 +132,22 @@ android.support.customtabs.ICustomTabsService$Stub$Proxy -> a.b$a$a:
     46:48:boolean newSessionWithExtras(android.support.customtabs.ICustomTabsCallback,android.os.Bundle):384:384 -> M
     49:51:boolean newSessionWithExtras(android.support.customtabs.ICustomTabsCallback,android.os.Bundle):385:385 -> M
     52:52:boolean newSessionWithExtras(android.support.customtabs.ICustomTabsCallback,android.os.Bundle):386:386 -> M
+    1:4:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):543:543 -> R
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(La/a;ILandroid/net/Uri;Landroid/os/Bundle;)Z"}
+    5:8:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):544:544 -> R
+    9:13:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):547:547 -> R
+    14:16:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):548:548 -> R
+    17:20:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):549:549 -> R
+    21:23:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):550:550 -> R
+    24:26:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):551:551 -> R
+    27:33:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):552:552 -> R
+    34:36:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):553:553 -> R
+    37:43:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):554:554 -> R
+    44:46:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):557:557 -> R
+    47:51:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):558:558 -> R
+    52:54:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):557:557 -> R
+    55:57:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):558:558 -> R
+    58:58:boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle):559:559 -> R
     1:3:android.os.IBinder asBinder():328:328 -> asBinder
     1:4:boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle):564:564 -> g
       # {"id":"com.android.tools.r8.residualsignature","signature":"(La/a;Landroid/net/Uri;ILandroid/os/Bundle;)Z"}
@@ -9847,7 +9865,7 @@ androidx.browser.customtabs.CustomTabsCallback -> m.b:
 # {"id":"sourceFile","fileName":"CustomTabsCallback.java"}
     1:4:void <init>():39:39 -> <init>
     1:1:void extraCallback(java.lang.String,android.os.Bundle):110:110 -> a
-    android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle) -> b
+    1:2:android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle):138:138 -> b
     1:1:void onActivityLayout(int,int,int,int,int,android.os.Bundle):245:245 -> c
     1:1:void onActivityResized(int,int,android.os.Bundle):184:184 -> d
     1:1:void onMessageChannelReady(android.os.Bundle):149:149 -> e
@@ -9868,24 +9886,31 @@ androidx.browser.customtabs.CustomTabsClient -> m.c:
     4:5:void <init>(android.support.customtabs.ICustomTabsService,android.content.ComponentName,android.content.Context):65:65 -> <init>
     6:7:void <init>(android.support.customtabs.ICustomTabsService,android.content.ComponentName,android.content.Context):66:66 -> <init>
     8:10:void <init>(android.support.customtabs.ICustomTabsService,android.content.ComponentName,android.content.Context):67:67 -> <init>
-    1:7:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):108:108 -> a
+    1:7:boolean bindCustomTabsService(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):84:84 -> a
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/Context;Ljava/lang/String;Lm/e;)Z"}
-    8:14:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):109:109 -> a
-    15:24:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):110:110 -> a
-    25:29:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):111:111 -> a
-    1:6:android.support.customtabs.ICustomTabsCallback$Stub createCallbackWrapper(androidx.browser.customtabs.CustomTabsCallback):502:502 -> b
+    8:14:boolean bindCustomTabsService(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):85:85 -> a
+    15:25:boolean bindCustomTabsService(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):86:86 -> a
+    26:30:boolean bindCustomTabsService(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):87:87 -> a
+    1:7:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):108:108 -> b
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/Context;Ljava/lang/String;Lm/e;)Z"}
+    8:14:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):109:109 -> b
+    15:24:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):110:110 -> b
+    25:29:boolean bindCustomTabsServicePreservePriority(android.content.Context,java.lang.String,androidx.browser.customtabs.CustomTabsServiceConnection):111:111 -> b
+    1:6:android.support.customtabs.ICustomTabsCallback$Stub createCallbackWrapper(androidx.browser.customtabs.CustomTabsCallback):502:502 -> c
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lm/b;)La/a$a;"}
-    1:12:android.app.PendingIntent createSessionId(android.content.Context,int):239:239 -> c
-    1:11:androidx.browser.customtabs.CustomTabsSession newSession(androidx.browser.customtabs.CustomTabsCallback,int):278:278 -> d
+    1:12:android.app.PendingIntent createSessionId(android.content.Context,int):239:239 -> d
+    2:6:androidx.browser.customtabs.CustomTabsSession newSession(androidx.browser.customtabs.CustomTabsCallback):255:255 -> e
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lm/b;)Lm/f;"}
+    1:11:androidx.browser.customtabs.CustomTabsSession newSession(androidx.browser.customtabs.CustomTabsCallback,int):278:278 -> f
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lm/b;I)Lm/f;"}
-    1:7:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):467:467 -> e
+    1:7:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):467:467 -> g
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lm/b;Landroid/app/PendingIntent;)Lm/f;"}
-    8:12:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):473:473 -> e
-    13:17:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):474:474 -> e
-    18:24:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):475:475 -> e
-    25:33:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):477:477 -> e
-    34:43:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):484:484 -> e
-    1:9:boolean warmup(long):230:230 -> f
+    8:12:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):473:473 -> g
+    13:17:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):474:474 -> g
+    18:24:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):475:475 -> g
+    25:33:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):477:477 -> g
+    34:43:androidx.browser.customtabs.CustomTabsSession newSessionInternal(androidx.browser.customtabs.CustomTabsCallback,android.app.PendingIntent):484:484 -> g
+    1:9:boolean warmup(long):230:230 -> h
 androidx.browser.customtabs.CustomTabsClient$3 -> m.c$a:
 # {"id":"sourceFile","fileName":"CustomTabsClient.java"}
     android.os.Handler mHandler -> e
@@ -10164,6 +10189,8 @@ androidx.browser.customtabs.CustomTabsSession -> m.f:
     5:15:boolean mayLaunchUrl(android.net.Uri,android.os.Bundle,java.util.List):114:114 -> f
     1:4:boolean receiveFile(android.net.Uri,int,android.os.Bundle):371:371 -> g
     5:15:boolean receiveFile(android.net.Uri,int,android.os.Bundle):373:373 -> g
+    9:12:boolean validateRelationship(int,android.net.Uri,android.os.Bundle):345:345 -> h
+    13:22:boolean validateRelationship(int,android.net.Uri,android.os.Bundle):347:347 -> h
 androidx.browser.customtabs.TrustedWebUtils -> m.g:
 # {"id":"sourceFile","fileName":"TrustedWebUtils.java"}
     1:7:boolean areSplashScreensSupported(android.content.Context,java.lang.String,java.lang.String):123:123 -> a
@@ -29323,9 +29350,9 @@ com.google.android.gms.common.api.internal.IStatusCallback -> Q.d:
 com.google.android.gms.common.api.internal.IStatusCallback$Stub -> Q.d$a:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     1:6:void <init>():1:1 -> <init>
-    4:11:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):1:1 -> U
-    12:14:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):2:2 -> U
-    15:20:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):3:3 -> U
+    4:11:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):1:1 -> V
+    12:14:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):2:2 -> V
+    15:20:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):3:3 -> V
 com.google.android.gms.common.api.internal.LifecycleActivity -> Q.e:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
     java.lang.Object zza -> a
@@ -30185,34 +30212,34 @@ com.google.android.gms.common.api.internal.zact -> Q.A:
     12:28:void <init>(android.content.Context,android.os.Handler,com.google.android.gms.common.internal.ClientSettings):2:2 -> <init>
     1:11:void zab(com.google.android.gms.signin.internal.zak):1:1 -> C
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lf0/l;)V"}
-    1:3:com.google.android.gms.common.api.internal.zacs zac(com.google.android.gms.common.api.internal.zact):0:0 -> V
+    1:3:com.google.android.gms.common.api.internal.zacs zac(com.google.android.gms.common.api.internal.zact):0:0 -> W
       # {"id":"com.android.tools.r8.residualsignature","signature":"(LQ/A;)LQ/z;"}
-    1:4:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):1:1 -> W
+    1:4:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):1:1 -> X
       # {"id":"com.android.tools.r8.residualsignature","signature":"(LQ/A;Lf0/l;)V"}
-    5:10:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):2:2 -> W
-    11:20:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):3:3 -> W
-    21:24:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):4:4 -> W
-    25:30:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):5:5 -> W
-    31:52:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):6:6 -> W
-    53:57:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):7:7 -> W
-    58:63:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):8:8 -> W
-    64:73:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):9:9 -> W
-    74:75:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):11:11 -> W
-    76:78:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):10:10 -> W
-    79:80:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):9:9 -> W
-    81:84:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):11:11 -> W
-    1:9:void zae(com.google.android.gms.common.api.internal.zacs):1:1 -> X
+    5:10:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):2:2 -> X
+    11:20:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):3:3 -> X
+    21:24:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):4:4 -> X
+    25:30:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):5:5 -> X
+    31:52:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):6:6 -> X
+    53:57:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):7:7 -> X
+    58:63:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):8:8 -> X
+    64:73:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):9:9 -> X
+    74:75:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):11:11 -> X
+    76:78:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):10:10 -> X
+    79:80:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):9:9 -> X
+    81:84:void zad(com.google.android.gms.common.api.internal.zact,com.google.android.gms.signin.internal.zak):11:11 -> X
+    1:9:void zae(com.google.android.gms.common.api.internal.zacs):1:1 -> Y
       # {"id":"com.android.tools.r8.residualsignature","signature":"(LQ/z;)V"}
-    10:26:void zae(com.google.android.gms.common.api.internal.zacs):2:2 -> X
-    27:32:void zae(com.google.android.gms.common.api.internal.zacs):3:3 -> X
-    33:38:void zae(com.google.android.gms.common.api.internal.zacs):4:4 -> X
-    39:50:void zae(com.google.android.gms.common.api.internal.zacs):5:5 -> X
-    51:57:void zae(com.google.android.gms.common.api.internal.zacs):6:6 -> X
-    58:59:void zae(com.google.android.gms.common.api.internal.zacs):7:7 -> X
-    60:63:void zae(com.google.android.gms.common.api.internal.zacs):8:8 -> X
-    64:70:void zae(com.google.android.gms.common.api.internal.zacs):6:6 -> X
-    71:74:void zae(com.google.android.gms.common.api.internal.zacs):7:7 -> X
-    1:8:void zaf():1:1 -> Y
+    10:26:void zae(com.google.android.gms.common.api.internal.zacs):2:2 -> Y
+    27:32:void zae(com.google.android.gms.common.api.internal.zacs):3:3 -> Y
+    33:38:void zae(com.google.android.gms.common.api.internal.zacs):4:4 -> Y
+    39:50:void zae(com.google.android.gms.common.api.internal.zacs):5:5 -> Y
+    51:57:void zae(com.google.android.gms.common.api.internal.zacs):6:6 -> Y
+    58:59:void zae(com.google.android.gms.common.api.internal.zacs):7:7 -> Y
+    60:63:void zae(com.google.android.gms.common.api.internal.zacs):8:8 -> Y
+    64:70:void zae(com.google.android.gms.common.api.internal.zacs):6:6 -> Y
+    71:74:void zae(com.google.android.gms.common.api.internal.zacs):7:7 -> Y
+    1:8:void zaf():1:1 -> Z
     1:6:void onConnectionSuspended(int):1:1 -> a
     1:6:void onConnectionFailed(com.google.android.gms.common.ConnectionResult):1:1 -> b
       # {"id":"com.android.tools.r8.residualsignature","signature":"(LO/a;)V"}
@@ -31042,7 +31069,7 @@ com.google.android.gms.common.internal.IGmsCallbacks -> R.k:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
     void zzc(int,android.os.IBinder,com.google.android.gms.common.internal.zzj) -> K
       # {"id":"com.android.tools.r8.residualsignature","signature":"(ILandroid/os/IBinder;LR/Y;)V"}
-    void onPostInitComplete(int,android.os.IBinder,android.os.Bundle) -> S
+    void onPostInitComplete(int,android.os.IBinder,android.os.Bundle) -> T
     void zzb(int,android.os.Bundle) -> v
 com.google.android.gms.common.internal.IGmsServiceBroker -> R.l:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
@@ -31339,10 +31366,10 @@ com.google.android.gms.common.internal.safeparcel.SafeParcelWriter -> S.c:
 com.google.android.gms.common.internal.service.zai -> T.a:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     1:6:void <init>(android.os.IBinder):1:1 -> <init>
-    1:4:void zae(com.google.android.gms.common.internal.TelemetryData):1:1 -> U
+    1:4:void zae(com.google.android.gms.common.internal.TelemetryData):1:1 -> V
       # {"id":"com.android.tools.r8.residualsignature","signature":"(LR/r;)V"}
-    5:8:void zae(com.google.android.gms.common.internal.TelemetryData):2:2 -> U
-    9:12:void zae(com.google.android.gms.common.internal.TelemetryData):3:3 -> U
+    5:8:void zae(com.google.android.gms.common.internal.TelemetryData):2:2 -> V
+    9:12:void zae(com.google.android.gms.common.internal.TelemetryData):3:3 -> V
 com.google.android.gms.common.internal.service.zam -> T.b:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     com.google.android.gms.common.internal.TelemetryData zaa -> a
@@ -31838,8 +31865,8 @@ com.google.android.gms.common.internal.zzd -> R.U:
     8:10:void zzc(int,android.os.IBinder,com.google.android.gms.common.internal.zzj):2:2 -> K
     11:15:void zzc(int,android.os.IBinder,com.google.android.gms.common.internal.zzj):3:3 -> K
     16:19:void zzc(int,android.os.IBinder,com.google.android.gms.common.internal.zzj):4:4 -> K
-    1:11:void onPostInitComplete(int,android.os.IBinder,android.os.Bundle):1:1 -> S
-    12:18:void onPostInitComplete(int,android.os.IBinder,android.os.Bundle):2:2 -> S
+    1:11:void onPostInitComplete(int,android.os.IBinder,android.os.Bundle):1:1 -> T
+    12:18:void onPostInitComplete(int,android.os.IBinder,android.os.Bundle):2:2 -> T
     1:13:void zzb(int,android.os.Bundle):1:1 -> v
 com.google.android.gms.common.internal.zze -> R.V:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
@@ -32425,19 +32452,19 @@ com.google.android.gms.common.zzc -> O.n:
 com.google.android.gms.common.zzf -> O.o:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
     1:4:void <init>(byte[]):1:1 -> <init>
-    1:7:byte[] zzb():1:1 -> U
+    1:7:byte[] zzb():1:1 -> V
 com.google.android.gms.common.zzg -> O.p:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
     1:4:void <init>(byte[]):1:1 -> <init>
-    1:7:byte[] zzb():1:1 -> U
+    1:7:byte[] zzb():1:1 -> V
 com.google.android.gms.common.zzh -> O.q:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
     1:4:void <init>(byte[]):1:1 -> <init>
-    1:7:byte[] zzb():1:1 -> U
+    1:7:byte[] zzb():1:1 -> V
 com.google.android.gms.common.zzi -> O.r:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
     1:4:void <init>(byte[]):1:1 -> <init>
-    1:7:byte[] zzb():1:1 -> U
+    1:7:byte[] zzb():1:1 -> V
 com.google.android.gms.common.zzj -> O.s:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-basement@@18.1.0"}
     int zza -> e
@@ -32469,7 +32496,7 @@ com.google.android.gms.common.zzl -> O.u:
     java.lang.ref.WeakReference zza -> g
     1:9:void <clinit>():1:1 -> <clinit>
     1:8:void <init>(byte[]):1:1 -> <init>
-    byte[] zzb() -> U
+    byte[] zzb() -> V
     1:11:byte[] zzf():1:1 -> d
     12:17:byte[] zzf():2:2 -> d
     18:25:byte[] zzf():3:3 -> d
@@ -32553,7 +32580,7 @@ com.google.android.gms.internal.base.zab -> Z.b:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     1:3:void <init>(java.lang.String):1:1 -> <init>
     4:7:void <init>(java.lang.String):2:2 -> <init>
-    boolean zaa(int,android.os.Parcel,android.os.Parcel,int) -> U
+    boolean zaa(int,android.os.Parcel,android.os.Parcel,int) -> V
     1:1:android.os.IBinder asBinder():0:0 -> asBinder
     6:13:boolean onTransact(int,android.os.Parcel,android.os.Parcel,int):1:1 -> onTransact
     14:20:boolean onTransact(int,android.os.Parcel,android.os.Parcel,int):2:2 -> onTransact
@@ -32829,7 +32856,7 @@ com.google.android.gms.internal.location.zzcn -> b0.r:
       # {"id":"com.android.tools.r8.residualsignature","signature":"Lg0/f;"}
     1:8:void <init>(java.lang.Object,com.google.android.gms.tasks.TaskCompletionSource):1:1 -> <init>
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Ljava/lang/Object;Lg0/f;)V"}
-    1:1:void zze():0:0 -> R
+    1:1:void zze():0:0 -> S
     1:12:void zzd(com.google.android.gms.internal.location.zzg):1:1 -> y
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lb0/V;)V"}
 com.google.android.gms.internal.location.zzcp -> b0.s:
@@ -32840,7 +32867,7 @@ com.google.android.gms.internal.location.zzcp -> b0.s:
       # {"id":"com.android.tools.r8.residualsignature","signature":"Ld0/p;"}
     1:8:void <init>(com.google.android.gms.tasks.TaskCompletionSource,com.google.android.gms.location.zzr):1:1 -> <init>
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lg0/f;Ld0/p;)V"}
-    1:6:void zze():1:1 -> R
+    1:6:void zze():1:1 -> S
     1:10:void zzd(com.google.android.gms.internal.location.zzg):1:1 -> y
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lb0/V;)V"}
 com.google.android.gms.internal.location.zzcs -> b0.t:
@@ -32883,11 +32910,11 @@ com.google.android.gms.internal.location.zzcw -> b0.x:
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lb0/t;)V"}
     1:11:void zzf():1:1 -> I
     12:15:void zzf():2:2 -> I
-    1:11:void zze(com.google.android.gms.location.LocationResult):1:1 -> T
-    12:15:void zze(com.google.android.gms.location.LocationResult):2:2 -> T
-    1:6:com.google.android.gms.internal.location.zzcw zzg(com.google.android.gms.common.api.internal.ListenerHolder):1:1 -> U
+    1:11:void zze(com.google.android.gms.location.LocationResult):1:1 -> U
+    12:15:void zze(com.google.android.gms.location.LocationResult):2:2 -> U
+    1:6:com.google.android.gms.internal.location.zzcw zzg(com.google.android.gms.common.api.internal.ListenerHolder):1:1 -> V
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/android/gms/common/api/internal/c;)Lb0/x;"}
-    1:10:void zzh():1:1 -> V
+    1:10:void zzh():1:1 -> W
     1:3:com.google.android.gms.internal.location.zzcs zzc(com.google.android.gms.internal.location.zzcw):0:0 -> d
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lb0/x;)Lb0/t;"}
     1:11:void zzd(com.google.android.gms.location.LocationAvailability):1:1 -> u
@@ -33441,7 +33468,7 @@ com.google.android.gms.internal.location.zzj -> b0.Y:
     24:27:boolean zza(int,android.os.Parcel,android.os.Parcel,int):4:4 -> a
 com.google.android.gms.internal.location.zzk -> b0.Z:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-location@@21.0.1"}
-    void zze() -> R
+    void zze() -> S
     void zzd(com.google.android.gms.internal.location.zzg) -> y
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lb0/V;)V"}
 com.google.android.gms.internal.location.zzn -> b0.a0:
@@ -33888,7 +33915,7 @@ com.google.android.gms.location.zzq -> d0.o:
 com.google.android.gms.location.zzr -> d0.p:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-location@@21.0.1"}
     void zzf() -> I
-    void zze(com.google.android.gms.location.LocationResult) -> T
+    void zze(com.google.android.gms.location.LocationResult) -> U
     void zzd(com.google.android.gms.location.LocationAvailability) -> u
 com.google.android.gms.location.zzs -> d0.q:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-location@@21.0.1"}
@@ -34086,22 +34113,22 @@ com.google.android.gms.signin.internal.zac -> f0.d:
 com.google.android.gms.signin.internal.zad -> f0.e:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     1:6:void <init>():1:1 -> <init>
-    6:13:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):1:1 -> U
-    14:17:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):2:2 -> U
-    18:25:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):3:3 -> U
-    26:28:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):4:4 -> U
-    29:32:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):5:5 -> U
-    33:40:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):6:6 -> U
-    41:48:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):7:7 -> U
-    49:52:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):8:8 -> U
-    53:60:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):9:9 -> U
-    61:64:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):10:10 -> U
-    65:72:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):11:11 -> U
-    73:76:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):12:12 -> U
-    77:84:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):13:13 -> U
-    85:92:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):14:14 -> U
-    93:95:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):15:15 -> U
-    96:100:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):16:16 -> U
+    6:13:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):1:1 -> V
+    14:17:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):2:2 -> V
+    18:25:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):3:3 -> V
+    26:28:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):4:4 -> V
+    29:32:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):5:5 -> V
+    33:40:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):6:6 -> V
+    41:48:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):7:7 -> V
+    49:52:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):8:8 -> V
+    53:60:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):9:9 -> V
+    61:64:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):10:10 -> V
+    65:72:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):11:11 -> V
+    73:76:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):12:12 -> V
+    77:84:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):13:13 -> V
+    85:92:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):14:14 -> V
+    93:95:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):15:15 -> V
+    96:100:boolean zaa(int,android.os.Parcel,android.os.Parcel,int):16:16 -> V
 com.google.android.gms.signin.internal.zae -> f0.f:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     void zab(com.google.android.gms.signin.internal.zak) -> C
@@ -34109,11 +34136,11 @@ com.google.android.gms.signin.internal.zae -> f0.f:
 com.google.android.gms.signin.internal.zaf -> f0.g:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     1:6:void <init>(android.os.IBinder):1:1 -> <init>
-    1:4:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):1:1 -> U
+    1:4:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):1:1 -> V
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Lf0/j;Lf0/f;)V"}
-    5:7:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):2:2 -> U
-    8:12:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):3:3 -> U
-    13:16:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):4:4 -> U
+    5:7:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):2:2 -> V
+    8:12:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):3:3 -> V
+    13:16:void zag(com.google.android.gms.signin.internal.zai,com.google.android.gms.signin.internal.zae):4:4 -> V
 com.google.android.gms.signin.internal.zag -> f0.h:
 # {"id":"sourceFile","fileName":"com.google.android.gms:play-services-base@@18.1.0"}
     java.util.List zaa -> a
@@ -34456,6 +34483,9 @@ com.google.android.gms.tasks.zzw -> g0.p:
     19:20:void zzi():2:2 -> r
 com.google.androidbrowserhelper.R$drawable -> h0.a:
     int ic_site_settings -> a
+com.google.androidbrowserhelper.R$string -> h0.b:
+    int manage_space_no_data_toast -> a
+    int manage_space_not_supported_toast -> b
 com.google.androidbrowserhelper.locationdelegation.LocationDelegationExtraCommandHandler -> i0.b:
 # {"id":"sourceFile","fileName":"LocationDelegationExtraCommandHandler.java"}
     com.google.androidbrowserhelper.locationdelegation.LocationProvider mLocationProvider -> a
@@ -34728,12 +34758,14 @@ com.google.androidbrowserhelper.trusted.ChromeLegacyUtils -> j0.b:
     18:25:int getVersionCode(android.content.pm.PackageManager,java.lang.String):163:163 -> b
     1:13:boolean supportsLaunchWithoutWarmup(android.content.pm.PackageManager,java.lang.String):125:125 -> c
     14:18:boolean supportsLaunchWithoutWarmup(android.content.pm.PackageManager,java.lang.String):127:127 -> c
-    1:13:boolean supportsNavbarAndColorCustomization(android.content.pm.PackageManager,java.lang.String):95:95 -> d
-    14:18:boolean supportsNavbarAndColorCustomization(android.content.pm.PackageManager,java.lang.String):97:97 -> d
-    1:5:boolean supportsSiteSettings(android.content.pm.PackageManager,java.lang.String):115:115 -> e
-    1:13:boolean supportsTrustedWebActivities(android.content.pm.PackageManager,java.lang.String):105:105 -> f
-    14:18:boolean supportsTrustedWebActivities(android.content.pm.PackageManager,java.lang.String):107:107 -> f
-    1:7:boolean usesWhiteNavbar(java.lang.String):86:86 -> g
+    1:13:boolean supportsManageSpaceWithoutWarmupAndValidation(android.content.pm.PackageManager,java.lang.String):138:138 -> d
+    14:18:boolean supportsManageSpaceWithoutWarmupAndValidation(android.content.pm.PackageManager,java.lang.String):140:140 -> d
+    1:13:boolean supportsNavbarAndColorCustomization(android.content.pm.PackageManager,java.lang.String):95:95 -> e
+    14:18:boolean supportsNavbarAndColorCustomization(android.content.pm.PackageManager,java.lang.String):97:97 -> e
+    1:5:boolean supportsSiteSettings(android.content.pm.PackageManager,java.lang.String):115:115 -> f
+    1:13:boolean supportsTrustedWebActivities(android.content.pm.PackageManager,java.lang.String):105:105 -> g
+    14:18:boolean supportsTrustedWebActivities(android.content.pm.PackageManager,java.lang.String):107:107 -> g
+    1:7:boolean usesWhiteNavbar(java.lang.String):86:86 -> h
 com.google.androidbrowserhelper.trusted.ChromeLegacyUtils$$ExternalSyntheticApiModelOutline0 -> j0.a:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
@@ -34756,7 +34788,7 @@ com.google.androidbrowserhelper.trusted.DelegationService -> j0.e:
 # {"id":"sourceFile","fileName":"DelegationService.java"}
     java.util.List mExtraCommandHandlers -> d
     com.google.androidbrowserhelper.trusted.SharedPreferencesTokenStore mTokenStore -> e
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/E;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/D;"}
     1:3:void <init>():40:40 -> <init>
     4:10:void <init>():37:37 -> <init>
     11:19:void <init>():41:41 -> <init>
@@ -34801,7 +34833,7 @@ com.google.androidbrowserhelper.trusted.LauncherActivity -> j0.h:
     com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStrategy mSplashScreenStrategy -> c
       # {"id":"com.android.tools.r8.residualsignature","signature":"Lk0/c;"}
     com.google.androidbrowserhelper.trusted.TwaLauncher mTwaLauncher -> d
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K;"}
     long mStartupUptimeMillis -> e
     boolean sChromeVersionChecked -> f
     int sLauncherActivitiesAlive -> g
@@ -34826,14 +34858,14 @@ com.google.androidbrowserhelper.trusted.LauncherActivity -> j0.h:
     30:34:void addShareDataIfPresent(androidx.browser.trusted.TrustedWebActivityIntentBuilder):297:297 -> c
     35:59:void addShareDataIfPresent(androidx.browser.trusted.TrustedWebActivityIntentBuilder):299:299 -> c
     1:24:com.google.androidbrowserhelper.trusted.TwaLauncher createTwaLauncher():271:271 -> d
-      # {"id":"com.android.tools.r8.residualsignature","signature":"()Lj0/L;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"()Lj0/K;"}
     1:5:int getColorCompat(int):349:349 -> e
     1:6:androidx.browser.customtabs.CustomTabsCallback getCustomTabsCallback():267:267 -> f
       # {"id":"com.android.tools.r8.residualsignature","signature":"()Lm/b;"}
     1:5:androidx.browser.trusted.TrustedWebActivityDisplayMode getDisplayMode():476:476 -> g
       # {"id":"com.android.tools.r8.residualsignature","signature":"()Ln/q;"}
     1:12:com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy getFallbackStrategy():461:461 -> h
-      # {"id":"com.android.tools.r8.residualsignature","signature":"()Lj0/L$a;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"()Lj0/K$a;"}
     13:15:com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy getFallbackStrategy():462:462 -> h
     16:18:com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy getFallbackStrategy():464:464 -> h
     1:8:android.net.Uri getLaunchingUrl():414:414 -> i
@@ -35038,37 +35070,101 @@ com.google.androidbrowserhelper.trusted.LauncherActivityMetadata -> j0.i:
     54:61:com.google.androidbrowserhelper.trusted.LauncherActivityMetadata parse(android.content.Context):313:313 -> d
     62:64:com.google.androidbrowserhelper.trusted.LauncherActivityMetadata parse(android.content.Context):316:316 -> d
     65:70:com.google.androidbrowserhelper.trusted.LauncherActivityMetadata parse(android.content.Context):323:323 -> d
-com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity -> j0.v:
+com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity -> com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity:
 # {"id":"sourceFile","fileName":"ManageDataLauncherActivity.java"}
-    1:7:void addSiteSettingsShortcut(android.content.Context,java.lang.String):377:377 -> a
-    8:11:void addSiteSettingsShortcut(android.content.Context,java.lang.String):379:379 -> a
-    12:23:void addSiteSettingsShortcut(android.content.Context,java.lang.String):380:380 -> a
-    24:31:void addSiteSettingsShortcut(android.content.Context,java.lang.String):383:383 -> a
-    32:39:void addSiteSettingsShortcut(android.content.Context,java.lang.String):384:384 -> a
-    40:45:void addSiteSettingsShortcut(android.content.Context,java.lang.String):389:389 -> a
-    46:53:void addSiteSettingsShortcut(android.content.Context,java.lang.String):394:394 -> a
-    54:61:void addSiteSettingsShortcut(android.content.Context,java.lang.String):398:398 -> a
-    1:8:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):347:347 -> b
-    9:15:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):349:349 -> b
-    16:22:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):350:350 -> b
-    23:26:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):351:351 -> b
-    27:33:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):354:354 -> b
-    34:39:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):356:356 -> b
-    40:43:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):357:357 -> b
-    44:49:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):356:356 -> b
-    50:57:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):358:358 -> b
-    58:63:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):359:359 -> b
-    64:70:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):360:360 -> b
-    71:72:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):362:362 -> b
-    73:80:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):361:361 -> b
-    81:84:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):363:363 -> b
-    85:89:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):364:364 -> b
-    5:12:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):319:319 -> c
-    13:19:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):323:323 -> c
-    20:24:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):324:324 -> c
-    25:29:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):325:325 -> c
-    30:33:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):326:326 -> c
-    34:41:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):328:328 -> c
+    java.lang.String mProviderPackage -> a
+    androidx.browser.customtabs.CustomTabsServiceConnection mConnection -> b
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lm/e;"}
+    1:4:void <init>():73:73 -> <init>
+    1:4:void access$200(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity,androidx.browser.customtabs.CustomTabsSession):73:73 -> a
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity;Lm/f;)V"}
+    1:7:void addSiteSettingsShortcut(android.content.Context,java.lang.String):377:377 -> b
+    8:11:void addSiteSettingsShortcut(android.content.Context,java.lang.String):379:379 -> b
+    12:23:void addSiteSettingsShortcut(android.content.Context,java.lang.String):380:380 -> b
+    24:31:void addSiteSettingsShortcut(android.content.Context,java.lang.String):383:383 -> b
+    32:39:void addSiteSettingsShortcut(android.content.Context,java.lang.String):384:384 -> b
+    40:45:void addSiteSettingsShortcut(android.content.Context,java.lang.String):389:389 -> b
+    46:53:void addSiteSettingsShortcut(android.content.Context,java.lang.String):394:394 -> b
+    54:61:void addSiteSettingsShortcut(android.content.Context,java.lang.String):398:398 -> b
+    1:5:android.view.View createLoadingView():153:153 -> c
+    6:13:android.view.View createLoadingView():154:154 -> c
+    14:15:android.view.View createLoadingView():155:155 -> c
+    16:18:android.view.View createLoadingView():156:156 -> c
+    19:23:android.view.View createLoadingView():157:157 -> c
+    24:27:android.view.View createLoadingView():158:158 -> c
+    1:6:android.net.Uri getDefaultUrlForManagingSpace():132:132 -> d
+    7:16:android.net.Uri getDefaultUrlForManagingSpace():133:133 -> d
+    17:20:android.net.Uri getDefaultUrlForManagingSpace():135:135 -> d
+    21:26:android.net.Uri getDefaultUrlForManagingSpace():136:136 -> d
+    27:36:android.net.Uri getDefaultUrlForManagingSpace():137:137 -> d
+    37:65:android.net.Uri getDefaultUrlForManagingSpace():138:138 -> d
+    66:75:android.net.Uri getDefaultUrlForManagingSpace():143:143 -> d
+    1:8:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):347:347 -> e
+    9:15:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):349:349 -> e
+    16:22:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):350:350 -> e
+    23:26:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):351:351 -> e
+    27:33:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):354:354 -> e
+    34:39:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):356:356 -> e
+    40:43:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):357:357 -> e
+    44:49:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):356:356 -> e
+    50:57:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):358:358 -> e
+    58:63:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):359:359 -> e
+    64:70:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):360:360 -> e
+    71:72:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):362:362 -> e
+    73:80:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):361:361 -> e
+    81:84:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):363:363 -> e
+    85:89:android.content.pm.ShortcutInfo getSiteSettingsShortcutOrNull(android.content.Context,android.content.pm.PackageManager):364:364 -> e
+    3:12:void handleNoSupportForManageSpace():187:187 -> f
+    13:25:void handleNoSupportForManageSpace():188:188 -> f
+    26:27:void handleNoSupportForManageSpace():190:190 -> f
+    28:41:void handleNoSupportForManageSpace():193:193 -> f
+    42:44:void handleNoSupportForManageSpace():194:194 -> f
+    45:48:void handleNoSupportForManageSpace():195:195 -> f
+    1:11:void handleTwaNeverLaunched():175:175 -> g
+    12:14:void handleTwaNeverLaunched():176:176 -> g
+    15:18:void handleTwaNeverLaunched():177:177 -> g
+    1:15:boolean launchBrowserSiteSettings(android.app.Activity,androidx.browser.customtabs.CustomTabsSession,java.lang.String,android.net.Uri):221:221 -> h
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/app/Activity;Lm/f;Ljava/lang/String;Landroid/net/Uri;)Z"}
+    16:20:boolean launchBrowserSiteSettings(android.app.Activity,androidx.browser.customtabs.CustomTabsSession,java.lang.String,android.net.Uri):222:222 -> h
+    21:23:boolean launchBrowserSiteSettings(android.app.Activity,androidx.browser.customtabs.CustomTabsSession,java.lang.String,android.net.Uri):223:223 -> h
+    24:26:boolean launchBrowserSiteSettings(android.app.Activity,androidx.browser.customtabs.CustomTabsSession,java.lang.String,android.net.Uri):224:224 -> h
+    27:33:boolean launchBrowserSiteSettings(android.app.Activity,androidx.browser.customtabs.CustomTabsSession,java.lang.String,android.net.Uri):226:226 -> h
+    1:2:void launchSettings(androidx.browser.customtabs.CustomTabsSession):208:208 -> i
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lm/f;)V"}
+    3:6:void launchSettings(androidx.browser.customtabs.CustomTabsSession):209:209 -> i
+    7:12:void launchSettings(androidx.browser.customtabs.CustomTabsSession):208:208 -> i
+    13:16:void launchSettings(androidx.browser.customtabs.CustomTabsSession):211:211 -> i
+    17:20:void launchSettings(androidx.browser.customtabs.CustomTabsSession):213:213 -> i
+    1:1:void onError(java.lang.RuntimeException):166:166 -> j
+    5:12:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):319:319 -> k
+    13:19:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):323:323 -> k
+    20:24:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):324:324 -> k
+    25:29:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):325:325 -> k
+    30:33:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):326:326 -> k
+    34:41:boolean packageSupportsSiteSettings(java.lang.String,android.content.pm.PackageManager):328:328 -> k
+    1:12:boolean supportsTrustedWebActivities(java.lang.String):235:235 -> l
+    13:19:boolean supportsTrustedWebActivities(java.lang.String):238:238 -> l
+    20:23:boolean supportsTrustedWebActivities(java.lang.String):239:239 -> l
+    24:33:boolean supportsTrustedWebActivities(java.lang.String):240:240 -> l
+    34:41:boolean supportsTrustedWebActivities(java.lang.String):242:242 -> l
+    42:47:boolean supportsTrustedWebActivities(java.lang.String):245:245 -> l
+    48:53:boolean supportsTrustedWebActivities(java.lang.String):246:246 -> l
+    54:61:boolean supportsTrustedWebActivities(java.lang.String):247:247 -> l
+    1:3:void onCreate(android.os.Bundle):100:100 -> onCreate
+    4:16:void onCreate(android.os.Bundle):101:101 -> onCreate
+    17:20:void onCreate(android.os.Bundle):103:103 -> onCreate
+    21:26:void onCreate(android.os.Bundle):106:106 -> onCreate
+    27:30:void onCreate(android.os.Bundle):107:107 -> onCreate
+    31:36:void onCreate(android.os.Bundle):110:110 -> onCreate
+    37:39:void onCreate(android.os.Bundle):112:112 -> onCreate
+    40:52:void onCreate(android.os.Bundle):115:115 -> onCreate
+    53:60:void onCreate(android.os.Bundle):117:117 -> onCreate
+    61:67:void onCreate(android.os.Bundle):119:119 -> onCreate
+    68:75:void onCreate(android.os.Bundle):121:121 -> onCreate
+    1:3:void onStop():200:200 -> onStop
+    4:7:void onStop():201:201 -> onStop
+    8:10:void onStop():202:202 -> onStop
+    11:14:void onStop():204:204 -> onStop
 com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$$ExternalSyntheticApiModelOutline0 -> j0.j:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
@@ -35129,7 +35225,50 @@ com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$$ExternalSynt
 # {"id":"com.android.tools.r8.synthesized"}
     1:1:android.content.pm.ShortcutInfo$Builder j0.ManageDataLauncherActivity$$ExternalSyntheticApiModelOutline9.m(android.content.pm.ShortcutInfo$Builder,android.content.Intent):0:0 -> a
       # {"id":"com.android.tools.r8.synthesized"}
-com.google.androidbrowserhelper.trusted.NotificationDelegationExtraCommandHandler -> j0.w:
+com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$1 -> com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$a:
+# {"id":"sourceFile","fileName":"ManageDataLauncherActivity.java"}
+com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$Connection -> com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$b:
+# {"id":"sourceFile","fileName":"ManageDataLauncherActivity.java"}
+    com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity this$0 -> b
+    1:1:void <init>(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity):250:250 -> <init>
+    2:2:void <init>(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity,com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$1):250:250 -> <init>
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity;Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity$a;)V"}
+    1:8:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):254:254 -> a
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/ComponentName;Lm/c;)V"}
+    9:19:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):255:255 -> a
+com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$LegacyChromeConnection -> com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$c:
+# {"id":"sourceFile","fileName":"ManageDataLauncherActivity.java"}
+    androidx.browser.customtabs.CustomTabsSession mSession -> b
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lm/f;"}
+    androidx.browser.customtabs.CustomTabsCallback mCustomTabsCallback -> c
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lm/b;"}
+    com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity this$0 -> d
+    1:1:void <init>(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity):263:263 -> <init>
+    2:2:void <init>(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity):267:267 -> <init>
+    3:3:void <init>(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity,com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$1):263:263 -> <init>
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity;Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity$a;)V"}
+    1:9:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):286:286 -> a
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/ComponentName;Lm/c;)V"}
+    10:17:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):289:289 -> a
+    18:29:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):291:291 -> a
+    30:35:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):292:292 -> a
+    36:45:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):295:295 -> a
+    46:51:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):296:296 -> a
+    52:57:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):300:300 -> a
+    58:65:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):303:303 -> a
+    1:3:androidx.browser.customtabs.CustomTabsSession access$300(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$LegacyChromeConnection):263:263 -> c
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity$c;)Lm/f;"}
+com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$LegacyChromeConnection$1 -> com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$c$a:
+# {"id":"sourceFile","fileName":"ManageDataLauncherActivity.java"}
+    com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$LegacyChromeConnection this$1 -> a
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity$c;"}
+    1:6:void <init>(com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$LegacyChromeConnection):267:267 -> <init>
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lcom/google/androidbrowserhelper/trusted/ManageDataLauncherActivity$c;)V"}
+    1:13:void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle):271:271 -> i
+    14:42:void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle):275:275 -> i
+    43:50:void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle):276:276 -> i
+    51:62:void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle):279:279 -> i
+com.google.androidbrowserhelper.trusted.NotificationDelegationExtraCommandHandler -> j0.v:
 # {"id":"sourceFile","fileName":"NotificationDelegationExtraCommandHandler.java"}
     1:4:void <init>():28:28 -> <init>
     1:6:android.os.Bundle handleExtraCommand(android.content.Context,java.lang.String,android.os.Bundle,androidx.browser.trusted.TrustedWebActivityCallbackRemote):41:41 -> a
@@ -35146,27 +35285,27 @@ com.google.androidbrowserhelper.trusted.NotificationDelegationExtraCommandHandle
     73:79:android.os.Bundle handleExtraCommand(android.content.Context,java.lang.String,android.os.Bundle,androidx.browser.trusted.TrustedWebActivityCallbackRemote):50:50 -> a
     80:84:android.os.Bundle handleExtraCommand(android.content.Context,java.lang.String,android.os.Bundle,androidx.browser.trusted.TrustedWebActivityCallbackRemote):53:53 -> a
     85:88:android.os.Bundle handleExtraCommand(android.content.Context,java.lang.String,android.os.Bundle,androidx.browser.trusted.TrustedWebActivityCallbackRemote):54:54 -> a
-com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity -> j0.x:
+com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity -> j0.w:
 # {"id":"sourceFile","fileName":"NotificationPermissionRequestActivity.java"}
     1:11:android.app.PendingIntent createPermissionRequestPendingIntent(android.content.Context,java.lang.String):57:57 -> a
     12:16:android.app.PendingIntent createPermissionRequestPendingIntent(android.content.Context,java.lang.String):58:58 -> a
     17:27:android.app.PendingIntent createPermissionRequestPendingIntent(android.content.Context,java.lang.String):60:60 -> a
     28:36:android.app.PendingIntent createPermissionRequestPendingIntent(android.content.Context,java.lang.String):61:61 -> a
-com.google.androidbrowserhelper.trusted.NotificationUtils -> j0.y:
+com.google.androidbrowserhelper.trusted.NotificationUtils -> j0.x:
 # {"id":"sourceFile","fileName":"NotificationUtils.java"}
     1:12:boolean areNotificationsEnabled(android.content.Context,java.lang.String):34:34 -> a
     13:20:boolean areNotificationsEnabled(android.content.Context,java.lang.String):36:36 -> a
     21:34:boolean areNotificationsEnabled(android.content.Context,java.lang.String):39:39 -> a
     35:43:boolean areNotificationsEnabled(android.content.Context,java.lang.String):40:40 -> a
     1:32:java.lang.String channelNameToId(java.lang.String):59:59 -> b
-com.google.androidbrowserhelper.trusted.PrefUtils -> j0.z:
+com.google.androidbrowserhelper.trusted.PrefUtils -> j0.y:
 # {"id":"sourceFile","fileName":"PrefUtils.java"}
     1:12:android.content.SharedPreferences getAppSharedPreferences(android.content.Context):34:34 -> a
     1:12:boolean hasRequestedNotificationPermission(android.content.Context):39:39 -> b
-com.google.androidbrowserhelper.trusted.QualityEnforcer -> j0.C:
+com.google.androidbrowserhelper.trusted.QualityEnforcer -> j0.B:
 # {"id":"sourceFile","fileName":"QualityEnforcer.java"}
     com.google.androidbrowserhelper.trusted.QualityEnforcer$Delegate mDelegate -> a
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/C$a;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/B$a;"}
     1:3:void <init>():53:53 -> <init>
     4:11:void <init>():54:54 -> <init>
     3:12:android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle):70:70 -> b
@@ -35177,14 +35316,14 @@ com.google.androidbrowserhelper.trusted.QualityEnforcer -> j0.C:
     35:40:android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle):76:76 -> b
     1:18:void lambda$new$1(java.lang.String):57:57 -> l
     1:6:void lambda$new$0(java.lang.String):58:58 -> m
-com.google.androidbrowserhelper.trusted.QualityEnforcer$$ExternalSyntheticLambda0 -> j0.A:
+com.google.androidbrowserhelper.trusted.QualityEnforcer$$ExternalSyntheticLambda0 -> j0.z:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.QualityEnforcer$$ExternalSyntheticLambda0.<init>():0:0 -> <init>
       # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.QualityEnforcer$$ExternalSyntheticLambda0.crash(java.lang.String):0:0 -> a
       # {"id":"com.android.tools.r8.synthesized"}
-com.google.androidbrowserhelper.trusted.QualityEnforcer$$ExternalSyntheticLambda1 -> j0.B:
+com.google.androidbrowserhelper.trusted.QualityEnforcer$$ExternalSyntheticLambda1 -> j0.A:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
     java.lang.String com.google.androidbrowserhelper.trusted.QualityEnforcer$$InternalSyntheticLambda$3$3b69d296e4617850fa0b4437bff84a5384ff1b0f4217de8559dce21e574c0196$0.f$0 -> a
@@ -35193,10 +35332,10 @@ com.google.androidbrowserhelper.trusted.QualityEnforcer$$ExternalSyntheticLambda
       # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.QualityEnforcer$$ExternalSyntheticLambda1.run():0:0 -> run
       # {"id":"com.android.tools.r8.synthesized"}
-com.google.androidbrowserhelper.trusted.QualityEnforcer$Delegate -> j0.C$a:
+com.google.androidbrowserhelper.trusted.QualityEnforcer$Delegate -> j0.B$a:
 # {"id":"sourceFile","fileName":"QualityEnforcer.java"}
     void crash(java.lang.String) -> a
-com.google.androidbrowserhelper.trusted.SessionStore -> j0.D:
+com.google.androidbrowserhelper.trusted.SessionStore -> j0.C:
 # {"id":"sourceFile","fileName":"SessionStore.java"}
     java.util.Map mTaskIdToSessionId -> a
     1:8:void <clinit>():13:13 -> <clinit>
@@ -35205,7 +35344,7 @@ com.google.androidbrowserhelper.trusted.SessionStore -> j0.D:
     21:25:java.lang.Integer makeSessionId(java.lang.Integer):27:27 -> a
     26:33:java.lang.Integer makeSessionId(java.lang.Integer):28:28 -> a
     34:38:java.lang.Integer makeSessionId(java.lang.Integer):29:29 -> a
-com.google.androidbrowserhelper.trusted.SharedPreferencesTokenStore -> j0.E:
+com.google.androidbrowserhelper.trusted.SharedPreferencesTokenStore -> j0.D:
 # {"id":"sourceFile","fileName":"SharedPreferencesTokenStore.java"}
     android.content.Context mContext -> a
     1:3:void <init>(android.content.Context):43:43 -> <init>
@@ -35223,7 +35362,7 @@ com.google.androidbrowserhelper.trusted.SharedPreferencesTokenStore -> j0.E:
     7:17:androidx.browser.trusted.Token load():80:80 -> b
     18:21:androidx.browser.trusted.Token load():86:86 -> b
     22:26:androidx.browser.trusted.Token load():87:87 -> b
-com.google.androidbrowserhelper.trusted.SharingUtils -> j0.F:
+com.google.androidbrowserhelper.trusted.SharingUtils -> j0.E:
 # {"id":"sourceFile","fileName":"SharingUtils.java"}
     1:4:boolean isShareIntent(android.content.Intent):41:41 -> a
     5:25:boolean isShareIntent(android.content.Intent):42:42 -> a
@@ -35258,14 +35397,14 @@ com.google.androidbrowserhelper.trusted.SharingUtils -> j0.F:
     36:39:androidx.browser.trusted.sharing.ShareData retrieveShareDataFromIntent(android.content.Intent):62:62 -> e
     40:49:androidx.browser.trusted.sharing.ShareData retrieveShareDataFromIntent(android.content.Intent):64:64 -> e
     50:57:androidx.browser.trusted.sharing.ShareData retrieveShareDataFromIntent(android.content.Intent):65:65 -> e
-com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.L:
+com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.K:
 # {"id":"sourceFile","fileName":"TwaLauncher.java"}
     android.content.Context mContext -> a
     java.lang.String mProviderPackage -> b
     int mLaunchMode -> c
     int mSessionId -> d
     com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnection mServiceConnection -> e
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L$b;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K$b;"}
     androidx.browser.customtabs.CustomTabsSession mSession -> f
       # {"id":"com.android.tools.r8.residualsignature","signature":"Lm/f;"}
     androidx.browser.trusted.TokenStore mTokenStore -> g
@@ -35273,9 +35412,9 @@ com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.L:
     boolean mDestroyed -> h
     long mStartupUptimeMillis -> i
     com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy CCT_FALLBACK_STRATEGY -> j
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L$a;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K$a;"}
     com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy WEBVIEW_FALLBACK_STRATEGY -> k
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L$a;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K$a;"}
     1:7:void <clinit>():55:55 -> <clinit>
     8:15:void <clinit>():73:73 -> <clinit>
     1:3:void <init>(android.content.Context,java.lang.String,java.lang.Integer,androidx.browser.trusted.TokenStore):153:153 -> <init>
@@ -35289,9 +35428,9 @@ com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.L:
     33:35:void <init>(android.content.Context,java.lang.String,java.lang.Integer,androidx.browser.trusted.TokenStore):163:163 -> <init>
     36:38:void <init>(android.content.Context,java.lang.String,java.lang.Integer,androidx.browser.trusted.TokenStore):164:164 -> <init>
     1:4:void lambda$launchTwa$2(androidx.browser.trusted.TrustedWebActivityIntentBuilder,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable):249:249 -> a
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Ln/s;Lk0/e;Ljava/lang/Runnable;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Ln/s;Lk0/e;Ljava/lang/Runnable;)V"}
     1:8:void lambda$launchTwa$3(com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.Runnable):260:260 -> b
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Lj0/L$a;Ln/s;Ljava/lang/Runnable;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Lj0/K$a;Ln/s;Ljava/lang/Runnable;)V"}
     1:6:void lambda$static$0(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):59:59 -> c
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/Context;Ln/s;Ljava/lang/String;Ljava/lang/Runnable;)V"}
     7:11:void lambda$static$0(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):61:61 -> c
@@ -35300,22 +35439,22 @@ com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.L:
     30:38:void lambda$static$0(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):67:67 -> c
     39:42:void lambda$static$0(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):69:69 -> c
     1:4:void lambda$launchWhenSessionEstablished$4(androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.Runnable):282:282 -> d
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Ln/s;Ljava/lang/Runnable;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Ln/s;Ljava/lang/Runnable;)V"}
     1:8:void lambda$static$1(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):76:76 -> e
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/Context;Ln/s;Ljava/lang/String;Ljava/lang/Runnable;)V"}
     9:12:void lambda$static$1(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):75:75 -> e
     13:17:void lambda$static$1(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):77:77 -> e
     18:21:void lambda$static$1(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):79:79 -> e
     1:3:android.content.Context access$100(com.google.androidbrowserhelper.trusted.TwaLauncher):44:44 -> f
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;)Landroid/content/Context;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;)Landroid/content/Context;"}
     1:3:java.lang.String access$200(com.google.androidbrowserhelper.trusted.TwaLauncher):44:44 -> g
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;)Ljava/lang/String;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;)Ljava/lang/String;"}
     1:3:androidx.browser.customtabs.CustomTabsSession access$300(com.google.androidbrowserhelper.trusted.TwaLauncher):44:44 -> h
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;)Lm/f;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;)Lm/f;"}
     1:3:androidx.browser.customtabs.CustomTabsSession access$302(com.google.androidbrowserhelper.trusted.TwaLauncher,androidx.browser.customtabs.CustomTabsSession):44:44 -> i
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Lm/f;)Lm/f;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Lm/f;)Lm/f;"}
     1:3:int access$400(com.google.androidbrowserhelper.trusted.TwaLauncher):44:44 -> j
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;)I"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;)I"}
     1:5:void destroy():314:314 -> k
     6:9:void destroy():317:317 -> k
     10:15:void destroy():318:318 -> k
@@ -35323,7 +35462,7 @@ com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.L:
     19:21:void destroy():321:321 -> k
     1:3:java.lang.String getProviderPackage():329:329 -> l
     1:4:void launch(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):199:199 -> m
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Ln/s;Lm/b;Lk0/e;Ljava/lang/Runnable;Lj0/L$a;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Ln/s;Lm/b;Lk0/e;Ljava/lang/Runnable;Lj0/K$a;)V"}
     5:8:void launch(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):203:203 -> m
     9:15:void launch(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):204:204 -> m
     16:22:void launch(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):207:207 -> m
@@ -35331,7 +35470,7 @@ com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.L:
     35:53:void launch(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):215:215 -> m
     54:61:void launch(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):200:200 -> m
     3:7:void launchTwa(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):245:245 -> n
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Ln/s;Lm/b;Lk0/e;Ljava/lang/Runnable;Lj0/L$a;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Ln/s;Lm/b;Lk0/e;Ljava/lang/Runnable;Lj0/K$a;)V"}
     8:12:void launchTwa(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):248:248 -> n
     13:16:void launchTwa(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):251:251 -> n
     17:20:void launchTwa(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy):252:252 -> n
@@ -35356,7 +35495,7 @@ com.google.androidbrowserhelper.trusted.TwaLauncher -> j0.L:
     61:67:void launchWhenSplashScreenReady(androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.Runnable):303:303 -> p
     68:71:void launchWhenSplashScreenReady(androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.Runnable):306:306 -> p
     1:3:void setStartupUptimeMillis(long):338:338 -> q
-com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda0 -> j0.G:
+com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda0 -> j0.F:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda0.<init>():0:0 -> <init>
@@ -35364,7 +35503,7 @@ com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda0 ->
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda0.launch(android.content.Context,n.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):0:0 -> a
       # {"id":"com.android.tools.r8.synthesized"}
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/Context;Ln/s;Ljava/lang/String;Ljava/lang/Runnable;)V"}
-com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda1 -> j0.H:
+com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda1 -> j0.G:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda1.<init>():0:0 -> <init>
@@ -35372,11 +35511,11 @@ com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda1 ->
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda1.launch(android.content.Context,n.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable):0:0 -> a
       # {"id":"com.android.tools.r8.synthesized"}
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/Context;Ln/s;Ljava/lang/String;Ljava/lang/Runnable;)V"}
-com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda2 -> j0.I:
+com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda2 -> j0.H:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
     com.google.androidbrowserhelper.trusted.TwaLauncher com.google.androidbrowserhelper.trusted.TwaLauncher$$InternalSyntheticLambda$2$d24b8e084a7d2f55c169bb96fa355584b63e8b3b4fa4e1f5c82aab7fb52fc48c$0.f$0 -> a
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K;"}
       # {"id":"com.android.tools.r8.synthesized"}
     androidx.browser.trusted.TrustedWebActivityIntentBuilder com.google.androidbrowserhelper.trusted.TwaLauncher$$InternalSyntheticLambda$2$d24b8e084a7d2f55c169bb96fa355584b63e8b3b4fa4e1f5c82aab7fb52fc48c$0.f$1 -> b
       # {"id":"com.android.tools.r8.residualsignature","signature":"Ln/s;"}
@@ -35388,17 +35527,17 @@ com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda2 ->
       # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda2.<init>(j0.TwaLauncher,n.TrustedWebActivityIntentBuilder,k0.SplashScreenStrategy,java.lang.Runnable):0:0 -> <init>
       # {"id":"com.android.tools.r8.synthesized"}
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Ln/s;Lk0/e;Ljava/lang/Runnable;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Ln/s;Lk0/e;Ljava/lang/Runnable;)V"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda2.run():0:0 -> run
       # {"id":"com.android.tools.r8.synthesized"}
-com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda3 -> j0.J:
+com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda3 -> j0.I:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
     com.google.androidbrowserhelper.trusted.TwaLauncher com.google.androidbrowserhelper.trusted.TwaLauncher$$InternalSyntheticLambda$2$d24b8e084a7d2f55c169bb96fa355584b63e8b3b4fa4e1f5c82aab7fb52fc48c$1.f$0 -> a
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K;"}
       # {"id":"com.android.tools.r8.synthesized"}
     com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy com.google.androidbrowserhelper.trusted.TwaLauncher$$InternalSyntheticLambda$2$d24b8e084a7d2f55c169bb96fa355584b63e8b3b4fa4e1f5c82aab7fb52fc48c$1.f$1 -> b
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L$a;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K$a;"}
       # {"id":"com.android.tools.r8.synthesized"}
     androidx.browser.trusted.TrustedWebActivityIntentBuilder com.google.androidbrowserhelper.trusted.TwaLauncher$$InternalSyntheticLambda$2$d24b8e084a7d2f55c169bb96fa355584b63e8b3b4fa4e1f5c82aab7fb52fc48c$1.f$2 -> c
       # {"id":"com.android.tools.r8.residualsignature","signature":"Ln/s;"}
@@ -35407,14 +35546,14 @@ com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda3 ->
       # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda3.<init>(j0.TwaLauncher,j0.TwaLauncher$FallbackStrategy,n.TrustedWebActivityIntentBuilder,java.lang.Runnable):0:0 -> <init>
       # {"id":"com.android.tools.r8.synthesized"}
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Lj0/L$a;Ln/s;Ljava/lang/Runnable;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Lj0/K$a;Ln/s;Ljava/lang/Runnable;)V"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda3.run():0:0 -> run
       # {"id":"com.android.tools.r8.synthesized"}
-com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda4 -> j0.K:
+com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda4 -> j0.J:
 # {"id":"sourceFile","fileName":"R8$$SyntheticClass"}
 # {"id":"com.android.tools.r8.synthesized"}
     com.google.androidbrowserhelper.trusted.TwaLauncher com.google.androidbrowserhelper.trusted.TwaLauncher$$InternalSyntheticLambda$3$a0a04302483e3a3af79e1df8ddd61a3ffbdcf6bed9f2f9c77669c070994eb975$0.f$0 -> a
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K;"}
       # {"id":"com.android.tools.r8.synthesized"}
     androidx.browser.trusted.TrustedWebActivityIntentBuilder com.google.androidbrowserhelper.trusted.TwaLauncher$$InternalSyntheticLambda$3$a0a04302483e3a3af79e1df8ddd61a3ffbdcf6bed9f2f9c77669c070994eb975$0.f$1 -> b
       # {"id":"com.android.tools.r8.residualsignature","signature":"Ln/s;"}
@@ -35423,23 +35562,23 @@ com.google.androidbrowserhelper.trusted.TwaLauncher$$ExternalSyntheticLambda4 ->
       # {"id":"com.android.tools.r8.synthesized"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda4.<init>(j0.TwaLauncher,n.TrustedWebActivityIntentBuilder,java.lang.Runnable):0:0 -> <init>
       # {"id":"com.android.tools.r8.synthesized"}
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Ln/s;Ljava/lang/Runnable;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Ln/s;Ljava/lang/Runnable;)V"}
     1:1:void j0.TwaLauncher$$ExternalSyntheticLambda4.run():0:0 -> run
       # {"id":"com.android.tools.r8.synthesized"}
-com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy -> j0.L$a:
+com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy -> j0.K$a:
 # {"id":"sourceFile","fileName":"TwaLauncher.java"}
     void launch(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable) -> a
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/Context;Ln/s;Ljava/lang/String;Ljava/lang/Runnable;)V"}
-com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnection -> j0.L$b:
+com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnection -> j0.K$b:
 # {"id":"sourceFile","fileName":"TwaLauncher.java"}
     java.lang.Runnable mOnSessionCreatedRunnable -> b
     java.lang.Runnable mOnSessionCreationFailedRunnable -> c
     androidx.browser.customtabs.CustomTabsCallback mCustomTabsCallback -> d
       # {"id":"com.android.tools.r8.residualsignature","signature":"Lm/b;"}
     com.google.androidbrowserhelper.trusted.TwaLauncher this$0 -> e
-      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/L;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"Lj0/K;"}
     1:5:void <init>(com.google.androidbrowserhelper.trusted.TwaLauncher,androidx.browser.customtabs.CustomTabsCallback):346:346 -> <init>
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L;Lm/b;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K;Lm/b;)V"}
     6:8:void <init>(com.google.androidbrowserhelper.trusted.TwaLauncher,androidx.browser.customtabs.CustomTabsCallback):347:347 -> <init>
     1:2:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):359:359 -> a
       # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/ComponentName;Lm/c;)V"}
@@ -35455,11 +35594,11 @@ com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnecti
     88:89:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):377:377 -> a
     90:92:void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient):378:378 -> a
     1:4:void access$000(com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnection,java.lang.Runnable,java.lang.Runnable):341:341 -> c
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/L$b;Ljava/lang/Runnable;Ljava/lang/Runnable;)V"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Lj0/K$b;Ljava/lang/Runnable;Ljava/lang/Runnable;)V"}
     1:2:void setSessionCreationRunnables(java.lang.Runnable,java.lang.Runnable):352:352 -> d
     3:5:void setSessionCreationRunnables(java.lang.Runnable,java.lang.Runnable):353:353 -> d
     1:7:void onServiceDisconnected(android.content.ComponentName):383:383 -> onServiceDisconnected
-com.google.androidbrowserhelper.trusted.TwaProviderPicker -> j0.M:
+com.google.androidbrowserhelper.trusted.TwaProviderPicker -> j0.L:
 # {"id":"sourceFile","fileName":"TwaProviderPicker.java"}
     java.lang.String sPackageNameForTesting -> a
     1:13:java.util.Map getLaunchModesForCustomTabsServices(android.content.pm.PackageManager):184:184 -> a
@@ -35473,7 +35612,7 @@ com.google.androidbrowserhelper.trusted.TwaProviderPicker -> j0.M:
     70:73:java.util.Map getLaunchModesForCustomTabsServices(android.content.pm.PackageManager):203:203 -> a
     74:78:java.util.Map getLaunchModesForCustomTabsServices(android.content.pm.PackageManager):202:202 -> a
     1:7:com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager):106:106 -> b
-      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/pm/PackageManager;)Lj0/M$a;"}
+      # {"id":"com.android.tools.r8.residualsignature","signature":"(Landroid/content/pm/PackageManager;)Lj0/L$a;"}
     8:13:com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager):107:107 -> b
     14:17:com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager):108:108 -> b
     18:30:com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager):109:109 -> b
@@ -35495,20 +35634,21 @@ com.google.androidbrowserhelper.trusted.TwaProviderPicker -> j0.M:
     210:215:com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager):167:167 -> b
     216:235:com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager):170:170 -> b
     236:241:com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager):171:171 -> b
-com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action -> j0.M$a:
+com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action -> j0.L$a:
 # {"id":"sourceFile","fileName":"TwaProviderPicker.java"}
     int launchMode -> a
     java.lang.String provider -> b
     1:3:void <init>(int,java.lang.String):93:93 -> <init>
     4:5:void <init>(int,java.lang.String):94:94 -> <init>
     6:8:void <init>(int,java.lang.String):95:95 -> <init>
-com.google.androidbrowserhelper.trusted.TwaSharedPreferencesManager -> j0.N:
+com.google.androidbrowserhelper.trusted.TwaSharedPreferencesManager -> j0.M:
 # {"id":"sourceFile","fileName":"TwaSharedPreferencesManager.java"}
     android.content.SharedPreferences mSharedPreferences -> a
     1:3:void <init>(android.content.Context):16:16 -> <init>
     4:13:void <init>(android.content.Context):17:17 -> <init>
-    1:16:void writeLastLaunchedProviderPackageName(java.lang.String):24:24 -> a
-com.google.androidbrowserhelper.trusted.Utils -> j0.O:
+    1:10:java.lang.String readLastLaunchedProviderPackageName():32:32 -> a
+    1:16:void writeLastLaunchedProviderPackageName(java.lang.String):24:24 -> b
+com.google.androidbrowserhelper.trusted.Utils -> j0.N:
 # {"id":"sourceFile","fileName":"Utils.java"}
     1:12:void addSystemUiVisibilityFlag(android.app.Activity,int):59:59 -> a
     13:17:void addSystemUiVisibilityFlag(android.app.Activity,int):60:60 -> a

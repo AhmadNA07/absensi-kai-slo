@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="enableNotification">false</bool>
-    <bool name="enableSiteSettingsShortcut">false</bool>
+    <bool name="enableSiteSettingsShortcut">true</bool>
     <color name="backgroundColor">#FFFFFF</color>
     <color name="colorPrimary">#1E3A5F</color>
     <color name="colorPrimaryDark">#000000</color>
