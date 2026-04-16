@@ -353,96 +353,6 @@
             margin: 10px 0;
         }
 
-        /* Loading Overlay */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top-color: #FFFFFF;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        .loading-text {
-            color: white;
-            font-size: 0.9rem;
-        }
-
-        /* Permission Modal */
-        .permission-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .permission-card {
-            background: white;
-            border-radius: 24px;
-            padding: 28px 24px;
-            max-width: 320px;
-            text-align: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .permission-card h3 {
-            color: #1E3A5F;
-            margin-bottom: 12px;
-            font-size: 1.3rem;
-        }
-
-        .permission-card p {
-            color: #6B7A8F;
-            margin-bottom: 24px;
-            font-size: 0.9rem;
-        }
-
-        .permission-card button {
-            background: #1E3A5F;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        .permission-card button.secondary {
-            background: #E2E8F0;
-            color: #1E3A5F;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
         /* Responsive */
         @media (min-width: 769px) {
             .bottom-nav { display: none; }
@@ -451,12 +361,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Meminta izin kamera dan lokasi...</div>
-    </div>
-
     <div class="app-container">
         <nav class="navbar">
             <div class="nav-brand">
@@ -504,15 +408,15 @@
                     <h4 style="margin-bottom: 12px;">Pilih Shift:</h4>
                     <div class="shift-options">
                         <button class="shift-option" data-shift="pagi">
-                            <h4>🌅 Shift Pagi</h4>
+                            <h4>Shift Pagi</h4>
                             <p>08:00 - 14:00 (Batas absen 08:15)</p>
                         </button>
                         <button class="shift-option" data-shift="siang">
-                            <h4>☀️ Shift Siang</h4>
+                            <h4>Shift Siang</h4>
                             <p>12:00 - 18:00 (Batas absen 12:15)</p>
                         </button>
                         <button class="shift-option" data-shift="piket">
-                            <h4>📋 Shift Piket</h4>
+                            <h4>Shift Piket</h4>
                             <p>08:00 - 16:00 (Batas absen 08:15)</p>
                         </button>
                     </div>
@@ -561,7 +465,7 @@
         </button>
         <button class="nav-item" id="navListBtn">
             <div class="nav-icon">📋</div>
-            <div class="nav-label">Riwayat</div>
+            <div class="nav-label">List</div>
         </button>
     </div>
 
@@ -579,7 +483,23 @@
             piket: { start: "08:00", end: "16:00", nama: "Piket (08:00-16:00)", jamMulai: 8 * 60 }
         };
 
-        // Lokasi Solo Balapan (Stasiun Solo Balapan)
+        // ==================== FUNGSI LOGOUT ====================
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "index.html";
+        }
+
+        function checkAuth() {
+            const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+            if (!isLoggedIn) {
+                window.location.href = "index.html";
+                return false;
+            }
+            return true;
+        }
+        window.logout = logout;
+
+        // Lokasi Solo Balapan
         const SOLO_BALAPAN = { lat: -7.5592, lng: 110.822, radius: 500 };
 
         function haversineDistance(lat1, lon1, lat2, lon2) {
@@ -618,164 +538,6 @@
             const date = new Date(dateStr);
             const wibDate = new Date(date.getTime() + 7 * 60 * 60 * 1000);
             return `${String(wibDate.getUTCHours()).padStart(2,'0')}:${String(wibDate.getUTCMinutes()).padStart(2,'0')}:${String(wibDate.getUTCSeconds()).padStart(2,'0')}`;
-        }
-
-        // ==================== FUNGSI LOGOUT & AUTH ====================
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = "index.html";
-        }
-
-        function checkAuth() {
-            const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-            if (!isLoggedIn) {
-                window.location.href = "index.html";
-                return false;
-            }
-            return true;
-        }
-        window.logout = logout;
-
-        // ==================== TAMPILKAN MODAL IZIN ====================
-        function showPermissionModal() {
-            return new Promise((resolve) => {
-                const modalDiv = document.createElement('div');
-                modalDiv.className = 'permission-modal';
-                modalDiv.innerHTML = `
-                    <div class="permission-card">
-                        <h3>📍 Izin Lokasi Diperlukan</h3>
-                        <p>Aplikasi memerlukan akses lokasi untuk memverifikasi bahwa Anda berada di area Stasiun Solo Balapan.</p>
-                        <button id="openSettingsBtn">Buka Pengaturan Izin</button>
-                        <button id="continueWithoutLocationBtn" class="secondary">Lanjutkan Tanpa Lokasi</button>
-                    </div>
-                `;
-                document.body.appendChild(modalDiv);
-                
-                document.getElementById('openSettingsBtn').onclick = () => {
-                    // Buka pengaturan aplikasi di HP
-                    if (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: fullscreen)').matches) {
-                        // Jika dalam mode aplikasi (PWA/APK), buka pengaturan sistem
-                        window.location.href = 'app-settings:';
-                    } else {
-                        // Jika di browser, buka halaman bantuan
-                        window.open('https://support.google.com/android/answer/9431959', '_blank');
-                    }
-                    resolve(false);
-                };
-                
-                document.getElementById('continueWithoutLocationBtn').onclick = () => {
-                    modalDiv.remove();
-                    resolve(true);
-                };
-            });
-        }
-
-        // ==================== IZIN KAMERA & LOKASI DI AWAL ====================
-        async function requestPermissions() {
-            const overlay = document.getElementById("loadingOverlay");
-            const textEl = overlay.querySelector(".loading-text");
-            
-            // Minta izin kamera dulu
-            textEl.textContent = "Meminta izin kamera...";
-            let cameraGranted = false;
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                stream.getTracks().forEach(track => track.stop());
-                cameraGranted = true;
-                textEl.textContent = "✓ Izin kamera diberikan";
-                await new Promise(r => setTimeout(r, 500));
-            } catch (err) {
-                console.warn("Kamera ditolak:", err);
-                textEl.textContent = "⚠️ Izin kamera ditolak (beberapa fitur mungkin terbatas)";
-                await new Promise(r => setTimeout(r, 1000));
-            }
-            
-            // Minta izin lokasi
-            textEl.textContent = "Meminta izin lokasi...";
-            let locationGranted = false;
-            try {
-                const location = await new Promise((resolve, reject) => {
-                    navigator.geolocation.getCurrentPosition(resolve, reject, {
-                        enableHighAccuracy: true,
-                        timeout: 10000
-                    });
-                });
-                locationGranted = true;
-                textEl.textContent = `✓ Izin lokasi diberikan (${location.coords.latitude.toFixed(4)}, ${location.coords.longitude.toFixed(4)})`;
-                await new Promise(r => setTimeout(r, 1000));
-            } catch (err) {
-                console.warn("Lokasi ditolak:", err);
-                textEl.textContent = "⚠️ Izin lokasi ditolak";
-                await new Promise(r => setTimeout(r, 1000));
-                
-                // Tampilkan modal untuk minta user buka pengaturan
-                overlay.style.display = "none";
-                const continueWithoutLocation = await showPermissionModal();
-                if (!continueWithoutLocation) {
-                    // User memilih buka pengaturan, tunggu sebentar lalu coba lagi
-                    setTimeout(() => {
-                        requestPermissions();
-                    }, 500);
-                    return;
-                }
-                overlay.style.display = "flex";
-                textEl.textContent = "Melanjutkan tanpa izin lokasi...";
-                await new Promise(r => setTimeout(r, 1000));
-            }
-            
-            // Sembunyikan loading overlay
-            overlay.style.display = "none";
-        }
-
-        // ==================== CEK LOKASI ====================
-        async function checkLocation() {
-            return new Promise((resolve, reject) => {
-                if (!navigator.geolocation) {
-                    reject("Geolocation tidak didukung browser ini");
-                    return;
-                }
-                
-                const options = {
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 0
-                };
-                
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const distance = haversineDistance(
-                            position.coords.latitude,
-                            position.coords.longitude,
-                            SOLO_BALAPAN.lat,
-                            SOLO_BALAPAN.lng
-                        );
-                        resolve({ 
-                            allowed: distance <= SOLO_BALAPAN.radius, 
-                            distance: distance,
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        });
-                    },
-                    (error) => {
-                        let message = "Gagal dapat lokasi";
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED:
-                                message = "Izin lokasi ditolak";
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                message = "Lokasi tidak tersedia";
-                                break;
-                            case error.TIMEOUT:
-                                message = "Timeout mendapatkan lokasi";
-                                break;
-                            default:
-                                message = error.message;
-                        }
-                        reject(message);
-                    },
-                    options
-                );
-            });
         }
 
         // ==================== FACE RECOGNITION ====================
@@ -847,6 +609,30 @@
             return bestMatch;
         }
 
+        // ==================== CEK LOKASI ====================
+        async function checkLocation() {
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject("Geolocation tidak didukung");
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const distance = haversineDistance(position.coords.latitude, position.coords.longitude, SOLO_BALAPAN.lat, SOLO_BALAPAN.lng);
+                        resolve({ allowed: distance <= SOLO_BALAPAN.radius, distance: distance });
+                    },
+                    (error) => {
+                        let message = "Gagal dapat lokasi";
+                        if (error.code === 1) message = "Izin lokasi ditolak";
+                        else if (error.code === 2) message = "Lokasi tidak tersedia";
+                        else if (error.code === 3) message = "Timeout mendapatkan lokasi";
+                        reject(message);
+                    },
+                    { enableHighAccuracy: true, timeout: 10000 }
+                );
+            });
+        }
+
         // ==================== STEP 1: DETEKSI WAJAH ====================
         async function startFaceDetection(video, cameraWrapper, faceStatus) {
             if (faceDetectionInterval) clearInterval(faceDetectionInterval);
@@ -913,6 +699,7 @@
                 stopFaceDetection();
                 stopCamera(videoStream, video);
                 
+                // Pindah ke STEP 2: Ambil Foto
                 showPhotoStep();
                 
                 isVerifying = false;
@@ -1060,29 +847,19 @@
             confirmBtn.disabled = true;
             confirmBtn.textContent = "Memproses...";
             
-            let locationValid = false;
-            let locationDistance = 0;
-            
             try {
                 const locationCheck = await checkLocation();
-                locationValid = locationCheck.allowed;
-                locationDistance = locationCheck.distance;
-                
-                if (!locationValid) {
-                    const confirmAbsen = confirm(`⚠️ Anda berada di luar area Solo Balapan!\n\nLokasi Anda: ${Math.round(locationDistance)} meter dari Stasiun Solo Balapan\nArea yang diizinkan: radius 500 meter\n\nApakah Anda tetap ingin melanjutkan absen?`);
-                    if (!confirmAbsen) {
-                        confirmBtn.disabled = false;
-                        confirmBtn.textContent = "✅ Konfirmasi Absen";
-                        return;
-                    }
-                }
-            } catch (err) {
-                const confirmAbsen = confirm(`⚠️ Gagal mendapatkan lokasi Anda!\n\nError: ${err}\n\nPastikan GPS aktif dan izin lokasi diberikan.\n\nApakah Anda tetap ingin melanjutkan absen?`);
-                if (!confirmAbsen) {
+                if (!locationCheck.allowed) {
+                    alert(`❌ Absen gagal! Anda tidak berada di area Solo Balapan. Jarak Anda ${Math.round(locationCheck.distance)} meter.`);
                     confirmBtn.disabled = false;
                     confirmBtn.textContent = "✅ Konfirmasi Absen";
                     return;
                 }
+            } catch (err) {
+                alert(`❌ Gagal cek lokasi: ${err}`);
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = "✅ Konfirmasi Absen";
+                return;
             }
             
             const now = getWIBTime();
@@ -1108,7 +885,7 @@
                 status: status,
                 keterlambatan: keterlambatan,
                 foto: capturedPhoto,
-                lokasi: locationValid ? `Solo Balapan (jarak ${Math.round(locationDistance)}m)` : "Lokasi tidak terverifikasi",
+                lokasi: `Solo Balapan (${SOLO_BALAPAN.lat}, ${SOLO_BALAPAN.lng})`,
                 ip_address: ip
             };
             
@@ -1174,16 +951,15 @@
         document.addEventListener("DOMContentLoaded", async () => {
             if (!checkAuth()) return;
             
-            // Minta izin kamera dan lokasi di awal
-            await requestPermissions();
-            
             await loadRunningText();
             await loadAbsenList();
             
+            // Bottom navigation
             document.getElementById("navAbsenBtn").onclick = () => switchPage('absen');
             document.getElementById("navAdminBtn").onclick = () => switchPage('admin');
             document.getElementById("navListBtn").onclick = () => switchPage('list');
             
+            // Admin login
             document.getElementById("adminPasswordLoginBtn").onclick = () => {
                 const password = document.getElementById("adminPasswordInput").value;
                 if (password !== ADMIN_PASSWORD) {
@@ -1195,9 +971,11 @@
                 window.location.href = "admin.html";
             };
             
+            // Photo buttons
             document.getElementById("takePhotoBtn").onclick = takePhoto;
             document.getElementById("retakePhotoBtn").onclick = retakePhoto;
             
+            // Shift options
             document.querySelectorAll(".shift-option").forEach(btn => {
                 btn.onclick = () => {
                     currentSelectedShift = btn.getAttribute("data-shift");
