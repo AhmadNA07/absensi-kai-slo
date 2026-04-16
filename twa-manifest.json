@@ -1,0 +1,35 @@
+{
+  "packageId": "com.ahmadna.absensipkl",
+  "host": "pklit.vercel.app",
+  "name": "Absensi PKL IT KAI SLO",
+  "launcherName": "Absensi PKL",
+  "display": "standalone",
+  "themeColor": "#1E3A5F",
+  "navigationColor": "#1E3A5F",
+  "backgroundColor": "#1E3A5F",
+  "enableNotifications": false,
+  "startUrl": "/index.html",
+  "iconUrl": "https://fonts.gstatic.com/images/icons/material/apps_1x_rounded.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "android.keystore",
+    "alias": "android",
+    "password": "kai2026"
+  },
+  "appVersionName": "3",
+  "appVersionCode": 3,
+  "orientation": "portrait",
+  "manifestUrl": "",
+  "webManifestUrl": "",
+  "fallbackType": "none",
+  "features": {
+    "locationDelegation": {
+      "enabled": true
+    }
+  },
+  "fingerprints": [
+    {
+      "sha256Fingerprint": "AF:52:B3:1D:08:DD:E9:C2:CC:D8:B4:63:59:C2:CD:F4:29:55:2D:EF:FD:26:D7:79:0B:76:84:58:D4:89:DF:4B"
+    }
+  ]
+}

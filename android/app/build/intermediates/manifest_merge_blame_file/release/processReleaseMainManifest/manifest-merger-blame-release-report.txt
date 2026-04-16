@@ -1,0 +1,360 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!--
+3    Copyright 2019 Google Inc. All Rights Reserved.
+4
+5     Licensed under the Apache License, Version 2.0 (the "License");
+6     you may not use this file except in compliance with the License.
+7     You may obtain a copy of the License at
+8
+9         http://www.apache.org/licenses/LICENSE-2.0
+10
+11     Unless required by applicable law or agreed to in writing, software
+12     distributed under the License is distributed on an "AS IS" BASIS,
+13     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+14     See the License for the specific language governing permissions and
+15     limitations under the License.
+16-->
+17<!--
+18 The "package" attribute is rewritten by the Gradle build with the value of applicationId.
+19     It is still required here, as it is used to derive paths, for instance when referring
+20     to an Activity by ".MyActivity" instead of the full name. If more Activities are added to the
+21     application, the package attribute will need to reflect the correct path in order to use
+22     the abbreviated format.
+23-->
+24<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+25    package="com.ahmadna.absensipkl"
+26    android:versionCode="3"
+27    android:versionName="2" >
+28
+29    <uses-sdk
+30        android:minSdkVersion="21"
+31        android:targetSdkVersion="35" />
+32
+33    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+33-->[com.google.androidbrowserhelper:locationdelegation:1.1.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\6215e13210b05cc5715af15b5940fb9f\transformed\locationdelegation-1.1.2\AndroidManifest.xml:7:5-79
+33-->[com.google.androidbrowserhelper:locationdelegation:1.1.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\6215e13210b05cc5715af15b5940fb9f\transformed\locationdelegation-1.1.2\AndroidManifest.xml:7:22-76
+34    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+34-->[com.google.androidbrowserhelper:locationdelegation:1.1.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\6215e13210b05cc5715af15b5940fb9f\transformed\locationdelegation-1.1.2\AndroidManifest.xml:8:5-81
+34-->[com.google.androidbrowserhelper:locationdelegation:1.1.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\6215e13210b05cc5715af15b5940fb9f\transformed\locationdelegation-1.1.2\AndroidManifest.xml:8:22-78
+35
+36    <queries>
+36-->[com.google.androidbrowserhelper:androidbrowserhelper:2.6.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5053e02be90783e54992393be394bb70\transformed\androidbrowserhelper-2.6.2\AndroidManifest.xml:22:5-30:15
+37        <intent>
+37-->[com.google.androidbrowserhelper:androidbrowserhelper:2.6.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5053e02be90783e54992393be394bb70\transformed\androidbrowserhelper-2.6.2\AndroidManifest.xml:23:9-29:18
+38            <action android:name="android.intent.action.VIEW" />
+38-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:127:17-68
+38-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:127:25-66
+39
+40            <category android:name="android.intent.category.BROWSABLE" />
+40-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:129:17-77
+40-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:129:27-75
+41
+42            <data android:scheme="https" />
+42-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:130:17-133:19
+42-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:130:23-45
+43        </intent>
+44    </queries>
+45
+46    <permission
+46-->[androidx.core:core:1.13.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\a5429f7b20c607b890f08b5283ad4ec0\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
+47        android:name="com.ahmadna.absensipkl.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+47-->[androidx.core:core:1.13.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\a5429f7b20c607b890f08b5283ad4ec0\transformed\core-1.13.0\AndroidManifest.xml:23:9-81
+48        android:protectionLevel="signature" />
+48-->[androidx.core:core:1.13.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\a5429f7b20c607b890f08b5283ad4ec0\transformed\core-1.13.0\AndroidManifest.xml:24:9-44
+49
+50    <uses-permission android:name="com.ahmadna.absensipkl.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+50-->[androidx.core:core:1.13.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\a5429f7b20c607b890f08b5283ad4ec0\transformed\core-1.13.0\AndroidManifest.xml:26:5-97
+50-->[androidx.core:core:1.13.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\a5429f7b20c607b890f08b5283ad4ec0\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
+51
+52    <application
+52-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:33:5-175:19
+53        android:name="com.ahmadna.absensipkl.Application"
+53-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:34:9-35
+54        android:allowBackup="true"
+54-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:35:9-35
+55        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+55-->[androidx.core:core:1.13.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\a5429f7b20c607b890f08b5283ad4ec0\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
+56        android:extractNativeLibs="true"
+57        android:icon="@mipmap/ic_launcher"
+57-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:36:9-43
+58        android:label="@string/appName"
+58-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:37:9-40
+59        android:supportsRtl="true"
+59-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:39:9-35
+60        android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+60-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:40:9-68
+61        <meta-data
+61-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:42:9-44:58
+62            android:name="asset_statements"
+62-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:43:13-44
+63            android:resource="@string/assetStatements" />
+63-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:44:13-55
+64        <meta-data
+64-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:48:9-50:52
+65            android:name="twa_generator"
+65-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:49:13-41
+66            android:value="@string/generatorApp" />
+66-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:50:13-49
+67
+68        <activity
+68-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:58:9-139:20
+69            android:name="com.ahmadna.absensipkl.LauncherActivity"
+69-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:58:19-50
+70            android:alwaysRetainTaskState="true"
+70-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:59:13-49
+71            android:exported="true"
+71-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:61:13-36
+72            android:label="@string/launcherName" >
+72-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:60:13-49
+73            <meta-data
+73-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:62:13-63:53
+74                android:name="android.support.customtabs.trusted.DEFAULT_URL"
+74-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:62:24-85
+75                android:value="@string/launchUrl" />
+75-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:63:17-50
+76            <meta-data
+76-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:65:13-67:58
+77                android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
+77-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:66:17-83
+78                android:resource="@color/colorPrimary" />
+78-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:67:17-55
+79            <meta-data
+79-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:71:13-73:62
+80                android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR_DARK"
+80-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:72:17-88
+81                android:resource="@color/colorPrimaryDark" />
+81-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:73:17-59
+82            <meta-data
+82-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:75:13-77:61
+83                android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR"
+83-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:76:17-87
+84                android:resource="@color/navigationColor" />
+84-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:77:17-58
+85            <meta-data
+85-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:79:13-81:65
+86                android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR_DARK"
+86-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:80:17-92
+87                android:resource="@color/navigationColorDark" />
+87-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:81:17-62
+88            <meta-data
+88-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:83:13-85:68
+89                android:name="androix.browser.trusted.NAVIGATION_BAR_DIVIDER_COLOR"
+89-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:84:17-84
+90                android:resource="@color/navigationDividerColor" />
+90-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:85:17-65
+91            <meta-data
+91-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:87:13-89:72
+92                android:name="androix.browser.trusted.NAVIGATION_BAR_DIVIDER_COLOR_DARK"
+92-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:88:17-89
+93                android:resource="@color/navigationDividerColorDark" />
+93-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:89:17-69
+94            <meta-data
+94-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:91:13-92:54
+95                android:name="android.support.customtabs.trusted.SPLASH_IMAGE_DRAWABLE"
+95-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:91:24-95
+96                android:resource="@drawable/splash" />
+96-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:92:17-52
+97            <meta-data
+97-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:94:13-95:60
+98                android:name="android.support.customtabs.trusted.SPLASH_SCREEN_BACKGROUND_COLOR"
+98-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:94:24-104
+99                android:resource="@color/backgroundColor" />
+99-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:95:17-58
+100            <meta-data
+100-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:97:13-98:71
+101                android:name="android.support.customtabs.trusted.SPLASH_SCREEN_FADE_OUT_DURATION"
+101-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:97:24-105
+102                android:value="@integer/splashScreenFadeOutDuration" />
+102-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:98:17-69
+103            <meta-data
+103-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:100:13-101:60
+104                android:name="android.support.customtabs.trusted.FILE_PROVIDER_AUTHORITY"
+104-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:100:24-97
+105                android:value="@string/providerAuthority" />
+105-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:101:17-58
+106            <meta-data
+106-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:103:13-97
+107                android:name="android.app.shortcuts"
+107-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:103:24-60
+108                android:resource="@xml/shortcuts" />
+108-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:103:61-94
+109            <meta-data
+109-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:105:13-106:56
+110                android:name="android.support.customtabs.trusted.FALLBACK_STRATEGY"
+110-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:105:24-91
+111                android:value="@string/fallbackType" />
+111-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:106:17-53
+112            <meta-data
+112-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:112:13-113:54
+113                android:name="android.support.customtabs.trusted.SCREEN_ORIENTATION"
+113-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:112:24-92
+114                android:value="@string/orientation" />
+114-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:113:17-52
+115
+116            <intent-filter>
+116-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:121:13-124:29
+117                <action android:name="android.intent.action.MAIN" />
+117-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:122:17-69
+117-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:122:25-66
+118
+119                <category android:name="android.intent.category.LAUNCHER" />
+119-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:123:17-77
+119-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:123:27-74
+120            </intent-filter>
+121            <intent-filter android:autoVerify="true" >
+121-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:126:13-134:29
+121-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:126:28-53
+122                <action android:name="android.intent.action.VIEW" />
+122-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:127:17-68
+122-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:127:25-66
+123
+124                <category android:name="android.intent.category.DEFAULT" />
+124-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:128:17-76
+124-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:128:27-73
+125                <category android:name="android.intent.category.BROWSABLE" />
+125-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:129:17-77
+125-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:129:27-75
+126
+127                <data
+127-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:130:17-133:19
+128                    android:host="@string/hostName"
+128-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:131:21-52
+129                    android:scheme="https" />
+129-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:130:23-45
+130            </intent-filter>
+131        </activity>
+132        <activity android:name="com.google.androidbrowserhelper.trusted.FocusActivity" />
+132-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:141:9-90
+132-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:141:19-87
+133        <activity
+133-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:143:9-144:62
+134            android:name="com.google.androidbrowserhelper.trusted.WebViewFallbackActivity"
+134-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:143:19-97
+135            android:configChanges="orientation|screenSize" />
+135-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:144:13-59
+136
+137        <provider
+137-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:146:9-154:20
+138            android:name="androidx.core.content.FileProvider"
+138-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:147:13-62
+139            android:authorities="@string/providerAuthority"
+139-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:148:13-60
+140            android:exported="false"
+140-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:150:13-37
+141            android:grantUriPermissions="true" >
+141-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:149:13-47
+142            <meta-data
+142-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:151:13-153:53
+143                android:name="android.support.FILE_PROVIDER_PATHS"
+143-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:152:17-67
+144                android:resource="@xml/filepaths" />
+144-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:153:17-50
+145        </provider>
+146
+147        <service
+147-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:156:9-167:19
+148            android:name="com.ahmadna.absensipkl.DelegationService"
+148-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:157:13-46
+149            android:enabled="@bool/enableNotification"
+149-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:158:13-55
+150            android:exported="@bool/enableNotification" >
+150-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:159:13-56
+151            <intent-filter>
+151-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:163:13-166:29
+152                <action android:name="android.support.customtabs.trusted.TRUSTED_WEB_ACTIVITY_SERVICE" />
+152-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:164:17-105
+152-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:164:25-103
+153
+154                <category android:name="android.intent.category.DEFAULT" />
+154-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:128:17-76
+154-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:128:27-73
+155            </intent-filter>
+156        </service>
+157
+158        <activity android:name="com.google.androidbrowserhelper.locationdelegation.PermissionRequestActivity" />
+158-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:172:13-173:89
+158-->C:\ZZZZ\htdocs\absen\android\app\src\main\AndroidManifest.xml:172:23-123
+159        <activity
+159-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\02e37f92c71ffadabef41ae6f5feca22\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+160            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+160-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\02e37f92c71ffadabef41ae6f5feca22\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+161            android:exported="false"
+161-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\02e37f92c71ffadabef41ae6f5feca22\transformed\play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+162            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+162-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\02e37f92c71ffadabef41ae6f5feca22\transformed\play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+163
+164        <meta-data
+164-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\d176d6696a4772b4ce2a6021c61f9202\transformed\play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+165            android:name="com.google.android.gms.version"
+165-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\d176d6696a4772b4ce2a6021c61f9202\transformed\play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+166            android:value="@integer/google_play_services_version" />
+166-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\d176d6696a4772b4ce2a6021c61f9202\transformed\play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+167
+168        <provider
+168-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5cb7738f5242d8c4e38c8ffa2b265b31\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+169            android:name="androidx.startup.InitializationProvider"
+169-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5cb7738f5242d8c4e38c8ffa2b265b31\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+170            android:authorities="com.ahmadna.absensipkl.androidx-startup"
+170-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5cb7738f5242d8c4e38c8ffa2b265b31\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+171            android:exported="false" >
+171-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5cb7738f5242d8c4e38c8ffa2b265b31\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+172            <meta-data
+172-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5cb7738f5242d8c4e38c8ffa2b265b31\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+173                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+173-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5cb7738f5242d8c4e38c8ffa2b265b31\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+174                android:value="androidx.startup" />
+174-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Dell\.gradle\caches\8.11.1\transforms\5cb7738f5242d8c4e38c8ffa2b265b31\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+175            <meta-data
+175-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\4bc52031417e9743197e36b704fe409f\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+176                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+176-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\4bc52031417e9743197e36b704fe409f\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+177                android:value="androidx.startup" />
+177-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Dell\.gradle\caches\8.11.1\transforms\4bc52031417e9743197e36b704fe409f\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+178            <meta-data
+178-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+179                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+179-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+180                android:value="androidx.startup" />
+180-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+181        </provider>
+182
+183        <receiver
+183-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+184            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+184-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+185            android:directBootAware="false"
+185-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+186            android:enabled="true"
+186-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+187            android:exported="true"
+187-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+188            android:permission="android.permission.DUMP" >
+188-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+189            <intent-filter>
+189-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+190                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+190-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+190-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+191            </intent-filter>
+192            <intent-filter>
+192-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+193                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+193-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+193-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+194            </intent-filter>
+195            <intent-filter>
+195-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+196                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+196-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+196-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+197            </intent-filter>
+198            <intent-filter>
+198-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+199                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+199-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+199-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Dell\.gradle\caches\8.11.1\transforms\bb4a0d32d1b17a1dcea0cf71d2bde5e0\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+200            </intent-filter>
+201        </receiver>
+202    </application>
+203
+204</manifest>

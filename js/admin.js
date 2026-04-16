@@ -18,25 +18,25 @@ function getTodayWIB() {
 function formatDateWIB(dateStr) {
     if (!dateStr) return '-';
     const date = new Date(dateStr);
-    date.setHours(date.getHours() + 7);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const wibDate = new Date(date.getTime() + (7 * 60 * 60 * 1000));
+    const year = wibDate.getUTCFullYear();
+    const month = String(wibDate.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(wibDate.getUTCDate()).padStart(2, '0');
     return `${day}/${month}/${year}`;
 }
 
 function formatTimeWIB(dateStr) {
     if (!dateStr) return '-';
     const date = new Date(dateStr);
-    date.setHours(date.getHours() + 7);
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const wibDate = new Date(date.getTime() + (7 * 60 * 60 * 1000));
+    const hours = String(wibDate.getUTCHours()).padStart(2, '0');
+    const minutes = String(wibDate.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(wibDate.getUTCSeconds()).padStart(2, '0');
     return `${hours}:${minutes}:${seconds} WIB`;
 }
 
 // ==================== FACE RECOGNITION THRESHOLD ====================
-const FACE_MATCH_THRESHOLD = 0.35; // LEBIH KETAT (default 0.6 terlalu longgar)
+const FACE_MATCH_THRESHOLD = 0.35;
 
 // ==================== CHECK SUPABASE ====================
 function checkSupabase() {
@@ -53,19 +53,16 @@ async function loadDashboard() {
     if (!checkSupabase()) return;
     
     try {
-        // Total siswa
         const { count: siswaCount } = await supabaseClient
             .from('siswa')
             .select('*', { count: 'exact', head: true });
         document.getElementById('totalSiswa').textContent = siswaCount || 0;
         
-        // Total sekolah
         const { count: sekolahCount } = await supabaseClient
             .from('sekolah')
             .select('*', { count: 'exact', head: true });
         document.getElementById('totalSekolah').textContent = sekolahCount || 0;
         
-        // Absensi hari ini (pakai WIB)
         const today = getTodayWIB();
         const { data: absensi, error } = await supabaseClient
             .from('absensi')
@@ -132,7 +129,6 @@ async function loadSiswa() {
             });
         }
         
-        // Update dropdown filter siswa
         const filterSiswa = document.getElementById('filterSiswaId');
         if (filterSiswa) {
             filterSiswa.innerHTML = '<option value="">-- Pilih Siswa --</option>';
@@ -143,7 +139,6 @@ async function loadSiswa() {
     }
 }
 
-// Hapus face data siswa
 async function hapusFaceSiswa(id) {
     if (!checkSupabase()) return;
     if (confirm('Yakin ingin menghapus data wajah siswa ini?')) {
@@ -402,7 +397,6 @@ async function loadLaporanPerSiswa() {
         document.getElementById('filterSampaiTanggal').value = todayWIB;
     }
     
-    // Get siswa info
     const { data: siswa } = await supabaseClient
         .from('siswa')
         .select('*, sekolah:sekolah_id(*)')
@@ -419,7 +413,6 @@ async function loadLaporanPerSiswa() {
         `;
     }
     
-    // Get absensi siswa
     const { data, error } = await supabaseClient
         .from('absensi')
         .select('*')
@@ -470,6 +463,90 @@ function downloadLaporanPerSiswa() {
     const ws = XLSX.utils.table_to_sheet(cloneTable, { raw: true });
     XLSX.utils.book_append_sheet(wb, ws, `Laporan_${siswaNama}`);
     XLSX.writeFile(wb, `laporan_${siswaNama}_${todayWIB}.xlsx`);
+}
+
+// ==================== RUNNING TEXT ====================
+async function loadRunningText() {
+    if (!checkSupabase()) return;
+    
+    const { data, error } = await supabaseClient
+        .from('running_text')
+        .select('*')
+        .order('created_at', { ascending: false });
+    
+    const tbody = document.querySelector('#runningTextTable tbody');
+    if (!tbody) return;
+    
+    if (error || !data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center">Belum ada running text</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = '';
+    data.forEach((item, index) => {
+        const row = tbody.insertRow();
+        row.insertCell(0).textContent = index + 1;
+        row.insertCell(1).textContent = item.text;
+        row.insertCell(2).innerHTML = item.is_active 
+            ? '<span style="color:green">✅ Aktif</span>' 
+            : '<span style="color:red">❌ Nonaktif</span>';
+        const aksi = row.insertCell(3);
+        aksi.innerHTML = `
+            <button class="btn-secondary btn-sm" onclick="toggleRunningText(${item.id}, ${!item.is_active})">${item.is_active ? 'Nonaktifkan' : 'Aktifkan'}</button>
+            <button class="btn-danger btn-sm" onclick="deleteRunningText(${item.id})">Hapus</button>
+        `;
+    });
+}
+
+async function addRunningText() {
+    const text = document.getElementById('newRunningText')?.value.trim();
+    if (!text) {
+        alert('Masukkan teks terlebih dahulu!');
+        return;
+    }
+    
+    const { error } = await supabaseClient
+        .from('running_text')
+        .insert([{ text: text, is_active: true }]);
+    
+    if (!error) {
+        alert('Running text berhasil ditambahkan!');
+        if (document.getElementById('newRunningText')) {
+            document.getElementById('newRunningText').value = '';
+        }
+        loadRunningText();
+    } else {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function toggleRunningText(id, newStatus) {
+    const { error } = await supabaseClient
+        .from('running_text')
+        .update({ is_active: newStatus })
+        .eq('id', id);
+    
+    if (!error) {
+        loadRunningText();
+    } else {
+        alert('Error: ' + error.message);
+    }
+}
+
+async function deleteRunningText(id) {
+    if (confirm('Yakin ingin menghapus running text ini?')) {
+        const { error } = await supabaseClient
+            .from('running_text')
+            .delete()
+            .eq('id', id);
+        
+        if (!error) {
+            alert('Running text berhasil dihapus!');
+            loadRunningText();
+        } else {
+            alert('Error: ' + error.message);
+        }
+    }
 }
 
 // ==================== UI FUNCTIONS ====================
@@ -531,6 +608,8 @@ function initTabs() {
             else if (tabId === 'laporan-siswa') {
                 loadSiswa();
                 loadLaporanPerSiswa();
+            } else if (tabId === 'runningtext') {
+                loadRunningText();
             }
         });
     });
@@ -543,7 +622,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSiswa();
     loadSekolah();
     
-    // Set default dates with WIB
     const todayWIB = getTodayWIB();
     const filterTanggal = document.getElementById('filterTanggal');
     if (filterTanggal) filterTanggal.value = todayWIB;
@@ -554,7 +632,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterSampaiTanggal = document.getElementById('filterSampaiTanggal');
     if (filterSampaiTanggal) filterSampaiTanggal.value = todayWIB;
     
-    // Modal close buttons
     document.querySelectorAll('.close').forEach(closeBtn => {
         closeBtn.onclick = () => {
             const modal = closeBtn.closest('.modal');
