@@ -383,6 +383,62 @@
             font-size: 0.9rem;
         }
 
+        /* Permission Modal */
+        .permission-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .permission-card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px 24px;
+            max-width: 320px;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .permission-card h3 {
+            color: #1E3A5F;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        .permission-card p {
+            color: #6B7A8F;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .permission-card button {
+            background: #1E3A5F;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .permission-card button.secondary {
+            background: #E2E8F0;
+            color: #1E3A5F;
+        }
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -580,6 +636,40 @@
         }
         window.logout = logout;
 
+        // ==================== TAMPILKAN MODAL IZIN ====================
+        function showPermissionModal() {
+            return new Promise((resolve) => {
+                const modalDiv = document.createElement('div');
+                modalDiv.className = 'permission-modal';
+                modalDiv.innerHTML = `
+                    <div class="permission-card">
+                        <h3>📍 Izin Lokasi Diperlukan</h3>
+                        <p>Aplikasi memerlukan akses lokasi untuk memverifikasi bahwa Anda berada di area Stasiun Solo Balapan.</p>
+                        <button id="openSettingsBtn">Buka Pengaturan Izin</button>
+                        <button id="continueWithoutLocationBtn" class="secondary">Lanjutkan Tanpa Lokasi</button>
+                    </div>
+                `;
+                document.body.appendChild(modalDiv);
+                
+                document.getElementById('openSettingsBtn').onclick = () => {
+                    // Buka pengaturan aplikasi di HP
+                    if (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: fullscreen)').matches) {
+                        // Jika dalam mode aplikasi (PWA/APK), buka pengaturan sistem
+                        window.location.href = 'app-settings:';
+                    } else {
+                        // Jika di browser, buka halaman bantuan
+                        window.open('https://support.google.com/android/answer/9431959', '_blank');
+                    }
+                    resolve(false);
+                };
+                
+                document.getElementById('continueWithoutLocationBtn').onclick = () => {
+                    modalDiv.remove();
+                    resolve(true);
+                };
+            });
+        }
+
         // ==================== IZIN KAMERA & LOKASI DI AWAL ====================
         async function requestPermissions() {
             const overlay = document.getElementById("loadingOverlay");
@@ -587,9 +677,11 @@
             
             // Minta izin kamera dulu
             textEl.textContent = "Meminta izin kamera...";
+            let cameraGranted = false;
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 stream.getTracks().forEach(track => track.stop());
+                cameraGranted = true;
                 textEl.textContent = "✓ Izin kamera diberikan";
                 await new Promise(r => setTimeout(r, 500));
             } catch (err) {
@@ -600,6 +692,7 @@
             
             // Minta izin lokasi
             textEl.textContent = "Meminta izin lokasi...";
+            let locationGranted = false;
             try {
                 const location = await new Promise((resolve, reject) => {
                     navigator.geolocation.getCurrentPosition(resolve, reject, {
@@ -607,11 +700,26 @@
                         timeout: 10000
                     });
                 });
+                locationGranted = true;
                 textEl.textContent = `✓ Izin lokasi diberikan (${location.coords.latitude.toFixed(4)}, ${location.coords.longitude.toFixed(4)})`;
                 await new Promise(r => setTimeout(r, 1000));
             } catch (err) {
                 console.warn("Lokasi ditolak:", err);
-                textEl.textContent = "⚠️ Izin lokasi ditolak (validasi Solo Balapan tidak berfungsi)";
+                textEl.textContent = "⚠️ Izin lokasi ditolak";
+                await new Promise(r => setTimeout(r, 1000));
+                
+                // Tampilkan modal untuk minta user buka pengaturan
+                overlay.style.display = "none";
+                const continueWithoutLocation = await showPermissionModal();
+                if (!continueWithoutLocation) {
+                    // User memilih buka pengaturan, tunggu sebentar lalu coba lagi
+                    setTimeout(() => {
+                        requestPermissions();
+                    }, 500);
+                    return;
+                }
+                overlay.style.display = "flex";
+                textEl.textContent = "Melanjutkan tanpa izin lokasi...";
                 await new Promise(r => setTimeout(r, 1000));
             }
             
