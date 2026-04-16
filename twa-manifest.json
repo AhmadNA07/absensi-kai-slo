@@ -1,0 +1,50 @@
+{
+  "packageId": "com.ahmadna.absensipkl",
+  "host": "pklit.vercel.app",
+  "name": "Absensi PKL IT KAI SLO",
+  "launcherName": "Absensi PKL",
+  "display": "standalone",
+  "themeColor": "#1E3A5F",
+  "themeColorDark": "#000000",
+  "navigationColor": "#1E3A5F",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#FFFFFF",
+  "enableNotifications": false,
+  "startUrl": "/index.html",
+  "iconUrl": "https://pklit.vercel.app/icons/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "android.keystore",
+    "alias": "android",
+    "password": "kai2026"
+  },
+  "appVersionName": "2",
+  "appVersionCode": 4,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "fallbackType": "none",
+  "features": {
+    "locationDelegation": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [
+    {
+      "sha256Fingerprint": "AF:52:B3:1D:08:DD:E9:C2:CC:D8:B4:63:59:C2:CD:F4:29:55:2D:EF:FD:26:D7:79:0B:76:84:58:D4:89:DF:4B"
+    }
+  ],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "displayOverride": [],
+  "appVersion": "2"
+}
