@@ -81,20 +81,20 @@
             border-color: rgba(255,255,255,0.5);
         }
 
-        /* Bottom Navigation Bar */
+        /* Bottom Navigation Bar - Warna Baru Sesuai KAI */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: #FFFFFF;
-            box-shadow: 0 -2px 15px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, #1E3A5F 0%, #0F2A44 100%);
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.15);
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding: 6px 16px 10px;
             z-index: 99;
-            border-top: 1px solid #E9EDF2;
+            border-top: none;
         }
 
         .nav-item {
@@ -110,12 +110,12 @@
             padding: 8px 0;
             border-radius: 12px;
             transition: all 0.2s;
-            color: #6B7A8F;
+            color: #B0C4DE;
         }
 
         .nav-item.active {
-            color: #1E3A5F;
-            background: #F0F4F9;
+            color: #FFD700;
+            background: rgba(255,215,0,0.15);
         }
 
         .nav-icon {
@@ -324,7 +324,74 @@
         .shift-option h4 { color: #1E3A5F; margin-bottom: 4px; }
         .shift-option p { font-size: 0.7rem; color: #6B7A8F; }
 
-        /* Footer Copyright */
+        /* About Page Styles */
+        .about-content {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .about-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .about-logo img {
+            height: 80px;
+            width: auto;
+        }
+
+        .about-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1E3A5F;
+            margin-bottom: 8px;
+        }
+
+        .about-subtitle {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6B7A8F;
+            margin-bottom: 24px;
+        }
+
+        .about-info {
+            margin: 20px 0;
+        }
+
+        .about-info-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #E9EDF2;
+        }
+
+        .about-info-label {
+            font-weight: 600;
+            color: #1E3A5F;
+            width: 100px;
+            font-size: 0.85rem;
+        }
+
+        .about-info-value {
+            color: #4A5B6E;
+            font-size: 0.85rem;
+            flex: 1;
+        }
+
+        .about-description {
+            margin: 20px 0;
+            padding: 16px;
+            background: #F0F4F9;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #2C3E50;
+        }
+
+        /* Footer Copyright - Halaman About */
         .footer-copyright {
             text-align: center;
             padding: 24px 16px 20px;
@@ -387,10 +454,30 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Location status */
+        .location-status {
+            background: #E8F0FE;
+            border-radius: 12px;
+            padding: 10px;
+            margin: 12px 0;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        .location-status.valid {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .location-status.invalid {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
         /* Responsive */
         @media (min-width: 769px) {
-            .bottom-nav { display: none; }
-            body { padding-bottom: 0; }
+            .bottom-nav { display: flex; }
+            body { padding-bottom: 70px; }
         }
     </style>
 </head>
@@ -421,6 +508,8 @@
 
             <!-- Halaman Absen -->
             <div id="absenPage" class="page-container">
+                <div id="locationStatus" class="location-status" style="display: none;"></div>
+                
                 <!-- Step 1: Deteksi Wajah -->
                 <div id="stepDetection">
                     <div class="camera-wrapper" id="faceCameraWrapper">
@@ -483,17 +572,55 @@
                 </div>
             </div>
 
-            <!-- Footer Copyright -->
-            <div class="footer-copyright">
-                <div class="separator"></div>
-                <p class="copyright-year">&copy; 2026 Absensi PKL IT KAI SLO</p>
-                <p class="credit">Dikembangkan oleh RPL SMK Negeri 5 Surakarta</p>
-                <p class="credit" style="font-size: 0.6rem; margin-top: 8px;">Sistem Informasi Absensi Berbasis Face Recognition</p>
+            <!-- Halaman About / Info -->
+            <div id="aboutPage" class="page-container">
+                <div class="about-content">
+                    <div class="about-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg/1280px-Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg.png" alt="Logo KAI" style="height: 70px;">
+                    </div>
+                    <div class="about-title">Absensi PKL IT KAI SLO</div>
+                    <div class="about-subtitle">Sistem Informasi Absensi Berbasis Face Recognition</div>
+                    
+                    <div class="about-info">
+                        <div class="about-info-item">
+                            <div class="about-info-label">Versi Aplikasi</div>
+                            <div class="about-info-value">4.1.0</div>
+                        </div>
+                        <div class="about-info-item">
+                            <div class="about-info-label">Platform</div>
+                            <div class="about-info-value">Web & Apk</div>
+                        </div>
+                        <div class="about-info-item">
+                            <div class="about-info-label">Teknologi</div>
+                            <div class="about-info-value">Face Recognition, Geolocation</div>
+                        </div>
+                        <div class="about-info-item">
+                            <div class="about-info-label">Lokasi</div>
+                            <div class="about-info-value">Stasiun Solo Balapan (Radius 500m)</div>
+                        </div>
+                    </div>
+
+                    <div class="about-description">
+                        <strong>📌 Tentang Aplikasi</strong><br>
+                        Aplikasi ini dikembangkan untuk memudahkan absensi peserta PKL di lingkungan IT KAI Daop 6 Stasiun Solo Balapan. 
+                        Menggunakan teknologi pengenalan wajah dan verifikasi lokasi untuk memastikan kehadiran yang akurat.
+                    </div>
+
+                    <!-- COPYRIGHT SENDIRI DI HALAMAN ABOUT -->
+                    <div class="footer-copyright" style="margin-top: 20px; border-radius: 16px;">
+                        <div class="separator"></div>
+                        <p class="copyright-year">&copy; 2026 Absensi PKL IT KAI SLO</p>
+                        <p class="credit">Dikembangkan oleh PKL RPL SMK Negeri 5 Surakarta</p>
+                        <p class="credit">Dibimbing oleh IT PT Kereta Api Indonesia (Persero) Daop 6 Yogyakarta</p>
+                        <p class="credit" style="font-size: 0.6rem; margin-top: 8px;">Sistem Informasi Absensi Berbasis Face Recognition</p>
+                        <p class="credit" style="font-size: 0.6rem;">Hak Cipta Dilindungi Undang-Undang</p>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
 
-    <!-- Bottom Navigation Bar (untuk HP) -->
+    <!-- Bottom Navigation Bar (warna sesuai KAI) -->
     <div class="bottom-nav">
         <button class="nav-item" id="navAbsenBtn">
             <div class="nav-icon">📸</div>
@@ -506,6 +633,10 @@
         <button class="nav-item" id="navListBtn">
             <div class="nav-icon">R</div>
             <div class="nav-label">Riwayat</div>
+        </button>
+        <button class="nav-item" id="navAboutBtn">
+            <div class="nav-icon">!</div>
+            <div class="nav-label">Tentang</div>
         </button>
     </div>
 
@@ -523,7 +654,6 @@
             piket: { start: "08:00", end: "16:00", nama: "Piket (08:00-16:00)", jamMulai: 8 * 60 }
         };
 
-        // Lokasi Solo Balapan (Stasiun Solo Balapan)
         const SOLO_BALAPAN = { lat: -7.5592, lng: 110.822, radius: 500 };
 
         function haversineDistance(lat1, lon1, lat2, lon2) {
@@ -547,7 +677,6 @@
         let capturedPhoto = null;
         const FACE_MATCH_THRESHOLD = 0.4;
 
-        // ==================== WIB TIME ====================
         function getWIBTime() {
             return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
         }
@@ -564,7 +693,6 @@
             return `${String(wibDate.getUTCHours()).padStart(2,'0')}:${String(wibDate.getUTCMinutes()).padStart(2,'0')}:${String(wibDate.getUTCSeconds()).padStart(2,'0')}`;
         }
 
-        // ==================== FUNGSI LOGOUT & AUTH ====================
         function logout() {
             sessionStorage.clear();
             window.location.href = "index.html";
@@ -580,46 +708,7 @@
         }
         window.logout = logout;
 
-        // ==================== IZIN KAMERA & LOKASI DI AWAL ====================
-        async function requestPermissions() {
-            const overlay = document.getElementById("loadingOverlay");
-            const textEl = overlay.querySelector(".loading-text");
-            
-            // Minta izin kamera dulu
-            textEl.textContent = "Meminta izin kamera...";
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                stream.getTracks().forEach(track => track.stop());
-                textEl.textContent = "✓ Izin kamera diberikan";
-                await new Promise(r => setTimeout(r, 500));
-            } catch (err) {
-                console.warn("Kamera ditolak:", err);
-                textEl.textContent = "⚠️ Izin kamera ditolak (beberapa fitur mungkin terbatas)";
-                await new Promise(r => setTimeout(r, 1000));
-            }
-            
-            // Minta izin lokasi
-            textEl.textContent = "Meminta izin lokasi...";
-            try {
-                const location = await new Promise((resolve, reject) => {
-                    navigator.geolocation.getCurrentPosition(resolve, reject, {
-                        enableHighAccuracy: true,
-                        timeout: 10000
-                    });
-                });
-                textEl.textContent = `✓ Izin lokasi diberikan (${location.coords.latitude.toFixed(4)}, ${location.coords.longitude.toFixed(4)})`;
-                await new Promise(r => setTimeout(r, 1000));
-            } catch (err) {
-                console.warn("Lokasi ditolak:", err);
-                textEl.textContent = "⚠️ Izin lokasi ditolak (validasi Solo Balapan tidak berfungsi)";
-                await new Promise(r => setTimeout(r, 1000));
-            }
-            
-            // Sembunyikan loading overlay
-            overlay.style.display = "none";
-        }
-
-        // ==================== CEK LOKASI ====================
+        // PERBAIKAN IZIN LOKASI - lebih akurat dan informatif
         async function checkLocation() {
             return new Promise((resolve, reject) => {
                 if (!navigator.geolocation) {
@@ -652,13 +741,13 @@
                         let message = "Gagal dapat lokasi";
                         switch(error.code) {
                             case error.PERMISSION_DENIED:
-                                message = "Izin lokasi ditolak";
+                                message = "Izin lokasi ditolak - silakan aktifkan lokasi di pengaturan browser";
                                 break;
                             case error.POSITION_UNAVAILABLE:
-                                message = "Lokasi tidak tersedia";
+                                message = "Lokasi tidak tersedia - coba aktifkan GPS";
                                 break;
                             case error.TIMEOUT:
-                                message = "Timeout mendapatkan lokasi";
+                                message = "Timeout mendapatkan lokasi - coba lagi";
                                 break;
                             default:
                                 message = error.message;
@@ -670,7 +759,55 @@
             });
         }
 
-        // ==================== FACE RECOGNITION ====================
+        async function updateLocationStatus() {
+            const locationDiv = document.getElementById("locationStatus");
+            try {
+                const location = await checkLocation();
+                if (location.allowed) {
+                    locationDiv.className = "location-status valid";
+                    locationDiv.innerHTML = `📍 Lokasi valid: dalam radius Solo Balapan (${Math.round(location.distance)} meter) ✅`;
+                } else {
+                    locationDiv.className = "location-status invalid";
+                    locationDiv.innerHTML = `⚠️ Lokasi di luar area: ${Math.round(location.distance)} meter dari Solo Balapan (maks 500m)`;
+                }
+                locationDiv.style.display = "block";
+            } catch (err) {
+                locationDiv.className = "location-status invalid";
+                locationDiv.innerHTML = `⚠️ ${err}`;
+                locationDiv.style.display = "block";
+            }
+        }
+
+        async function requestPermissions() {
+            const overlay = document.getElementById("loadingOverlay");
+            const textEl = overlay.querySelector(".loading-text");
+            
+            textEl.textContent = "Meminta izin kamera...";
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                stream.getTracks().forEach(track => track.stop());
+                textEl.textContent = "✓ Izin kamera diberikan";
+                await new Promise(r => setTimeout(r, 500));
+            } catch (err) {
+                console.warn("Kamera ditolak:", err);
+                textEl.textContent = "⚠️ Izin kamera ditolak";
+                await new Promise(r => setTimeout(r, 1000));
+            }
+            
+            textEl.textContent = "Meminta izin lokasi...";
+            try {
+                const location = await checkLocation();
+                textEl.textContent = `✓ Izin lokasi diberikan (jarak: ${Math.round(location.distance)}m dari Solo Balapan)`;
+                await new Promise(r => setTimeout(r, 1000));
+            } catch (err) {
+                console.warn("Lokasi ditolak:", err);
+                textEl.textContent = "⚠️ Izin lokasi ditolak - validasi lokasi tidak berfungsi";
+                await new Promise(r => setTimeout(r, 1000));
+            }
+            
+            overlay.style.display = "none";
+        }
+
         async function loadFaceModels() {
             if (faceModelsLoaded) return true;
             const MODEL_URL = "https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights";
@@ -739,7 +876,6 @@
             return bestMatch;
         }
 
-        // ==================== STEP 1: DETEKSI WAJAH ====================
         async function startFaceDetection(video, cameraWrapper, faceStatus) {
             if (faceDetectionInterval) clearInterval(faceDetectionInterval);
             faceDetectionInterval = setInterval(async () => {
@@ -823,7 +959,6 @@
             isVerifying = false;
         }
 
-        // ==================== STEP 2: AMBIL FOTO ====================
         async function showPhotoStep() {
             document.getElementById("stepDetection").style.display = "none";
             document.getElementById("stepPhoto").style.display = "block";
@@ -887,9 +1022,10 @@
             
             const cameraWrapper = document.getElementById("faceCameraWrapper");
             cameraWrapper.classList.remove("face-detected", "face-not-detected");
+            
+            updateLocationStatus();
         }
 
-        // ==================== LOAD ABSEN LIST ====================
         async function loadAbsenList() {
             const container = document.getElementById("absenList");
             const today = getTodayWIB();
@@ -915,7 +1051,6 @@
             `).join('');
         }
 
-        // ==================== LOAD RUNNING TEXT ====================
         async function loadRunningText() {
             try {
                 const { data, error } = await supabaseClient
@@ -937,7 +1072,6 @@
             }
         }
 
-        // ==================== DO ABSEN ====================
         async function doAbsen() {
             if (!currentMatchedStudent || !currentSelectedShift) {
                 alert("Pilih shift terlebih dahulu!");
@@ -1018,11 +1152,11 @@
             }
         }
 
-        // ==================== PAGE NAVIGATION ====================
         function switchPage(page) {
             document.getElementById("absenPage").classList.remove("active");
             document.getElementById("adminPage").classList.remove("active");
             document.getElementById("listPage").classList.remove("active");
+            document.getElementById("aboutPage").classList.remove("active");
             document.getElementById(`${page}Page`).classList.add("active");
             
             document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
@@ -1034,6 +1168,8 @@
             } else if (page === 'list') {
                 document.getElementById("navListBtn").classList.add("active");
                 loadAbsenList();
+            } else if (page === 'about') {
+                document.getElementById("navAboutBtn").classList.add("active");
             }
         }
 
@@ -1062,19 +1198,17 @@
             startFaceDetection(video, cameraWrapper, faceStatus);
         }
 
-        // ==================== EVENT LISTENERS ====================
         document.addEventListener("DOMContentLoaded", async () => {
             if (!checkAuth()) return;
             
-            // Minta izin kamera dan lokasi di awal
             await requestPermissions();
-            
             await loadRunningText();
             await loadAbsenList();
             
             document.getElementById("navAbsenBtn").onclick = () => switchPage('absen');
             document.getElementById("navAdminBtn").onclick = () => switchPage('admin');
             document.getElementById("navListBtn").onclick = () => switchPage('list');
+            document.getElementById("navAboutBtn").onclick = () => switchPage('about');
             
             document.getElementById("adminPasswordLoginBtn").onclick = () => {
                 const password = document.getElementById("adminPasswordInput").value;
